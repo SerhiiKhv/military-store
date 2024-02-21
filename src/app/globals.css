@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .rounded-x {
+        border-radius: 0.375rem; /* Adjust the border-radius value as needed */
+    }
+}
+
+section.hero {
+    @apply grid;
+    grid-template-columns: 0.4fr 0.6fr;
+}
+
+label + select,
+label + input[type="text"],
+label + input[type="email"],
+label + input[type="number"],
+label + textarea{
+    margin-top: -2px;
+}
+
+
+select,
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="text"],
+textarea{
+    @apply block w-full my-4 rounded-xl;
+    @apply border p-2 border-gray-300 bg-gray-100;
+}
+
+input[type="email"]:disabled,
+input[type="password"]:disabled,
+input[type="number"]:disabled,
+input[type="text"]:disabled {
+    @apply bg-gray-300 border-0 cursor-not-allowed text-gray-500;
+}
+
+label{
+    @apply text-gray-500 text-sm leading-tight;
+}
+
+button,
+.button {
+    @apply  w-full font-semibold bg-gradient-to-br from-neonNazar to-blue-600 text-white;
+    @apply border border-gray-300 rounded-xl py-2 px-4
+}
+
+button[type="submit"],
+.submit {
+    @apply border-0 bg-gradient-to-br from-neonNazar to-blue-600 text-white
+}
+
+button.delete,
+.delete {
+    @apply border-0 bg-gradient-to-br from-red-700 to-pink-400 text-white
+}
+
+
+button[type="submit"]:disabled,
+.submit:disabled {
+    @apply cursor-not-allowed bg-red-400
+}
+
+div.tabs > * {
+    @apply bg-gray-300 text-gray-700 rounded-full py-2 px-4
+}
+
+div.tabs > *.active {
+    @apply bg-gradient-to-br from-neonNazar to-blue-600 text-white
+}
+
+.gradientText {
+    @apply bg-gradient-to-r from-neonNazar to-blue-600 bg-clip-text text-transparent
+}
