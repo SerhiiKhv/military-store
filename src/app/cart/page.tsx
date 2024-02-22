@@ -4,7 +4,7 @@ import {SectionHeader} from "@/components/layout/SectionHeader";
 import React, {useContext, useState} from "react";
 import {CartContext, cartProductPrice} from "@/components/AppContext";
 import Image from "next/image";
-import {ExtraPriceType} from "@/components/Types/MenuItem";
+import {ExtraPriceType} from "@/components/Types/ShopItem";
 
 export default function CartPage() {
 

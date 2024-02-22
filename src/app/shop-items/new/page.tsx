@@ -2,36 +2,21 @@
 
 import {useProfile} from "@/components/UseProfile";
 import UserTabs from "@/components/layout/Tabs";
-import {useEffect, useState} from "react";
 import toast from "react-hot-toast";
-import {useParams} from "next/navigation";
-import MenuItemForm from "@/components/layout/MenuItemForm";
-import {MenuItemType} from "@/components/Types/MenuItem";
+import ShopItemForm from "@/components/layout/ShopItemForm";
+import {ShopItemType} from "@/components/Types/ShopItem";
 
-export default function EditMenuItemsPage() {
+export default function NewMenuItemsPage() {
 
-    const {id} = useParams()
     const {loading, data} = useProfile();
 
-    const [menuItems, setMenuItems] = useState(null)
-    const [saveChange, setSaveChange] = useState(false)
-
-    useEffect(() => {
-        fetch('/api/menu-items').then(res => {
-            res.json().then(items => {
-                const item = items.find((i: any) => i._id === id)
-                setMenuItems(item)
-            })
-        })
-    }, [saveChange]);
-
-    async function handleFormSubmit(e: any, data: MenuItemType) {
+    async function handleFormSubmit(e: any, data: ShopItemType) {
         e.preventDefault()
-        setSaveChange(true)
+
         const creatingPromise = new Promise<void>(async (resolve, reject) => {
             try {
-                const response = await fetch('/api/menu-items', {
-                    method: 'PUT',
+                const response = await fetch('/api/shop-items', {
+                    method: 'POST',
                     body: JSON.stringify(data),
                     headers: {'Content-Type': 'application/json'}
                 })
@@ -44,7 +29,6 @@ export default function EditMenuItemsPage() {
             } catch (error) {
                 reject(error);
             }
-            setSaveChange(false)
         })
 
         await toast.promise(creatingPromise, {
@@ -53,6 +37,7 @@ export default function EditMenuItemsPage() {
             error: 'Error'
         })
     }
+
 
     if (loading) {
         return 'Loading user info...'
@@ -66,7 +51,7 @@ export default function EditMenuItemsPage() {
         <section>
             <UserTabs isAdmin={true}/>
 
-            <MenuItemForm onSubmit={handleFormSubmit} menuItem={menuItems}/>
+            <ShopItemForm onSubmit={handleFormSubmit} shopItem={null}/>
         </section>
     )
 }

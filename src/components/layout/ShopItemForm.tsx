@@ -1,36 +1,30 @@
 import React, {useEffect, useState} from "react";
-import {ExtraPriceType, MenuItemType} from "@/components/Types/MenuItem";
-import MenuItemsPriceProps from "@/components/layout/MenuItemsPriceProps";
+import {ShopItemType} from "@/components/Types/ShopItem";
 import {CategoriesType} from "@/components/Types/CategoriesType";
-import Image from "next/image";
 import AddedImageViaLink from "@/components/layout/AddedImageViaLink";
 
-export default function MenuItemForm({onSubmit, menuItem}: { onSubmit: any, menuItem: MenuItemType | null }) {
+export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shopItem: ShopItemType | null }) {
 
-    const [_id, setId] = useState(menuItem?._id || "")
-    const [name, setName] = useState(menuItem?.name || "")
-    const [description, setDescription] = useState(menuItem?.description || "")
-    const [price, setPrice] = useState(menuItem?.price || "")
-    const [image, setImage] = useState(menuItem?.image || "")
-    const [sizes, setSizes] = useState<ExtraPriceType[]>(menuItem?.sizes || []);
-    const [ingredients, setIngredients] = useState<ExtraPriceType[]>(menuItem?.ingredients || []);
-    const [category, setCategory] = useState(menuItem?.category || "Pizza");
+    const [_id, setId] = useState(shopItem?._id || "")
+    const [name, setName] = useState(shopItem?.name || "")
+    const [description, setDescription] = useState(shopItem?.description || "")
+    const [price, setPrice] = useState(shopItem?.price || 0)
+    const [image, setImage] = useState(shopItem?.image || "")
+    const [category, setCategory] = useState(shopItem?.category || "Pizza");
     const [categories, setCategories] = useState([]);
 
-    const [photoLink, setPhotoLink] = useState(menuItem?.image || '')
+    const [photoLink, setPhotoLink] = useState(shopItem?.image || '')
     const [isFormValid, setIsFormValid] = useState(false);
 
     useEffect(() => {
-        setName(menuItem?.name || "")
-        setDescription(menuItem?.description || "")
-        setPrice(menuItem?.price || "")
-        setImage(menuItem?.image || "")
-        setId(menuItem?._id || "")
-        setSizes(menuItem?.sizes || [])
-        setIngredients(menuItem?.ingredients || [])
-        setCategory(menuItem?.category || "Pizza")
-        setPhotoLink(menuItem?.image || "")
-    }, [menuItem]);
+        setName(shopItem?.name || "")
+        setDescription(shopItem?.description || "")
+        setPrice(shopItem?.price || 0)
+        setImage(shopItem?.image || "")
+        setId(shopItem?._id || "")
+        setCategory(shopItem?.category || "Pizza")
+        setPhotoLink(shopItem?.image || "")
+    }, [shopItem]);
 
     useEffect(() => {
         fetch('/api/categories').then(res => {
@@ -44,7 +38,7 @@ export default function MenuItemForm({onSubmit, menuItem}: { onSubmit: any, menu
     return (
         <form className="p-4 mx-auto"
               onSubmit={e => onSubmit(e,
-                  {_id, name, description, price, image: photoLink, sizes, ingredients, category}
+                  {_id, name, description, price, image: photoLink, category}
               )}
         >
             <div className="grid grid-cols-[1fr,1fr,1fr] gap-2">
@@ -54,9 +48,13 @@ export default function MenuItemForm({onSubmit, menuItem}: { onSubmit: any, menu
 
                 <div className="flex gap-2">
                     <div className="grow">
-                        <label>Menu item name </label>
+                        <label>Shop item name </label>
                         <input type="text" value={name}
                                onChange={(e) => setName(e.target.value)}/>
+
+                        <label>Price </label>
+                        <input type="number" value={price}
+                               onChange={(e) => setPrice(+e.target.value)}/>
 
                         <label>Description</label>
                         <textarea
@@ -73,18 +71,6 @@ export default function MenuItemForm({onSubmit, menuItem}: { onSubmit: any, menu
                             ))}
                         </select>
                     </div>
-                </div>
-
-                <div className="grid grid-rows-2">
-                    <MenuItemsPriceProps name={'Sizes'}
-                                         props={sizes}
-                                         setProps={setSizes}
-                                         buttonName={'Add item size'}/>
-
-                    <MenuItemsPriceProps name={'Extra ingredients'}
-                                         props={ingredients}
-                                         setProps={setIngredients}
-                                         buttonName={'Add ingredients prices'}/>
                 </div>
             </div>
 

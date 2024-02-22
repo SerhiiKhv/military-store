@@ -23,7 +23,7 @@ export const Header = () => {
         <header className="flex items-center justify-between p-4">
             <Link className="bg-gradient-to-r from-neonNazar to-blue-600 bg-clip-text text-transparent
             font-semibold text-2xl" href="/">
-                EAT AND DON'T WAKE UP
+                ALANEC
             </Link>
 
             <nav className="flex items-center gap-4 text-gray-500 font-semibold">

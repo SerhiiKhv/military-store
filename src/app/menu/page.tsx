@@ -3,7 +3,7 @@
 import {useEffect, useState} from "react";
 import {SectionHeader} from "@/components/layout/SectionHeader";
 import {CategoriesType} from "@/components/Types/CategoriesType";
-import {MenuItemType} from "@/components/Types/MenuItem";
+import {ShopItemType} from "@/components/Types/ShopItem";
 import {MenuItem} from "@/components/menu/MenuItem";
 
 export default function MenuPage() {
@@ -30,7 +30,7 @@ export default function MenuPage() {
                         </div>
 
                         <div className="grid grid-cols-3 gap-2 mb-12 mt-8">
-                            {menuItems.filter((item: MenuItemType) => item.category === c._id).map((item: MenuItemType) => (
+                            {menuItems.filter((item: ShopItemType) => item.category === c._id).map((item: ShopItemType) => (
                                 <div>
                                     <MenuItem item={item}/>
                                 </div>

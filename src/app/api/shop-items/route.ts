@@ -1,23 +1,23 @@
-import {MenuItem} from "@/app/models/MenuItems";
+import {ShopItemMilitaryStore} from "@/app/models/ShopItem";
 import mongoose from "mongoose";
 
 export async function POST(req: any) {
     await mongoose.connect(String(process.env.MONGO_URL));
-    const {name, description, price, image, sizes, ingredients, category} = await req.json()
-    const menuItemDoc = await MenuItem.create({name, description, price, image, sizes, ingredients,  category})
+    const {name, description, price, image, category} = await req.json()
+    const menuItemDoc = await ShopItemMilitaryStore.create({name, description, price, image, category})
     return Response.json(menuItemDoc)
 }
 
 export async function PUT(req: any) {
     await mongoose.connect(String(process.env.MONGO_URL));
     const {_id, ...data} = await req.json()
-    await MenuItem.findByIdAndUpdate(_id, data)
+    await ShopItemMilitaryStore.findByIdAndUpdate(_id, data)
     return Response.json(true)
 }
 
 export async function GET() {
     await mongoose.connect(String(process.env.MONGO_URL));
     return Response.json(
-        await MenuItem.find()
+        await ShopItemMilitaryStore.find()
     )
 }

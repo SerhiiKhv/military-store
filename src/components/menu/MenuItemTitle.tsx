@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React from "react";
-import {MenuItemType} from "@/components/Types/MenuItem";
+import {ShopItemType} from "@/components/Types/ShopItem";
 
-export default function MenuItemTitle({onAddToCart, item} : {onAddToCart: any, item: MenuItemType}) {
+export default function MenuItemTitle({onAddToCart, item} : {onAddToCart: any, item: ShopItemType}) {
 
     const {image, name, description,
         price, sizes, ingredients} = item
