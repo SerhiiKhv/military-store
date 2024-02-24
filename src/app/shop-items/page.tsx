@@ -52,17 +52,19 @@ export default function ShopItemsPage() {
                 </div>
 
                 <div>
-                    <h2 className="text-gray-500">Shop items: </h2>
+                    <div className="flex items-center justify-center p-4">
+                        <SectionHeader subHeader={""} mainHeader={"Shop items:"}/>
+                    </div>
 
                     {categories.length > 0 && categories.map((c: CategoriesType) => (
                         <div>
-                            <div className="text-center">
+                            <div className="flex items-center justify-center p-4">
                                 <SectionHeader subHeader={""} mainHeader={c.name}/>
                             </div>
 
                             <div className="grid grid-cols-5 gap-2">
                                 {shopItems.filter((item: ShopItemType) => item.category === c._id).map((item: ShopItemType) => (
-                                    <ShopItems {...item} key={item._id} />
+                                    <ShopItems {...item} key={item._id}/>
                                 ))}
                             </div>
                         </div>

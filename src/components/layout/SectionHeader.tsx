@@ -1,6 +1,6 @@
 export const SectionHeader = ({subHeader, mainHeader}: {subHeader?: any, mainHeader?: any}) => {
     return(
-        <>
+        <section className="max-w-sm">
             <h3 className="uppercase text-gray-500 font-semibold leading-4">
                 {subHeader}
             </h3>
@@ -8,6 +8,6 @@ export const SectionHeader = ({subHeader, mainHeader}: {subHeader?: any, mainHea
             font-semibold text-4xl">
                 {mainHeader}
             </h2>
-        </>
+        </section>
     )
 }
