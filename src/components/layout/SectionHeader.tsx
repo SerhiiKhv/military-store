@@ -4,7 +4,8 @@ export const SectionHeader = ({subHeader, mainHeader}: {subHeader?: any, mainHea
             <h3 className="uppercase text-gray-500 font-semibold leading-4">
                 {subHeader}
             </h3>
-            <h2 className="text-primary font-bold text-4xl italic">
+            <h2 className="bg-gradient-to-r from-neonNazar to-blue-600 bg-clip-text text-transparent
+            font-semibold text-4xl">
                 {mainHeader}
             </h2>
         </>

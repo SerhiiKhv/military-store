@@ -17,7 +17,7 @@ export default function EditMenuItemsPage() {
     const [saveChange, setSaveChange] = useState(false)
 
     useEffect(() => {
-        fetch('/api/menu-items').then(res => {
+        fetch('/api/shop-items').then(res => {
             res.json().then(items => {
                 const item = items.find((i: any) => i._id === id)
                 setMenuItems(item)
@@ -30,7 +30,7 @@ export default function EditMenuItemsPage() {
         setSaveChange(true)
         const creatingPromise = new Promise<void>(async (resolve, reject) => {
             try {
-                const response = await fetch('/api/menu-items', {
+                const response = await fetch('/api/shop-items', {
                     method: 'PUT',
                     body: JSON.stringify(data),
                     headers: {'Content-Type': 'application/json'}
