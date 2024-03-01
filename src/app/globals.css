@@ -8,6 +8,11 @@
     }
 }
 
+.my-container {
+    max-width: 80%;
+    margin: 0 auto; /* це для центрування контейнера на сторінці, якщо потрібно */
+}
+
 section.hero {
     @apply grid;
     grid-template-columns: 0.4fr 0.6fr;
@@ -74,5 +79,5 @@ div.tabs > *.active {
 }
 
 .gradientText {
-    @apply bg-gradient-to-r from-neonNazar to-blue-600 bg-clip-text text-transparent
+    @apply bg-gradient-to-r from-neonNazar to-blue-400 bg-clip-text text-transparent
 }
