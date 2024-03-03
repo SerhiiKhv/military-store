@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {ShopItemType} from "@/components/Types/ShopItem";
 import {CategoriesType} from "@/components/Types/CategoriesType";
-import AddedImageViaLink from "@/components/layout/AddedImageViaLink";
+import AddedImageViaLink from "@/components/layout/PhotoLayout/AddedImageViaLink";
 
 export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shopItem: ShopItemType | null }) {
 

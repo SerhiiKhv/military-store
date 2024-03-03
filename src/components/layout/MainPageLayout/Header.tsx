@@ -1,16 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import {signOut, useSession} from "next-auth/react";
+import {useSession} from "next-auth/react";
 import React, {useContext} from "react";
 import {CartContext} from "@/components/AppContext";
-import ShoppingCart from "@/components/icons/ShoppingCart";
+import ShoppingCartIcon from "@/components/icons/ShoppingCartIcon";
 import Image from "next/image";
-import UserIcon from "@/components/icons/User";
-import TelegramIcon from "@/components/icons/TelegramIcon";
-import {ArrowDown} from "@/components/icons/ArrowDown";
-import {ChevronDown} from "@/components/icons/ChevronDown";
-import {BorsThree} from "@/components/icons/BorsThree";
+import UserIcon from "@/components/icons/UserIcon";
+import {ChevronDownIcon} from "@/components/icons/ChevronDownIcon";
+import {BorsThreeIcon} from "@/components/icons/BorsThreeIcon";
 import {HearIcon} from "@/components/icons/HeartIcon";
 
 export const Header = () => {
@@ -66,7 +64,7 @@ export const Header = () => {
 
                     <div className="flex items-center justify-center">
                         Укр
-                        <ChevronDown/>
+                        <ChevronDownIcon/>
                     </div>
                 </div>
 
@@ -77,7 +75,7 @@ export const Header = () => {
                         bg-gradient-to-br from-neonNazar to-blue-600">
                         Категорії
 
-                        <BorsThree/>
+                        <BorsThreeIcon/>
                     </div>
 
                     <div>
@@ -105,7 +103,7 @@ export const Header = () => {
 
                         {status !== "authenticated" && (
                             <>
-                                <Link href={'/login'} className="">
+                                <Link href={'/login'} className="text-white">
                                     Login
                                 </Link>
                                 <Link href={'/register'} className="bg-gradient-to-br from-neonNazar to-blue-600
@@ -128,7 +126,7 @@ export const Header = () => {
 
                         <Link href={'/cart'} className="relative">
                             <div style={{filter: "brightness(0) invert(1)"}}>
-                                <ShoppingCart/>
+                                <ShoppingCartIcon/>
                             </div>
                             <span className="absolute bg-gradient-to-br
                                              from-neonNazar to-blue-600 -top-2 -right-4 text-white

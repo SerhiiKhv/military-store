@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 import {ShopItemType} from "@/components/Types/ShopItem";
 
-export default function ShopItems(item: ShopItemType) {
+export default function ShopItemsForAdmin(item: ShopItemType) {
 
     return (
         <div

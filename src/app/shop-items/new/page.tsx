@@ -1,9 +1,9 @@
 'use client'
 
 import {useProfile} from "@/components/UseProfile";
-import UserTabs from "@/components/layout/Tabs";
+import UserTabs from "@/components/layout/MainPageLayout/Tabs";
 import toast from "react-hot-toast";
-import ShopItemForm from "@/components/layout/ShopItemForm";
+import ShopItemForm from "@/components/layout/ShopItemsLayout/ShopItemForm";
 import {ShopItemType} from "@/components/Types/ShopItem";
 
 export default function NewMenuItemsPage() {

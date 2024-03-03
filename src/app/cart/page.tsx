@@ -1,10 +1,9 @@
 'use client'
 
-import {SectionHeader} from "@/components/layout/SectionHeader";
-import React, {useContext, useState} from "react";
+import {SectionHeader} from "@/components/layout/DopLayout/SectionHeader";
+import React, {useContext} from "react";
 import {CartContext, cartProductPrice} from "@/components/AppContext";
 import Image from "next/image";
-import {ExtraPriceType} from "@/components/Types/ShopItem";
 
 export default function CartPage() {
 
@@ -27,26 +26,14 @@ export default function CartPage() {
                     {cartProducts?.length > 0 && cartProducts.map((product: any, index: number) => (
                         <div className="flex items-center gap-4 mb-4 border-b py-2">
                             <div>
-                                <Image src={product.item.image || '/pizza.png'}
+                                {/*product.item.image || */}
+                                <Image src={'/pizza.png'}
                                        alt={"Img menu item"}
                                        width={250} height={250}
                                        className="w-24"/>
                             </div>
                             <div className="grow">
-                                <h3> {product.item.name}</h3>
-
-                                {product.size && (
-                                    <div>
-                                        Size: <span>{product.size}</span>
-                                    </div>
-                                )}
-
-                                <h1>Ingredients:</h1>
-                                {product.extras && product.extras.map((ingredient: ExtraPriceType) =>
-                                    <div>
-                                        <span>{ingredient.name}: {ingredient.price}$</span>
-                                    </div>
-                                )}
+                                <h3> {/*{product.item.name}*/} name</h3>
                             </div>
                             <div>{cartProductPrice(product)}$</div>
                             <div>

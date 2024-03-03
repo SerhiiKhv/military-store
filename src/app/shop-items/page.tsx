@@ -1,13 +1,13 @@
 'use client'
 
 import {useProfile} from "@/components/UseProfile";
-import UserTabs from "@/components/layout/Tabs";
+import UserTabs from "@/components/layout/MainPageLayout/Tabs";
 import Link from "next/link";
 import React, {useEffect, useState} from "react";
 import {ShopItemType} from "@/components/Types/ShopItem";
 import {CategoriesType} from "@/components/Types/CategoriesType";
-import {SectionHeader} from "@/components/layout/SectionHeader";
-import ShopItems from "@/components/layout/ShopItem";
+import {SectionHeader} from "@/components/layout/DopLayout/SectionHeader";
+import ShopItemsForAdmin from "@/components/layout/ShopItemsLayout/ShopItemForAdmin";
 
 export default function ShopItemsPage() {
 
@@ -17,14 +17,14 @@ export default function ShopItemsPage() {
     const [categories, setCategories] = useState([])
 
     useEffect(() => {
-        fetchshopItems()
+        fetchShopItems()
 
         fetch("/api/categories").then(res => {
             res.json().then(categories => setCategories(categories))
         })
     }, [])
 
-    function fetchshopItems() {
+    function fetchShopItems() {
         fetch('/api/shop-items').then(res => {
             res.json().then(shopItem => {
                 setShopItems(shopItem)
@@ -64,7 +64,7 @@ export default function ShopItemsPage() {
 
                             <div className="grid grid-cols-5 gap-2">
                                 {shopItems.filter((item: ShopItemType) => item.category === c._id).map((item: ShopItemType) => (
-                                    <ShopItems {...item} key={item._id}/>
+                                    <ShopItemsForAdmin {...item} key={item._id}/>
                                 ))}
                             </div>
                         </div>

@@ -9,8 +9,12 @@
 }
 
 .my-container {
-    max-width: 80%;
+    max-width: 90%;
     margin: 0 auto; /* це для центрування контейнера на сторінці, якщо потрібно */
+}
+
+.my-info-container p {
+    margin-bottom: 1rem;
 }
 
 section.hero {

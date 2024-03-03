@@ -8,6 +8,12 @@ const config: Config = {
     ],
     theme: {
         extend: {
+            rules: [
+                {
+                    test: /\.js$/,
+                    use: ['node-loader'],
+                },
+            ],
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
                 'gradient-conic':

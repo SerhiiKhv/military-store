@@ -5,8 +5,8 @@ import {redirect} from "next/navigation";
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
 import toast from "react-hot-toast";
-import UserTabs from "@/components/layout/Tabs";
-import UserProfileForm from "@/components/layout/UserProfileForm";
+import UserTabs from "@/components/layout/MainPageLayout/Tabs";
+import UserProfileForm from "@/components/layout/UserPageLayout/UserProfileForm";
 import {UserType} from "@/components/Types/UserType";
 
 export default function ProfilePage() {

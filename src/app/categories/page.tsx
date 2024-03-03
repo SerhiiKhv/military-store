@@ -1,12 +1,12 @@
 'use client'
 
-import UserTabs from "@/components/layout/Tabs";
+import UserTabs from "@/components/layout/MainPageLayout/Tabs";
 import {useProfile} from "@/components/UseProfile";
 import {useEffect, useState} from "react";
 import toast from "react-hot-toast";
 import {CategoriesType} from "@/components/Types/CategoriesType";
-import {Delete} from "@/components/icons/Delete";
-import {Edit} from "@/components/icons/Edit";
+import {DeleteIcon} from "@/components/icons/DeleteIcon";
+import {EditIcon} from "@/components/icons/EditIcon";
 
 export default function CategoriesPage() {
 
@@ -143,14 +143,14 @@ export default function CategoriesPage() {
                                         setCategoryName(c.name)
                                     }}>
                                     edit
-                                    <Edit />
+                                    <EditIcon />
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => handleCategoryDelete(c._id)}
                                     className="delete flex bg-white rounded-xl px-4 py-2 cursor-pointer text-black">
                                     delete
-                                    <Delete />
+                                    <DeleteIcon />
                                 </button>
                             </div>
                         </div>

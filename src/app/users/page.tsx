@@ -1,11 +1,11 @@
 'use client'
 
-import UserTabs from "@/components/layout/Tabs";
+import UserTabs from "@/components/layout/MainPageLayout/Tabs";
 import {useProfile} from "@/components/UseProfile";
 import React, {useEffect, useState} from "react";
 import {UserType} from "@/components/Types/UserType";
 import Link from "next/link";
-import {SectionHeader} from "@/components/layout/SectionHeader";
+import {SectionHeader} from "@/components/layout/DopLayout/SectionHeader";
 
 export default function Users() {
 

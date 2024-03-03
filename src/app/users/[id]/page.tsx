@@ -1,8 +1,8 @@
 'use client'
 
-import UserTabs from "@/components/layout/Tabs";
+import UserTabs from "@/components/layout/MainPageLayout/Tabs";
 import {useProfile} from "@/components/UseProfile";
-import UserProfileForm from "@/components/layout/UserProfileForm";
+import UserProfileForm from "@/components/layout/UserPageLayout/UserProfileForm";
 import {useParams} from "next/navigation";
 import {useEffect, useState} from "react";
 import toast from "react-hot-toast";

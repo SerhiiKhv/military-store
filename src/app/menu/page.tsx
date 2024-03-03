@@ -1,7 +1,7 @@
 'use client'
 
 import {useEffect, useState} from "react";
-import {SectionHeader} from "@/components/layout/SectionHeader";
+import {SectionHeader} from "@/components/layout/DopLayout/SectionHeader";
 import {CategoriesType} from "@/components/Types/CategoriesType";
 import {ShopItemType} from "@/components/Types/ShopItem";
 import {MenuItem} from "@/components/menu/MenuItem";
