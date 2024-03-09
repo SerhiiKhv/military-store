@@ -5,7 +5,7 @@ import React from "react";
 
 export default function Footer(){
     return (
-        <section className="text-white my-8 bg-black">
+        <section className="text-white mt-8 bg-black">
             <div className="my-container py-6">
                 <div className="grid grid-cols-5">
                     <div>

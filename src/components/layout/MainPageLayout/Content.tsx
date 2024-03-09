@@ -68,8 +68,11 @@ export default function Content() {
                         <p className="text-2xl font-bold">{c.name}</p>
 
                         <div className="grid grid-cols-5 gap-2">
-                            {shopItems.filter((item: ShopItemType) => item.category === c._id).map((item: ShopItemType) => (
-                                <ShopItemsForMenu {...item} key={item._id}/>
+                            {shopItems
+                                .filter((item: ShopItemType) => item.category === c._id)
+                                .slice(0,5)
+                                .map((item: ShopItemType) => (
+                                    <ShopItemsForMenu {...item} key={item._id}/>
                             ))}
                         </div>
                     </div>

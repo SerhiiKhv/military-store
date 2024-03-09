@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 import React, {useContext, useState} from "react";
 import {ShopItemType} from "@/components/Types/ShopItem";
@@ -24,7 +23,7 @@ export default function ShopItemsForMenu(item: ShopItemType) {
 
     return (
         <div
-            className="border rounded-2xl px-4 py-2 gap-2 cursor-pointer mb-2 text-center"
+            className="border rounded-2xl px-4 py-2 gap-2 cursor-pointer mb-2"
             key={item._id}>
 
             <div>
@@ -33,20 +32,14 @@ export default function ShopItemsForMenu(item: ShopItemType) {
                            height={250}
                            className="rounded-xl mb-1 aspect-square object-cover"/>
                 </div>
-                <span className="font-semibold">{item.name}</span>
 
-                <p className="text-gray-500 text-sm">
-                    {item.description.length > 150 ?
-                        item.description.slice(0, 150) + ' ...'
-                        :
-                        item.description}
-                </p>
+                <span className="">{item.name}</span>
 
-                <div>
+                <div className="flex items-center justify-between">
                     <p className="font-semibold">{item.price} грн.</p>
 
                     <button type="button"
-                            className="bg-primary text-white"
+                            className="button"
                             onClick={handleAddToCartButtonClick}>
                         <ShoppingCartIcon/>
                     </button>
