@@ -38,7 +38,7 @@ export function AppProvider({children}: { children: ReactNode }) {
             saveCartProductsToLocalStorage(newCartProducts)
             return newCartProducts
         })
-        toast.success('Product removed')
+        toast.success('Item removed')
     }
 
 

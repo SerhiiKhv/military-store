@@ -4,14 +4,15 @@ import {ShopItemType} from "@/components/Types/ShopItem";
 import {CartContext} from "@/components/AppContext";
 import toast from "react-hot-toast";
 import ShoppingCartIcon from "@/components/icons/ShoppingCartIcon";
+import Link from "next/link";
 
 export default function ShopItemsForMenu(item: ShopItemType) {
 
     const {addToCart} = useContext(CartContext) as any
 
     function handleAddToCartButtonClick() {
-            addToCart(item)
-            toast.success('Added to cart!')
+        addToCart(item)
+        toast.success('Added to cart!')
     }
 
     return (
@@ -20,13 +21,15 @@ export default function ShopItemsForMenu(item: ShopItemType) {
             key={item._id}>
 
             <div>
-                <div className="flex flex-col items-center justify-center">
-                    <Image src={item.image || '/pizza.png'} alt={"Img shop item"} width={250}
-                           height={250}
-                           className="rounded-xl mb-1 aspect-square object-cover"/>
-                </div>
+                <Link href={`/shop-item/review/${item._id}`}>
+                    <div className="flex flex-col items-center justify-center">
+                        <Image src={item.image || '/pizza.png'} alt={"Img shop item"} width={250}
+                               height={250}
+                               className="rounded-xl mb-1 aspect-square object-cover"/>
+                    </div>
 
-                <span className="">{item.name}</span>
+                    <span className="">{item.name}</span>
+                </Link>
 
                 <div className="flex items-center justify-between">
                     <p className="font-semibold">{item.price} грн.</p>

@@ -10,10 +10,7 @@ import Link from "next/link";
 import Footer from "@/components/layout/MainPageLayout/Footer";
 
 export default function CartPage() {
-
     const {cartProducts, removeCartProduct} = useContext(CartContext) as any;
-
-    console.log(cartProducts)
 
     let total = 0
 
