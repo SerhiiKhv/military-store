@@ -4,6 +4,7 @@ import Image from "next/image";
 import {CategoriesType} from "@/components/Types/CategoriesType";
 import {ShopItemType} from "@/components/Types/ShopItem";
 import ShopItemsForMenu from "@/components/layout/ShopItemsLayout/ShopItemsForMenu";
+import Link from "next/link";
 
 export default function Content() {
 
@@ -72,7 +73,9 @@ export default function Content() {
                                 .filter((item: ShopItemType) => item.category === c._id)
                                 .slice(0,5)
                                 .map((item: ShopItemType) => (
-                                    <ShopItemsForMenu {...item} key={item._id}/>
+                                    <Link href={`/shop-item/review/${item._id}`}>
+                                        <ShopItemsForMenu {...item} key={item._id}/>
+                                    </Link>
                             ))}
                         </div>
                     </div>

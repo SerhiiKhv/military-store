@@ -12,19 +12,6 @@ interface CartContextProps {
     clearCart: () => void;
 }
 
-export function cartProductPrice(cartProduct: any) {
-    let price = cartProduct.size
-
-    if (cartProduct.extras?.length > 0) {
-        for (const extra of cartProduct.extras) {
-            price += extra.price
-            console.log("extra.price: " + price)
-        }
-    }
-    return price
-}
-
-
 export const CartContext = createContext<CartContextProps | undefined>(undefined);
 
 export function AppProvider({children}: { children: ReactNode }) {

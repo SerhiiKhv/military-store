@@ -1,8 +1,7 @@
 'use client'
 
-import {SectionHeader} from "@/components/layout/DopLayout/SectionHeader";
 import React, {useContext} from "react";
-import {CartContext, cartProductPrice} from "@/components/AppContext";
+import {CartContext} from "@/components/AppContext";
 import Image from "next/image";
 import {ShopItemType} from "@/components/Types/ShopItem";
 import {DeleteIcon} from "@/components/icons/DeleteIcon";
@@ -14,10 +13,12 @@ export default function CartPage() {
 
     const {cartProducts, removeCartProduct} = useContext(CartContext) as any;
 
+    console.log(cartProducts)
+
     let total = 0
 
     for (const p of cartProducts) {
-        total += cartProductPrice(p)
+        total += p.price
     }
 
 
@@ -62,7 +63,7 @@ export default function CartPage() {
 
 
                                 <div className="flex font-semibold items-center justify-end px-5 text-xl">
-                                    {product.price} $
+                                    {product.price} ₴
                                 </div>
                             </div>
                         ))}
@@ -79,18 +80,18 @@ export default function CartPage() {
                             </button>
 
                             <div className="flex justify-between pt-8">
-                                <p>2 товари на суму</p>
-                                <p>1233212 $</p>
+                                <p>{cartProducts.length} товари на суму</p>
+                                <p>{total} ₴</p>
                             </div>
 
                             <div className="flex justify-between pt-2">
                                 <p>Знижка</p>
-                                <p>3212 $</p>
+                                <p>0 ₴</p>
                             </div>
 
                             <div className="flex justify-between pt-12 font-semibold">
                                 <p>Загальна сума</p>
-                                <p className="text-xl">3212 $</p>
+                                <p className="text-xl">{total} ₴</p>
                             </div>
 
                         </div>
