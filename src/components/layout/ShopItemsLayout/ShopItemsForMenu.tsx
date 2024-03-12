@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, {useContext, useState} from "react";
+import React, {useContext} from "react";
 import {ShopItemType} from "@/components/Types/ShopItem";
 import {CartContext} from "@/components/AppContext";
 import toast from "react-hot-toast";
@@ -8,17 +8,10 @@ import ShoppingCartIcon from "@/components/icons/ShoppingCartIcon";
 export default function ShopItemsForMenu(item: ShopItemType) {
 
     const {addToCart} = useContext(CartContext) as any
-    const [showPopUp, setShowPopUp] = useState(false)
 
     function handleAddToCartButtonClick() {
-        if (!showPopUp) {
-            setShowPopUp(true)
-            return
-        } else {
             addToCart(item)
-            setShowPopUp(false)
             toast.success('Added to cart!')
-        }
     }
 
     return (
