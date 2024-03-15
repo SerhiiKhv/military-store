@@ -3,7 +3,7 @@
 import {useParams} from "next/navigation";
 import React, {useContext, useEffect, useState} from "react";
 import {ShopItemType} from "@/components/Types/ShopItem";
-import {CategoriesType} from "@/components/Types/CategoriesType";
+import {CategoryType} from "@/components/Types/CategoryType";
 import {HomeIcon} from "@/components/icons/HomeIcon";
 import Image from "next/image";
 import {StarsIcon} from "@/components/icons/StarsIcon";
@@ -17,7 +17,7 @@ export default function ReviewShopItemPageID() {
     const {addToCart} = useContext(CartContext) as any
 
     const [shopItems, setShopItems] = useState<ShopItemType>()
-    const [categories, setCategories] = useState<CategoriesType[]>()
+    const [categories, setCategories] = useState<CategoryType[]>()
     const [categoryName, setCategoryName] = useState('')
 
     function handleAddToCartButtonClick() {
@@ -47,7 +47,7 @@ export default function ReviewShopItemPageID() {
 
     function checkCategory() {
         if (categories && shopItems) {
-            categories.map((category: CategoriesType) => {
+            categories.map((category: CategoryType) => {
                 if (category._id === shopItems?.category) {
                     setCategoryName(category.name)
                 }

@@ -1,35 +1,22 @@
 'use client'
 import React, {useEffect, useState} from "react";
 import Image from "next/image";
-import {CategoriesType} from "@/components/Types/CategoriesType";
+import {CategoryType} from "@/components/Types/CategoryType";
 import {ShopItemType} from "@/components/Types/ShopItem";
 import ShopItemsForMenu from "@/components/layout/ShopItemsLayout/ShopItemsForMenu";
+import Link from "next/link";
+import {GetCategories, GetShopItems} from "@/app/ApiRequest/ApiRequest";
+import ShopItemsList from "@/components/layout/ShopItemsLayout/ShopItemsList";
 
 export default function Content() {
 
     const [categories, setCategories] = useState([])
-    const [shopItems, setShopItems] = useState([])
+    const [shopItems, setShopItems] = useState<[ShopItemType] | []>([])
 
     useEffect(() => {
-        fetchCategories()
-        fetchShopItems()
+        GetCategories(setCategories)
+        GetShopItems(setShopItems)
     }, [])
-
-    function fetchCategories() {
-        fetch('/api/categories').then(res => {
-            res.json().then(categories => {
-                setCategories(categories)
-            })
-        })
-    }
-
-    function fetchShopItems() {
-        fetch('/api/shop-items').then(res => {
-            res.json().then(shopItem => {
-                setShopItems(shopItem)
-            })
-        })
-    }
 
     return (
         <section className="my-container">
@@ -37,10 +24,12 @@ export default function Content() {
                 <div className="">
                     <p className="font-bold text-xl">Категорії</p>
 
-                    {categories?.length > 0 && categories.map((c: CategoriesType) => (
+                    {categories?.length > 0 && categories.map((c: CategoryType) => (
                         <div className="px-4 py-1 gap-2 cursor-pointer">
                             <div className="flex graw justify-between items-center">
-                                <span key={c._id}>{c.name}</span>
+                                <Link href={`/category/` + c._id}>
+                                    <span key={c._id}>{c.name}</span>
+                                </Link>
                             </div>
                         </div>
                     ))}
@@ -63,19 +52,8 @@ export default function Content() {
             <div>
                 <p className="text-4xl font-bold">Товари</p>
 
-                {categories.length > 0 && categories.map((c: CategoriesType) => (
-                    <div>
-                        <p className="text-2xl font-bold">{c.name}</p>
-
-                        <div className="grid grid-cols-5 gap-2">
-                            {shopItems
-                                .filter((item: ShopItemType) => item.category === c._id)
-                                .slice(0, 5)
-                                .map((item: ShopItemType) => (
-                                    <ShopItemsForMenu {...item} key={item._id}/>
-                                ))}
-                        </div>
-                    </div>
+                {categories.length > 0 && categories.map((c: CategoryType) => (
+                    <ShopItemsList categoryName={c.name} shopItems={shopItems} id={c._id}/>
                 ))}
             </div>
         </section>

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {ShopItemType} from "@/components/Types/ShopItem";
-import {CategoriesType} from "@/components/Types/CategoriesType";
+import {CategoryType} from "@/components/Types/CategoryType";
 import AddedImageViaLink from "@/components/layout/PhotoLayout/AddedImageViaLink";
 
 export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shopItem: ShopItemType | null }) {
@@ -66,7 +66,7 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
                         <label>Category</label>
                         <select value={category}
                                 onChange={e => setCategory(e.target.value)}>
-                            {categories?.length > 0 && categories.map((c: CategoriesType) => (
+                            {categories?.length > 0 && categories.map((c: CategoryType) => (
                                 <option value={c._id}>{c.name}</option>
                             ))}
                         </select>

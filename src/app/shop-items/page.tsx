@@ -5,7 +5,7 @@ import UserTabs from "@/components/layout/MainPageLayout/Tabs";
 import Link from "next/link";
 import React, {useEffect, useState} from "react";
 import {ShopItemType} from "@/components/Types/ShopItem";
-import {CategoriesType} from "@/components/Types/CategoriesType";
+import {CategoryType} from "@/components/Types/CategoryType";
 import {SectionHeader} from "@/components/layout/DopLayout/SectionHeader";
 import ShopItemsForAdmin from "@/components/layout/ShopItemsLayout/ShopItemForAdmin";
 
@@ -56,7 +56,7 @@ export default function ShopItemsPage() {
                         <SectionHeader subHeader={""} mainHeader={"Shop items:"}/>
                     </div>
 
-                    {categories.length > 0 && categories.map((c: CategoriesType) => (
+                    {categories.length > 0 && categories.map((c: CategoryType) => (
                         <div>
                             <div className="flex items-center justify-center p-4">
                                 <SectionHeader subHeader={""} mainHeader={c.name}/>

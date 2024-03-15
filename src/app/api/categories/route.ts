@@ -15,11 +15,18 @@ export async function PUT(req: any) {
     return Response.json(true)
 }
 
-export async function GET() {
+export async function GET(req: any) {
     await mongoose.connect(String(process.env.MONGO_URL));
-    return Response.json(
-        await CategoriesMilitaryStore.find()
-    )
+    const url = new URL(req.url);
+    const categoryId = url.searchParams.get('id');
+
+    if (categoryId) {
+        const category = await CategoriesMilitaryStore.findById(categoryId);
+        return Response.json(category);
+    } else {
+        const categories = await CategoriesMilitaryStore.find();
+        return Response.json(categories);
+    }
 }
 
 export async function DELETE(req: any) {

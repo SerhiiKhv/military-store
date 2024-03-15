@@ -2,7 +2,7 @@
 
 import {useEffect, useState} from "react";
 import {SectionHeader} from "@/components/layout/DopLayout/SectionHeader";
-import {CategoriesType} from "@/components/Types/CategoriesType";
+import {CategoryType} from "@/components/Types/CategoryType";
 import {ShopItemType} from "@/components/Types/ShopItem";
 import {MenuItem} from "@/components/menu/MenuItem";
 
@@ -23,7 +23,7 @@ export default function MenuPage() {
     return (
         <section>
             <div className="">
-                {categories.length > 0 && categories.map((c: CategoriesType) => (
+                {categories.length > 0 && categories.map((c: CategoryType) => (
                     <div>
                         <div className="text-center">
                             <SectionHeader subHeader={""} mainHeader={c.name}/>

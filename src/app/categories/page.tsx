@@ -4,7 +4,7 @@ import UserTabs from "@/components/layout/MainPageLayout/Tabs";
 import {useProfile} from "@/components/UseProfile";
 import {useEffect, useState} from "react";
 import toast from "react-hot-toast";
-import {CategoriesType} from "@/components/Types/CategoriesType";
+import {CategoryType} from "@/components/Types/CategoryType";
 import {DeleteIcon} from "@/components/icons/DeleteIcon";
 import {EditIcon} from "@/components/icons/EditIcon";
 
@@ -12,7 +12,7 @@ export default function CategoriesPage() {
 
     const [categoryName, setCategoryName] = useState('')
     const [categories, setCategories] = useState([])
-    const [editedCategory, setEditedCategory] = useState<null | CategoriesType>(null);
+    const [editedCategory, setEditedCategory] = useState<null | CategoryType>(null);
     const {loading, data} = useProfile();
 
     useEffect(() => {
@@ -128,7 +128,7 @@ export default function CategoriesPage() {
 
             <div>
                 <h2 className="text-gray-500">edit category: </h2>
-                {categories?.length > 0 && categories.map((c: CategoriesType) => (
+                {categories?.length > 0 && categories.map((c: CategoryType) => (
                     <div className="bg-gray-200 rounded-xl px-4 py-1 gap-2 cursor-pointer mb-2">
                         <div
                             className="flex graw justify-between items-center"
