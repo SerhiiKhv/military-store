@@ -1,6 +1,6 @@
 'use client'
 
-import {useSession} from "next-auth/react";
+import {signOut, useSession} from "next-auth/react";
 import {redirect} from "next/navigation";
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
@@ -10,10 +10,8 @@ import UserProfileForm from "@/components/layout/UserPageLayout/UserProfileForm"
 import {UserType} from "@/components/Types/UserType";
 
 export default function ProfilePage() {
-
     const session = useSession()
     const {status} = session
-
     const [userData, setUserData] = useState<UserType | null>(null)
     const [isAdmin, setIsAdmin] = useState(false)
     const [profileFetched, setProfileFetched] = useState(false)
@@ -31,13 +29,16 @@ export default function ProfilePage() {
         }
     }, [session, status, userData])
 
+    if (status === 'unauthenticated') {
+        console.log("unauthenticated")
+        redirect('/login')
+    }
+
     if (status === 'loading' || !profileFetched) {
+        console.log("loading")
         return "Loading..."
     }
 
-    if (status === 'unauthenticated') {
-        redirect('/login')
-    }
 
     async function handleProfileInfoUpdate(ev: any,
                                            {name, address, phone, image}
@@ -78,6 +79,14 @@ export default function ProfilePage() {
             <UserTabs isAdmin={isAdmin}/>
 
             <UserProfileForm userData={userData} onSave={handleProfileInfoUpdate}/>
+            <div className="flex items-center justify-center mt-3 w-full">
+                <button
+                    onClick={() => signOut()}
+                    className="delete px-4 py-2 rounded-full w-1/2">
+                    Logout
+                </button>
+            </div>
+
         </section>
     )
 }

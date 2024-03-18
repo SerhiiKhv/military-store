@@ -135,7 +135,7 @@ export default function RegisterPage() {
                         onBlur={handleInputBlur}
                     />
 
-                    <button type="submit" disabled={creatingUser || isFormValid}>Register</button>
+                    <button type="submit" className="w-full" disabled={creatingUser || isFormValid}>Register</button>
                 </form>
 
                 <div className="my-4 text-gray-500 text-center">

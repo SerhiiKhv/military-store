@@ -70,7 +70,7 @@ export default function AddedImageViaLink(
                                onChange={e => setPhotoLink(e.target.value)}/>
                     </div>
 
-                    <div className="flex gap-1 items-center">
+                    <div className="flex gap-1 items-center justify-center">
                         <button
                             type="button"
                             className="button px-2 mb-4 flex items-center justify-center gap-1"

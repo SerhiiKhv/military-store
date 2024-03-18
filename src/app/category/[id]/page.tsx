@@ -11,7 +11,7 @@ import ShopItemsList from "@/components/layout/ShopItemsLayout/ShopItemsList";
 export default function CategoryNamePage(){
 
     const {id} = useParams()
-    const [category, setCategory] = useState()
+    const [category, setCategory] = useState<CategoryType>()
     const [shopItems, setShopItems] = useState<[ShopItemType] | []>([])
 
     useEffect(() => {
@@ -21,18 +21,7 @@ export default function CategoryNamePage(){
 
     return(
         <section className="my-container">
-            <ShopItemsList categoryName={category?.name} shopItems={shopItems} id={String(id)}/>
-
-            <p className="text-2xl font-bold">{category?.name}</p>
-
-            <div className="grid grid-cols-5 gap-2">
-                {shopItems
-                    .filter((item: ShopItemType) => item.category === id)
-                    .slice(0, 5)
-                    .map((item: ShopItemType) => (
-                        <ShopItemsForMenu {...item} key={item._id}/>
-                    ))}
-            </div>
+            <ShopItemsList categoryName={category?.name || ''} shopItems={shopItems} id={String(id)}/>
         </section>
     )
 }

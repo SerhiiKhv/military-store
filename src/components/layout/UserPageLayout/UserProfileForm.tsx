@@ -69,6 +69,7 @@ export default function UserProfileForm(
                                value={phoneNumber}/>
 
                         <button type="submit"
+                                className="w-full"
                                 disabled={isFormValid}>
                             Save
                         </button>

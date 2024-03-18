@@ -92,12 +92,6 @@ export const Header = () => {
 
                                     <UserIcon/>
                                 </p></Link>
-
-                                {/* <button
-                                    onClick={() => signOut()}
-                                    className="bg-neonNazar text-white px-4 py-2 rounded-full">
-                                    Logout
-                                </button>*/}
                             </>
                         )}
 

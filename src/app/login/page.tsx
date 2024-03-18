@@ -105,7 +105,7 @@ export default function LoginPage() {
                            onFocus={() => handleInputFocus('password')}
                            onBlur={handleInputBlur}/>
 
-                    <button type="submit" disabled={isFormValid}>Login</button>
+                    <button type="submit" className="w-full" disabled={isFormValid}>Login</button>
                 </form>
 
                 {error && (
