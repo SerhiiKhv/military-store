@@ -20,7 +20,7 @@ export default function CartPage() {
 
 
     return (
-        <section className="bg-gray-100">
+        <section className="bg-gray-100 pt-4">
             <div className="mt-8 my-container">
                 <div className="flex items-center justify-start gap-2">
                     <Link href={'/'}>
@@ -69,12 +69,13 @@ export default function CartPage() {
 
 
 
-                    <div className="bg-white rounded-md h-2/3">
+                    <div className="bg-white rounded-md min-h-72 max-h-72">
                         <div className="m-4 p-3">
-                            <button type='button'
-                                    className="buttonWithoutP w-full p-4">
+                            <Link type='button'
+                                  href={'/cart/payment'}
+                                    className="buttonWithoutP w-full p-4 text-center">
                                 Перейти до оформлення
-                            </button>
+                            </Link>
 
                             <div className="flex justify-between pt-8">
                                 <p>{cartProducts.length} товари на суму</p>

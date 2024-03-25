@@ -25,7 +25,7 @@ export const Header = () => {
     }
 
     return (
-        <header className="mb-4">
+        <header>
             <div className="flex items-center justify-between gap-2 my-container">
                 <div>
                     <Link className="bg-gradient-to-r from-purple-500 to-blue-600 bg-clip-text text-transparent
