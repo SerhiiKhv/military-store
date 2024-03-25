@@ -27,7 +27,7 @@ export default function ProfilePage() {
                 })
             })
         }
-    }, [session, status, userData])
+    }, [session, status])
 
     if (status === 'unauthenticated') {
         console.log("unauthenticated")

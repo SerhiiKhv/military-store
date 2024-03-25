@@ -1,3 +1,10 @@
+//User
+
+
+
+
+
+//Category
 export function GetCategories(setCategories: any) {
     fetch('/api/categories').then(res => {
         res.json().then(categories => {
@@ -13,6 +20,10 @@ export function GetCategoryId(setCategory: any, id: any) {
         })
     })
 }
+
+
+
+//ShopItem
 
 export function GetShopItems(setShopItems: any) {
     fetch('/api/shop-items').then(res => {

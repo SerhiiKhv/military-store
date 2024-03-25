@@ -1,15 +1,37 @@
 'use client'
 
-import {ShopItemType} from "@/components/Types/ShopItem";
-import Image from "next/image";
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {CartContext} from "@/components/AppContext";
-import {PencilIcon} from "@/components/icons/PencilIcon";
-import Link from "next/link";
+import {useSession} from "next-auth/react";
+import ListCartItems from "@/components/layout/CartLayout/ListCartItems";
+import CartContactInformation from "@/components/layout/CartLayout/CartContactInformation";
+import DeliveryMethod from "@/components/layout/CartLayout/DeliveryMethod";
+import PaymentMethod from "@/components/layout/CartLayout/PaymentMethod";
 
 export default function PaymentPage() {
-
+    const session = useSession()
+    const {status} = session
     const {cartProducts} = useContext(CartContext) as any;
+
+    const [userName, setUserName] = useState('')
+    const [userEmail, setUserEmail] = useState('')
+    const [streetAddress, setStreetAddress] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
+
+    useEffect(() => {
+        if (status === 'authenticated') {
+            fetch('/api/profile').then(response => {
+                response.json().then(data => {
+                    setUserName(data?.name || '')
+                    setUserEmail(data?.email || '')
+                    setStreetAddress(data?.address || '')
+                    setPhoneNumber(data?.phone || '')
+                })
+            })
+        }
+    }, [session, status]);
+
+
 
     let total = 0
 
@@ -18,183 +40,26 @@ export default function PaymentPage() {
     }
 
     return (
-        <section className="bg-gray-100 pt-4">
+        <section className="bg-gray-100 pt-4 min-h-screen">
             <div className="my-container">
                 <p className="text-xl">Оформити замовлення</p>
                 <div className="grid grid-cols-[3fr,1fr] gap-4">
                     <div>
-                        <div className="bg-white p-2 rounded-md">
-                            <div className="flex justify-between">
-                                <p>Ваше замовлення</p>
-                                <Link
-                                    href={'/cart'}
-                                    className="flex gap-1">
-                                    <PencilIcon/>
-                                    Редагувати
-                                </Link>
-                            </div>
+                        <ListCartItems/>
 
-                            {cartProducts?.length === 0 && (
-                                <div>No products in your shopping cart</div>
-                            )}
-                            {cartProducts?.length > 0 && cartProducts.map((product: ShopItemType) => (
-                                <div className="grid grid-cols-[3fr,1fr] gap-4 mb-4 border-b py-2 rounded-md">
-                                    <div className="flex gap-4 p-2">
-                                        <Image src={product.image || '/pizza.png'}
-                                               alt={"Img menu item"}
-                                               width={250} height={250}
-                                               className="w-24"/>
+                        <CartContactInformation
+                            phoneNumber={phoneNumber}
+                            userName={userName}
+                            userEmail={userEmail}
+                            setUserEmail={setUserEmail}
+                            setPhoneNumber={setPhoneNumber}
+                            setUserName={setUserName}/>
 
-                                        <div className="grow">
-                                            <h3> {product.name} name</h3>
+                        <DeliveryMethod streetAddress={streetAddress}/>
 
-                                            <p className="text-gray-400 text-sm mt-1">Код товара: 1111111</p>
-                                        </div>
-                                    </div>
-
-
-                                    <div className="flex font-semibold items-center justify-end px-5 text-xl">
-                                        {product.price} ₴
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-
-                        <div className="bg-white mt-6 p-8 rounded-md">
-                            <p className="text-xl">1. Контактна інформація</p>
-
-                            <div className="flex gap-2 items-center justify-between">
-                                <div className="w-full">
-                                    <label>Номер телефону</label>
-                                    <input type="text"/>
-                                </div>
-
-                                <div className="w-full">
-                                    <label>Ім'я</label>
-                                    <input type="text"/>
-                                </div>
-
-                                <div className="w-full">
-                                    <label>Email</label>
-                                    <input type="text"/>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="bg-white mt-6 p-2 rounded-md">
-                            <p className="text-xl">2. Спосіб достаки</p>
-
-                            <div>
-                                <div className="border rounded-md p-2">
-                                    <div className="flex gap-2">
-                                        <input type="radio"/>
-                                        <p>До відділення нової пошти</p>
-                                    </div>
-
-                                    <div>
-                                        <div className="flex gap-2 items-center justify-between">
-                                            <div className="w-full">
-                                                <label>Дата доставки</label>
-                                                <input type="text"/>
-                                            </div>
-
-                                            <div className="w-full">
-                                                <label>Номер відділення</label>
-                                                <input type="text"/>
-                                            </div>
-                                        </div>
-
-                                        <div className="flex gap-2 items-center justify-between">
-                                            <div className="w-full">
-                                                <label>Прізвище</label>
-                                                <input type="text"/>
-                                            </div>
-
-                                            <div className="w-full">
-                                                <label>Ім'я</label>
-                                                <input type="text"/>
-                                            </div>
-
-                                            <div className="w-full">
-                                                <label>По батькові</label>
-                                                <input type="text"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div className="border rounded-md p-2 mt-4">
-                                    <div>
-                                        <div className="flex gap-2">
-                                            <input type="radio"/>
-                                            <p>Курєр нової пошти</p>
-                                        </div>
-
-                                        <div>
-                                            <div className="flex gap-2 items-center justify-between">
-                                                <div className="w-full">
-                                                    <label>Дата доставки</label>
-                                                    <input type="text"/>
-                                                </div>
-
-                                                <div className="w-full">
-                                                    <label>Час</label>
-                                                    <input type="text"/>
-                                                </div>
-                                            </div>
-
-                                            <div className="flex gap-2 items-center justify-between">
-                                                <div className="w-full">
-                                                    <label>Адресса достаки</label>
-                                                    <input type="text" placeholder="Адресса"/>
-                                                </div>
-
-                                                <div className="w-full">
-                                                    <input type="text" placeholder="Буд."/>
-                                                </div>
-
-                                                <div className="w-full">
-                                                    <input type="text" placeholder="Кв."/>
-                                                </div>
-                                            </div>
-
-                                            <div className="flex gap-2 items-center justify-between">
-                                                <div className="w-full">
-                                                    <label>Прізвище</label>
-                                                    <input type="text"/>
-                                                </div>
-
-                                                <div className="w-full">
-                                                    <label>Ім'я</label>
-                                                    <input type="text"/>
-                                                </div>
-
-                                                <div className="w-full">
-                                                    <label>По батькові</label>
-                                                    <input type="text"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="bg-white mt-6 p-2 rounded-md">
-                            <p className="text-xl">3. Спосіб оплати</p>
-
-                            <div className="flex gap-2 border rounded-md p-4">
-                                <input type="radio"/>
-                                <p>Оплата при отриманні</p>
-                            </div>
-
-                            <div className="flex gap-2 mt-4 border rounded-md p-4">
-                                <input type="radio"/>
-                                <p>Онлайн оплата</p>
-                            </div>
-                        </div>
+                        <PaymentMethod/>
                     </div>
+
 
                     <div className="bg-white rounded-md max-h-96">
                         <div className="m-4 p-3">
@@ -225,6 +90,7 @@ export default function PaymentPage() {
                                 Оформити замовлення
                             </button>
                         </div>
+
                     </div>
                 </div>
             </div>

@@ -1,7 +1,5 @@
-import Image from "next/image";
 import React, {useEffect, useState} from "react";
 import {UserType} from "@/components/Types/UserType";
-import {ErrorType} from "@/components/Types/Errors";
 import AddedImageViaLink from "@/components/layout/PhotoLayout/AddedImageViaLink";
 
 export default function UserProfileForm(
