@@ -5,6 +5,7 @@ export async function POST(req: any) {
     await mongoose.connect(String(process.env.MONGO_URL));
     const {name, description, price, image, category} = await req.json()
     const menuItemDoc = await ShopItemMilitaryStore.create({name, description, price, image, category})
+    console.log(menuItemDoc)
     return Response.json(menuItemDoc)
 }
 

@@ -51,7 +51,7 @@ export default function ListCartItems() {
                                        className="w-24"/>
 
                                 <div className="grow">
-                                    <h3> {product.name} name</h3>
+                                    <h3>{product.name}</h3>
 
                                     <p className="text-gray-400 text-sm mt-1">Код товара: 1111111</p>
                                 </div>

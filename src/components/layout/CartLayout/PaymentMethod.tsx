@@ -1,11 +1,20 @@
 import React, {useState} from "react";
 
-export default function PaymentMethod(){
+export default function PaymentMethod(
+    {
+        paymentMethod,
+        setPaymentMethod
+    }:
+        {
+            paymentMethod: string,
+            setPaymentMethod: any
+        }
+) {
 
-    const [paymentMethod, setPaymentMethod] = useState()
     function handlePaymentOptionChange(e: any) {
         setPaymentMethod(e.target.value)
     }
+
     return (
         <div className="bg-white mt-6 mb-4 p-2 rounded-md">
             <p className="text-xl">3. Спосіб оплати</p>

@@ -1,9 +1,14 @@
 import Image from "next/image";
-import React, {useState} from "react";
+import React from "react";
 
-export default function DeliveryMethod({streetAddress}:{streetAddress: string}){
-
-    const [deliveryMethod, setDeliveryMethod] = useState()
+export default function DeliveryMethod(
+    {streetAddress,
+        deliveryMethod,
+        setDeliveryMethod}:
+        {streetAddress: string,
+            deliveryMethod: string,
+            setDeliveryMethod: any}
+){
 
     function handleDeliveryOptionChange(e: any) {
         setDeliveryMethod(e.target.value)
