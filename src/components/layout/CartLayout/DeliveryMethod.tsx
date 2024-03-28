@@ -1,17 +1,18 @@
 import Image from "next/image";
 import React from "react";
+import {DeliveryType} from "@/components/Types/DeliveryType";
 
 export default function DeliveryMethod(
-    {streetAddress,
-        deliveryMethod,
-        setDeliveryMethod}:
-        {streetAddress: string,
-            deliveryMethod: string,
-            setDeliveryMethod: any}
+    {
+        delivery,
+        setDelivery,
+    }:{
+        delivery: DeliveryType,
+        setDelivery: any
+    }
 ){
-
     function handleDeliveryOptionChange(e: any) {
-        setDeliveryMethod(e.target.value)
+        setDelivery({...delivery, deliveryMethod: e.target.value})
     }
 
     return (
@@ -21,41 +22,54 @@ export default function DeliveryMethod(
             <div>
                 <div className="border rounded-md p-2">
                     <div className="flex gap-2">
-                        <input type="radio" value="department" checked={deliveryMethod === "department"}
+                        <input type="radio" value="department" checked={delivery?.deliveryMethod === "department"}
                                onChange={handleDeliveryOptionChange}/>
                         <p>До відділення нової пошти</p>
                         <Image src={"/NewPost.png"} alt={"NewPost"}
                                width={25} height={25}/>
                     </div>
 
-                    {deliveryMethod === "department" && (
+                    {delivery?.deliveryMethod === "department" && (
                         <div>
                             <div className="flex gap-2 items-center justify-between">
                                 <div className="w-full">
                                     <label>Дата доставки</label>
-                                    <input type="text"/>
+                                    <input
+                                        type="text"
+                                        value={delivery.dateDelivery}
+                                        onChange={e =>
+                                            setDelivery({...delivery, dateDelivery: e.target.value})}
+                                    />
                                 </div>
 
                                 <div className="w-full">
                                     <label>Номер відділення</label>
-                                    <input type="text"/>
+                                    <input type="text" value={delivery.departmentNumber}
+                                           onChange={e =>
+                                               setDelivery({...delivery, departmentNumber: e.target.value})}/>
                                 </div>
                             </div>
 
                             <div className="flex gap-2 items-center justify-between">
                                 <div className="w-full">
                                     <label>Прізвище</label>
-                                    <input type="text"/>
+                                    <input type="text" value={delivery.surName}
+                                           onChange={e =>
+                                               setDelivery({...delivery, surName: e.target.value})}/>
                                 </div>
 
                                 <div className="w-full">
                                     <label>Ім'я</label>
-                                    <input type="text"/>
+                                    <input type="text" value={delivery.firstName}
+                                           onChange={e =>
+                                               setDelivery({...delivery, nameOfTheRecipient: e.target.value})}/>
                                 </div>
 
                                 <div className="w-full">
                                     <label>По батькові</label>
-                                    <input type="text"/>
+                                    <input type="text" value={delivery.patronymic}
+                                           onChange={e =>
+                                               setDelivery({...delivery, patronymic: e.target.value})}/>
                                 </div>
                             </div>
                         </div>
@@ -66,47 +80,61 @@ export default function DeliveryMethod(
                 <div className="border rounded-md p-2 mt-4">
                     <div>
                         <div className="flex gap-2">
-                            <input type="radio" value="courier" checked={deliveryMethod === "courier"}
+                            <input type="radio" value="courier" checked={delivery?.deliveryMethod === "courier"}
                                    onChange={handleDeliveryOptionChange}/>
                             <p>Курєр нової пошти</p>
                             <Image src={"/NewPost.png"} alt={"NewPost"}
                                    width={25} height={25}/>
                         </div>
 
-                        {deliveryMethod === "courier" && (
+                        {delivery?.deliveryMethod === "courier" && (
                             <div>
                                 <div className="flex gap-2 items-center justify-between">
                                     <div className="w-full">
                                         <label>Дата доставки</label>
-                                        <input type="text"/>
+                                        <input type="text"
+                                               value={delivery.dateDelivery}
+                                               onChange={e =>
+                                                   setDelivery({...delivery, dateDelivery: e.target.value})}/>
                                     </div>
 
                                     <div className="w-full">
                                         <label>Час</label>
-                                        <input type="text"/>
+                                        <input type="text"
+                                               value={delivery.time}
+                                               onChange={e =>
+                                                   setDelivery({...delivery, time: e.target.value})}/>
                                     </div>
                                 </div>
 
                                 <div className="w-full">
                                     <label>Адресса достаки</label>
                                     <input type="text" placeholder="Адресса"
-                                           value={streetAddress}/>
+                                           value={delivery.address}
+                                           onChange={e =>
+                                               setDelivery({...delivery, address: e.target.value})}/>
                                 </div>
 
                                 <div className="flex gap-2 items-center justify-between">
                                     <div className="w-full">
                                         <label>Прізвище</label>
-                                        <input type="text"/>
+                                        <input type="text" value={delivery.surName}
+                                               onChange={e =>
+                                                   setDelivery({...delivery, surName: e.target.value})}/>
                                     </div>
 
                                     <div className="w-full">
                                         <label>Ім'я</label>
-                                        <input type="text"/>
+                                        <input type="text" value={delivery.firstName}
+                                               onChange={e =>
+                                                   setDelivery({...delivery, firstName: e.target.value})}/>
                                     </div>
 
                                     <div className="w-full">
                                         <label>По батькові</label>
-                                        <input type="text"/>
+                                        <input type="text" value={delivery.patronymic}
+                                               onChange={e =>
+                                                   setDelivery({...delivery, patronymic: e.target.value})}/>
                                     </div>
                                 </div>
                             </div>

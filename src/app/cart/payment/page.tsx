@@ -9,6 +9,7 @@ import DeliveryMethod from "@/components/layout/CartLayout/DeliveryMethod";
 import PaymentMethod from "@/components/layout/CartLayout/PaymentMethod";
 import toast from "react-hot-toast";
 import {OrderType} from "@/components/Types/OrderType";
+import {DeliveryType} from "@/components/Types/DeliveryType";
 
 export default function PaymentPage() {
     const session = useSession()
@@ -17,15 +18,21 @@ export default function PaymentPage() {
     const [userName, setUserName] = useState('')
     const [userId, setUserId] = useState('')
     const [userEmail, setUserEmail] = useState('')
-    const [streetAddress, setStreetAddress] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
-    const [deliveryMethod, setDeliveryMethod] = useState('')
     const [paymentMethod, setPaymentMethod] = useState('гпеагпеа')
-    const [dateDelivery, setDateDelivery] = useState('')
-    const [departmentNumber, setDepartmentNumber] = useState('')
-    const [surName, setSurName] = useState('')
-    const [patronymic, setPatronymic] = useState('')
-    const [time, setTime] = useState('')
+    const [delivery, setDelivery] = useState<DeliveryType>(
+        {
+            streetAddress: "",
+            deliveryMethod: "",
+            dateDelivery: "",
+            departmentNumber: "",
+            surName: "",
+            firstName: "",
+            patronymic: "",
+            address: "",
+            time: ""
+        })
+
 
     useEffect(() => {
         if (status === 'authenticated') {
@@ -34,13 +41,12 @@ export default function PaymentPage() {
                     setUserId(data?._id || '')
                     setUserName(data?.name || '')
                     setUserEmail(data?.email || '')
-                    setStreetAddress(data?.address || '')
+                    setDelivery({...delivery, address: data?.address || ''})
                     setPhoneNumber(data?.phone || '')
                 })
             })
         }
     }, [session, status]);
-
 
 
     async function onSubmit(e: any, data: OrderType) {
@@ -72,7 +78,6 @@ export default function PaymentPage() {
     }
 
 
-
     let total = 0
 
     for (const p of cartProducts) {
@@ -86,9 +91,8 @@ export default function PaymentPage() {
                       {
                           userId,
                           shopItems: cartProducts,
-                          contactInformation: {name: userName, email:userEmail, phone:phoneNumber},
-                          delivery: {deliveryMethod, dateDelivery, departmentNumber, firstName: userName, surName,
-                             patronymic, address: streetAddress, time},
+                          contactInformation: {name: userName, email: userEmail, phone: phoneNumber},
+                          delivery: delivery,
                           payment: paymentMethod,
                           status: false
                       }
@@ -108,9 +112,8 @@ export default function PaymentPage() {
                                 setPhoneNumber={setPhoneNumber}
                                 setUserName={setUserName}/>
 
-                            <DeliveryMethod streetAddress={streetAddress}
-                                            deliveryMethod={deliveryMethod}
-                                            setDeliveryMethod={setDeliveryMethod}/>
+                            <DeliveryMethod delivery={delivery}
+                                            setDelivery={setDelivery}/>
 
                             <PaymentMethod paymentMethod={paymentMethod}
                                            setPaymentMethod={setPaymentMethod}/>
@@ -152,5 +155,5 @@ export default function PaymentPage() {
                 </div>
             </form>
         </section>
-)
+    )
 }
