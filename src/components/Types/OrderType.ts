@@ -1,3 +1,5 @@
+import {DeliveryType} from "@/components/Types/DeliveryType";
+
 export type OrderType = {
     userId: string
     shopItems: any
@@ -6,16 +8,10 @@ export type OrderType = {
         email: String,
         phone: String,
     }
-    delivery: {
-        deliveryMethod: String,
-        dateDelivery: String,
-        departmentNumber: String,
-        firstName: String,
-        surName: String,
-        patronymic: String,
-        address: String,
-        time: String,
-    },
+    delivery: DeliveryType,
     payment: String
     status: Boolean
+    _id?: string,
+    orderNumber?: number,
+    price: number
 }

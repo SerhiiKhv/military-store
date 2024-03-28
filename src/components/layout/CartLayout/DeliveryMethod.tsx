@@ -62,7 +62,7 @@ export default function DeliveryMethod(
                                     <label>Ім'я</label>
                                     <input type="text" value={delivery.firstName}
                                            onChange={e =>
-                                               setDelivery({...delivery, nameOfTheRecipient: e.target.value})}/>
+                                               setDelivery({...delivery, firstName: e.target.value})}/>
                                 </div>
 
                                 <div className="w-full">

@@ -41,7 +41,7 @@ export default function ShopItemsPage() {
     }
 
     return (
-        <section className="p-4 mx-auto">
+        <section className="px-4 mx-auto">
             <UserTabs isAdmin={true}/>
             <div className="pt-5 flex flex-col items-center justify-center">
                 <div className="max-w-md text-center">

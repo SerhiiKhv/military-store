@@ -75,7 +75,7 @@ export default function ProfilePage() {
     }
 
     return (
-        <section className="mx-auto max-w-lg mt-8">
+        <section className="mx-auto max-w-lg">
             <UserTabs isAdmin={isAdmin}/>
 
             <UserProfileForm userData={userData} onSave={handleProfileInfoUpdate}/>

@@ -19,7 +19,7 @@ export default function PaymentPage() {
     const [userId, setUserId] = useState('')
     const [userEmail, setUserEmail] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
-    const [paymentMethod, setPaymentMethod] = useState('гпеагпеа')
+    const [paymentMethod, setPaymentMethod] = useState('cart')
     const [delivery, setDelivery] = useState<DeliveryType>(
         {
             streetAddress: "",
@@ -32,6 +32,7 @@ export default function PaymentPage() {
             address: "",
             time: ""
         })
+
 
 
     useEffect(() => {
@@ -71,8 +72,8 @@ export default function PaymentPage() {
         })
 
         await toast.promise(creatingPromise, {
-            loading: 'Creating new item',
-            success: 'Item created!',
+            loading: 'Creating new order',
+            success: 'Order created!',
             error: 'Error'
         })
     }
@@ -94,7 +95,8 @@ export default function PaymentPage() {
                           contactInformation: {name: userName, email: userEmail, phone: phoneNumber},
                           delivery: delivery,
                           payment: paymentMethod,
-                          status: false
+                          status: false,
+                          price: total
                       }
                   )}
             >

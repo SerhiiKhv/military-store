@@ -1,8 +1,17 @@
 import mongoose, { model, models, Schema } from "mongoose";
+import {ShopItemsSchema} from "@/app/models/ShopItem";
+
+const generateOrderNumber = () => {
+    let orderNumber = '';
+    for (let i = 0; i < 9; i++) {
+        orderNumber += Math.floor(Math.random() * 10); // Додаємо випадкову цифру від 0 до 9
+    }
+    return orderNumber;
+};
 
 const OrderSchema = new Schema({
     userId: { type: mongoose.Types.ObjectId, default: null },
-    shopItems: [{ type: Schema.Types.ObjectId, ref: 'ShopItemMilitaryStore' }],
+    shopItems: [{ type: ShopItemsSchema }],
     contactInformation: {
         name: { type: String},
         email: { type: String},
@@ -19,7 +28,12 @@ const OrderSchema = new Schema({
         time: { type: String },
     },
     payment: {type: String},
-    status: { type: Boolean}
+    status: { type: Boolean},
+    orderNumber: {
+        type: String,
+        default: generateOrderNumber
+    },
+    price: {type: Number}
 }, { timestamps: true });
 
 export const Order = models?.Order || model("Order", OrderSchema);
