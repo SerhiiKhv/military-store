@@ -6,21 +6,34 @@ import UserTabs from "@/components/layout/MainPageLayout/Tabs";
 import {useProfile} from "@/components/UseProfile";
 import Image from "next/image";
 import {ChevronDownIcon} from "@/components/icons/ChevronDownIcon";
+import {ChevronUpIcon} from "@/components/icons/ChevronUpIcon";
+import {ShopItemType} from "@/components/Types/ShopItem";
 
 export default function Order() {
-
-    const [orders, setOrders] = useState<OrderType[]>()
     const {loading, data} = useProfile();
-
-    console.log(orders)
+    const [orders, setOrders] = useState<OrderType[]>([]);
+    const [openOrderStates, setOpenOrderStates] = useState<{ [key: string]: boolean }>({});
 
     useEffect(() => {
         fetch('/api/order').then(res => {
             res.json().then(order => {
-                setOrders(order)
+                setOrders(order);
+                // Для кожного замовлення встановлюємо початковий стан "закрито"
+                const initialOrderStates = order.reduce((acc: any, curr: any) => {
+                    acc[curr._id] = false;
+                    return acc;
+                }, {});
+                setOpenOrderStates(initialOrderStates);
             })
         })
-    }, [])
+    }, []);
+
+    const toggleOpenOrder = (orderId: string) => {
+        setOpenOrderStates(prevStates => ({
+            ...prevStates,
+            [orderId]: !prevStates[orderId]
+        }));
+    };
 
     if (loading) {
         return 'Loading user info...'
@@ -32,54 +45,123 @@ export default function Order() {
 
     return (
         <section className="bg-gray-100">
-            <div className="my-container">
+            <div className="my-container pb-8">
                 <UserTabs isAdmin={data?.admin}/>
                 <h1 className="text-xl pb-4">My orders</h1>
-                {orders && orders.map(order => (
-                        <div className="bg-white p-4 m-2 rounded-md flex justify-between">
-                            <div>
-                                <p>№ {order.orderNumber} Дата доставки: {order.delivery.dateDelivery}</p>
+                {orders.map((order: OrderType) => (
+                    <div key={order._id}>
 
-                                {!order.status ?
-                                    <p className="text-orange-500">В процесі</p> :
-                                    <p className="text-green-500">Виконано</p>
-                                }
-                            </div>
+                        {openOrderStates[order._id || ''] ? (
+                            <div className="bg-white p-4 m-2 rounded-md">
+                                <div className="flex justify-between items-center">
+                                    <p>№ {order.orderNumber}</p>
 
-                            <div className="flex gap-2">
-                                {order.shopItems[0].image &&
-                                    <Image src={order.shopItems[0].image || '/pizza.png'}
-                                           alt={"Img menu item"}
-                                           width={50} height={50}
-                                           className="w-24"/>}
-                                {order.shopItems[1].image &&
-                                    <Image src={order.shopItems[1].image || '/pizza.png'}
-                                           alt={"Img menu item"}
-                                           width={50} height={50}
-                                           className="w-24"/>
-                                }
-                                {order.shopItems[2].image &&
-                                    <Image src={order.shopItems[2].image || '/pizza.png'}
-                                           alt={"Img menu item"}
-                                           width={50} height={50}
-                                           className="w-24"/>
-                                }
-                            </div>
-
-                            <div className="flex items-center gap-4">
-                                <div>
-                                    <p>До сплати</p>
-                                    <p className="font-semibold">{order.price}₴</p>
-                                </div>
-                                <div>
-                                    <ChevronDownIcon/>
+                                    <div onClick={() => order._id && toggleOpenOrder(order._id)}>
+                                        <ChevronUpIcon/>
+                                    </div>
                                 </div>
 
+                                <div className="grid grid-cols-[2fr,3fr]">
+                                    <div>
+                                        {!order.status ? (
+                                            <p className="text-orange-500">В процесі</p>
+                                        ) : (
+                                            <p className="text-green-500">Виконано</p>
+                                        )}
+
+                                        <div className="p-2">
+                                            {order.delivery.address && order.delivery.deliveryMethod === "courier" && (
+                                                <div>
+                                                    <h1 className="text-gray-600 text-sm">Адреса доставки курєром</h1>
+                                                    <h1>{order.delivery.address}</h1>
+                                                </div>
+                                            )}
+
+                                            {order.delivery.address && order.delivery.deliveryMethod === "department" && (
+                                                <div>
+                                                    <h1 className="text-gray-600 text-sm">Адреса доставки нової пошти</h1>
+                                                    <h1>{order.delivery.departmentNumber}</h1>
+                                                </div>
+                                            )}
+
+                                            <div className="py-2">
+                                                <h1 className="text-gray-600 text-sm">Отримувач замовлення</h1>
+                                                <h1>{order.delivery?.surName} {order.delivery?.firstName} {order.delivery?.patronymic}</h1>
+                                            </div>
+
+                                            <div className="py-2">
+                                                <h1 className="text-gray-600 text-sm">Контактна інформація</h1>
+                                                <h1>{order.contactInformation.phone}</h1>
+                                                <h1>{order.contactInformation.email}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        {order.shopItems.map((shopItem: ShopItemType, index: any) => (
+                                            <div key={index} className="flex items-center justify-between">
+                                                <div className="flex gap-2 items-center justify-between">
+                                                    <Image src={shopItem.image || '/pizza.png'} alt="Img menu item"
+                                                           width={50}
+                                                           height={50} className="w-24"/>
+
+                                                    <p>{shopItem.name}</p>
+                                                </div>
+
+                                                <p className="font-semibold">{shopItem.price}₴</p>
+                                            </div>
+                                        ))}
+
+                                        <div className="border-t">
+                                            <div className="flex justify-between">
+                                                <p>Оплата</p>
+                                                <p>{order.payment}</p>
+                                            </div>
+
+                                            <div className="flex justify-between">
+                                                <p>Доставка</p>
+                                                <p>{order.delivery.deliveryMethod}</p>
+                                            </div>
+
+                                            <div className="flex justify-between">
+                                                <p>Разом</p>
+                                                <p className="font-semibold">{order.price}₴</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    )
-                )}
+
+                        ) : (
+                            <div className="bg-white p-4 m-2 rounded-md flex justify-between">
+                                <div>
+                                    <p>№ {order.orderNumber} Дата доставки: {order.delivery.dateDelivery}</p>
+                                    {!order.status ? (
+                                        <p className="text-orange-500">В процесі</p>
+                                    ) : (
+                                        <p className="text-green-500">Виконано</p>
+                                    )}
+                                </div>
+                                <div className="flex gap-2">
+                                    {order.shopItems.map((item: any, index: any) => (
+                                        <Image key={index} src={item.image || '/pizza.png'} alt="Img menu item"
+                                               width={50}
+                                               height={50} className="w-24"/>
+                                    ))}
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <div>
+                                        <p>До сплати</p>
+                                        <p className="font-semibold">{order.price}₴</p>
+                                    </div>
+                                    <div onClick={() => order._id && toggleOpenOrder(order._id)}>
+                                        <ChevronDownIcon/>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                ))}
             </div>
         </section>
-    )
+    );
 }
