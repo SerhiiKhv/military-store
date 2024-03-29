@@ -8,6 +8,7 @@ import Image from "next/image";
 import {ChevronDownIcon} from "@/components/icons/ChevronDownIcon";
 import {ChevronUpIcon} from "@/components/icons/ChevronUpIcon";
 import {ShopItemType} from "@/components/Types/ShopItem";
+import Link from "next/link";
 
 export default function Order() {
     const {loading, data} = useProfile();
@@ -100,13 +101,15 @@ export default function Order() {
                                     <div>
                                         {order.shopItems.map((shopItem: ShopItemType, index: any) => (
                                             <div key={index} className="flex items-center justify-between">
-                                                <div className="flex gap-2 items-center justify-between">
+                                                <Link href={`/shop-item/review/${shopItem._id}`}
+                                                      target="_blank"
+                                                      className="flex gap-2 items-center justify-between">
                                                     <Image src={shopItem.image || '/pizza.png'} alt="Img menu item"
                                                            width={50}
                                                            height={50} className="w-24"/>
 
                                                     <p>{shopItem.name}</p>
-                                                </div>
+                                                </Link>
 
                                                 <p className="font-semibold">{shopItem.price}₴</p>
                                             </div>
