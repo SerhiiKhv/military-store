@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import {usePathname} from "next/navigation";
 
-export default function UserTabs({isAdmin} : {isAdmin: boolean}){
+export default function UserTabs({isAdmin} : {isAdmin?: boolean}){
 
     const path = usePathname()
 

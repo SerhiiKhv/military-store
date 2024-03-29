@@ -5,4 +5,5 @@ export type profileType = {
     address: string,
     phone: string,
     admin: boolean,
+    _id: string
 }

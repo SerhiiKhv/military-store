@@ -15,18 +15,23 @@ export default function Order() {
     const [openOrderStates, setOpenOrderStates] = useState<{ [key: string]: boolean }>({});
 
     useEffect(() => {
+        if (!data) return;
+        const userId = data?._id;
+
         fetch('/api/order').then(res => {
             res.json().then(order => {
-                setOrders(order);
-                // Для кожного замовлення встановлюємо початковий стан "закрито"
-                const initialOrderStates = order.reduce((acc: any, curr: any) => {
+                const userOrders = order.filter((order: OrderType) => order.userId === userId);
+
+                const initialOrderStates = userOrders.reduce((acc: any, curr: any) => {
                     acc[curr._id] = false;
                     return acc;
                 }, {});
+
+                setOrders(userOrders);
                 setOpenOrderStates(initialOrderStates);
             })
         })
-    }, []);
+    }, [data]);
 
     const toggleOpenOrder = (orderId: string) => {
         setOpenOrderStates(prevStates => ({
@@ -39,14 +44,10 @@ export default function Order() {
         return 'Loading user info...'
     }
 
-    if (!data?.admin) {
-        return "Not an admin"
-    }
-
     return (
         <section className="bg-gray-100">
             <div className="my-container pb-8">
-                <UserTabs isAdmin={data?.admin}/>
+                <UserTabs/>
                 <h1 className="text-xl pb-4">My orders</h1>
                 {orders.map((order: OrderType) => (
                     <div key={order._id}>
