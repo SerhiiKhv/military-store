@@ -23,22 +23,28 @@ export default function ShopItemsForMenu(item: ShopItemType) {
             <div>
                 <Link href={`/shop-item/review/${item._id}`}>
                     <div className="flex flex-col items-center justify-center">
-                        <Image src={item.image || '/pizza.png'} alt={"Img shop item"} width={250}
+                        <Image src={item.image[0] || '/pizza.png'} alt={"Img shop item"} width={250}
                                height={250}
                                className="rounded-xl mb-1 aspect-square object-cover"/>
                     </div>
 
                     <span className="">{item.name}</span>
+
                 </Link>
 
                 <div className="flex items-center justify-between">
                     <p className="font-semibold">{item.price} грн.</p>
 
-                    <button type="button"
-                            className="button"
-                            onClick={handleAddToCartButtonClick}>
-                        <ShoppingCartIcon/>
-                    </button>
+                    <div>
+                        {item.availability ?
+                            <button type="button"
+                                    className="button"
+                                    onClick={handleAddToCartButtonClick}>
+                                <ShoppingCartIcon/>
+                            </button> :
+                            "Немає в наявності"
+                        }
+                    </div>
                 </div>
             </div>
         </div>

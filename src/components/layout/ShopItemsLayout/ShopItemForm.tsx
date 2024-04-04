@@ -9,21 +9,25 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
     const [name, setName] = useState(shopItem?.name || "")
     const [description, setDescription] = useState(shopItem?.description || "")
     const [price, setPrice] = useState(shopItem?.price || 0)
-    const [image, setImage] = useState(shopItem?.image || "")
+    const [image, setImage] = useState(shopItem?.image || [])
     const [category, setCategory] = useState(shopItem?.category || "Pizza");
     const [categories, setCategories] = useState([]);
+    const [availability, setAvailability] = useState<boolean>(shopItem?.availability || false);
+    const [cod, setCod] = useState(shopItem?.cod || 0);
 
-    const [photoLink, setPhotoLink] = useState(shopItem?.image || '')
+    const [photoLink, setPhotoLink] = useState(shopItem?.image[0] || '')
     const [isFormValid, setIsFormValid] = useState(false);
 
     useEffect(() => {
         setName(shopItem?.name || "")
         setDescription(shopItem?.description || "")
         setPrice(shopItem?.price || 0)
-        setImage(shopItem?.image || "")
+        setImage(shopItem?.image || [])
         setId(shopItem?._id || "")
         setCategory(shopItem?.category || "Pizza")
-        setPhotoLink(shopItem?.image || "")
+        setPhotoLink(shopItem?.image[0] || "")
+        setAvailability(shopItem?.availability || false)
+        setCod(shopItem?.cod || 0)
     }, [shopItem]);
 
     useEffect(() => {
@@ -38,13 +42,13 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
     return (
         <form className="p-4 mx-auto"
               onSubmit={e => onSubmit(e,
-                  {_id, name, description, price, image: photoLink, category}
+                  {_id, name, description, price, image: photoLink, category, availability, cod}
               )}
         >
             <div className="grid grid-cols-[1fr,1fr,1fr] gap-2">
 
                 <AddedImageViaLink photoLink={photoLink} setPhotoLink={setPhotoLink}
-                                   image={image} setIsFormValid={setIsFormValid}/>
+                                   image={image[0]} setIsFormValid={setIsFormValid}/>
 
                 <div className="flex gap-2">
                     <div className="grow">
@@ -70,18 +74,31 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
                                 <option value={c._id}>{c.name}</option>
                             ))}
                         </select>
+
+                        <div className="flex items-center justify-center">
+                            <button type="submit"
+                                    className="mt-2 max-w-lg w-full"
+                                    disabled={isFormValid}>
+                                Save
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div className="flex items-center justify-center">
-                <button type="submit"
-                        className="mt-2 max-w-lg"
-                        disabled={isFormValid}>
-                    Save
-                </button>
-            </div>
+                <div>
+                    <label>Cod product: </label>
+                    <input type="number" value={cod}
+                           onChange={(e) => setCod(+e.target.value)}/>
 
+                    <div className="flex justify-ceneter gap-2">
+                        <h1>Availability: </h1>
+                        <input type="radio"
+                               value="courier" checked={availability}
+                               onClick={() => setAvailability(!availability)}/>
+                    </div>
+
+                </div>
+            </div>
         </form>
     )
 }

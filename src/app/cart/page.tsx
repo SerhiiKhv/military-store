@@ -38,7 +38,7 @@ export default function CartPage() {
                         {cartProducts?.length > 0 && cartProducts.map((product: ShopItemType, index: number) => (
                             <div className="grid grid-cols-[3fr,1fr] gap-4 mb-4 border-b py-2 bg-white rounded-md">
                                 <div className="flex gap-4 p-2">
-                                    <Image src={product.image || '/pizza.png'}
+                                    <Image src={product.image[0] || '/pizza.png'}
                                            alt={"Img menu item"}
                                            width={250} height={250}
                                            className="w-24"/>
@@ -46,7 +46,7 @@ export default function CartPage() {
                                     <div className="grow">
                                         <h3> {product.name} name</h3>
 
-                                        <p className="text-gray-400 text-sm mt-1">Код товара: 1111111</p>
+                                        <p className="text-gray-400 text-sm mt-1">Код товара: {product.cod}</p>
                                         <div>
                                             <button
                                                 type="button"

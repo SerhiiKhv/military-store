@@ -66,7 +66,7 @@ export default function ReviewShopItemPageID() {
 
                 <div className="grid grid-cols-2 gap-2">
                     <div className="bg-white rounded-md flex items-center justify-center">
-                        <Image src={shopItems?.image || '/whiteBG.png'} alt={"Img shop item"} width={700}
+                        <Image src={shopItems?.image[0] || '/whiteBG.png'} alt={"Img shop item"} width={700}
                                height={700}
                                className="rounded-xl mb-1 aspect-square object-cover m-4"/>
                     </div>

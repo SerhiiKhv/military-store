@@ -29,7 +29,7 @@ export default function UserTabs({isAdmin} : {isAdmin?: boolean}){
 
                     <Link className={path.includes('/shop-items') ? "active" : ''}
                           href={'/shop-items'}>
-                        Menu Items
+                        Shop Items
                     </Link>
 
                     <Link className={path.includes('/users') ? "active" : ''}

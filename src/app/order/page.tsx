@@ -48,7 +48,7 @@ export default function Order() {
     return (
         <section className="bg-gray-100">
             <div className="my-container pb-8">
-                <UserTabs/>
+                <UserTabs isAdmin={data?.admin}/>
                 <h1 className="text-xl pb-4">My orders</h1>
                 {orders.map((order: OrderType) => (
                     <div key={order._id}>
@@ -104,7 +104,7 @@ export default function Order() {
                                                 <Link href={`/shop-item/review/${shopItem._id}`}
                                                       target="_blank"
                                                       className="flex gap-2 items-center justify-between">
-                                                    <Image src={shopItem.image || '/pizza.png'} alt="Img menu item"
+                                                    <Image src={shopItem.image[0] || '/pizza.png'} alt="Img menu item"
                                                            width={50}
                                                            height={50} className="w-24"/>
 
@@ -147,7 +147,7 @@ export default function Order() {
                                 </div>
                                 <div className="flex gap-2">
                                     {order.shopItems.map((item: any, index: any) => (
-                                        <Image key={index} src={item.image || '/pizza.png'} alt="Img menu item"
+                                        <Image key={index} src={item.image[0] || '/pizza.png'} alt="Img menu item"
                                                width={50}
                                                height={50} className="w-24"/>
                                     ))}

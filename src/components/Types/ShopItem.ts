@@ -3,6 +3,8 @@ export type ShopItemType = {
     _id: string,
     description: string,
     price: number,
-    image: string,
-    category: string
+    image: [string],
+    category: string,
+    availability: boolean,
+    cod: number,
 }

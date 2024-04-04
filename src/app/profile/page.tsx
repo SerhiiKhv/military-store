@@ -2,7 +2,6 @@
 
 import {signOut, useSession} from "next-auth/react";
 import {redirect} from "next/navigation";
-import Image from "next/image";
 import React, {useEffect, useState} from "react";
 import toast from "react-hot-toast";
 import UserTabs from "@/components/layout/MainPageLayout/Tabs";

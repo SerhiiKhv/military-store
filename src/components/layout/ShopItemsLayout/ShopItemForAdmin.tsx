@@ -12,7 +12,7 @@ export default function ShopItemsForAdmin(item: ShopItemType) {
 
             <Link href={`/shop-items/edit/${item._id}`}>
                 <div className="flex flex-col items-center justify-center">
-                    <Image src={item.image || '/pizza.png'} alt={"Img shop item"} width={250}
+                    <Image src={item.image[0] || '/pizza.png'} alt={"Img shop item"} width={250}
                            height={250}
                            className="rounded-xl mb-1 aspect-square object-cover"/>
                 </div>
@@ -26,6 +26,7 @@ export default function ShopItemsForAdmin(item: ShopItemType) {
                 </p>
 
                 <p className="font-semibold">{item.price} грн.</p>
+                <p>{item.availability? "Є в наявності" : "Немає в наявності"}</p>
             </Link>
         </div>
     )
