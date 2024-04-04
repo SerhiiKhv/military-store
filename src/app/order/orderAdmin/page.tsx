@@ -12,29 +12,26 @@ export default function Order() {
 
     useEffect(() => {
         if (!data) return;
-        const userId = data?._id;
 
         fetch('/api/order').then(res => {
             res.json().then(order => {
-                const userOrders = order.filter((order: OrderType) => order.userId === userId);
-
-                const initialOrderStates = userOrders.reduce((acc: any, curr: any) => {
+                const initialOrderStates = order.reduce((acc: any, curr: any) => {
                     acc[curr._id] = false;
                     return acc;
                 }, {});
 
-                setOrders(userOrders.reverse());
+                setOrders(order);
                 setOpenOrderStates(initialOrderStates);
             })
         })
     }, [data]);
-
 
     return (
         <section>
             <OrderList orders={orders}
                        openOrderStates={openOrderStates}
                        setOpenOrderStates={setOpenOrderStates}
+                       isAdminPage={true}
                        setOrders={setOrders}/>
         </section>
     );
