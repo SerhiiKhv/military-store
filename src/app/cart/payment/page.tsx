@@ -10,11 +10,15 @@ import PaymentMethod from "@/components/layout/CartLayout/PaymentMethod";
 import toast from "react-hot-toast";
 import {OrderType} from "@/components/Types/OrderType";
 import {DeliveryType} from "@/components/Types/DeliveryType";
+import {useRouter} from "next/navigation";
 
 export default function PaymentPage() {
+    const router = useRouter()
     const session = useSession()
+
     const {status} = session
-    const {cartProducts} = useContext(CartContext) as any;
+    const {cartProducts, clearCart} = useContext(CartContext) as any;
+
     const [userName, setUserName] = useState('')
     const [userId, setUserId] = useState('')
     const [userEmail, setUserEmail] = useState('')
@@ -32,7 +36,6 @@ export default function PaymentPage() {
             address: "",
             time: ""
         })
-
 
 
     useEffect(() => {
@@ -66,6 +69,7 @@ export default function PaymentPage() {
                 } else {
                     reject();
                 }
+                submitForm()
             } catch (error) {
                 reject(error);
             }
@@ -76,6 +80,11 @@ export default function PaymentPage() {
             success: 'Order created!',
             error: 'Error'
         })
+    }
+
+    function submitForm() {
+            router.replace("/order");
+            clearCart()
     }
 
 
@@ -151,7 +160,6 @@ export default function PaymentPage() {
                                     Оформити замовлення
                                 </button>
                             </div>
-
                         </div>
                     </div>
                 </div>

@@ -28,7 +28,7 @@ export default function Order() {
                     return acc;
                 }, {});
 
-                setOrders(userOrders);
+                setOrders(userOrders.reverse());
                 setOpenOrderStates(initialOrderStates);
             })
         })
@@ -81,7 +81,8 @@ export default function Order() {
 
                                             {order.delivery.address && order.delivery.deliveryMethod === "department" && (
                                                 <div>
-                                                    <h1 className="text-gray-600 text-sm">Адреса доставки нової пошти</h1>
+                                                    <h1 className="text-gray-600 text-sm">Адреса доставки нової
+                                                        пошти</h1>
                                                     <h1>{order.delivery.departmentNumber}</h1>
                                                 </div>
                                             )}
