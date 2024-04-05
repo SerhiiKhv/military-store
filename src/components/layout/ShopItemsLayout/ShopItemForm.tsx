@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {ShopItemType} from "@/components/Types/ShopItem";
 import {CategoryType} from "@/components/Types/CategoryType";
-import AddedImageViaLink from "@/components/layout/PhotoLayout/AddedImageViaLink";
+import AddedImagePhotoLinkList from "@/components/layout/PhotoLayout/AddedImagePhotoLinkList";
 
 export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shopItem: ShopItemType | null }) {
 
@@ -9,7 +9,7 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
     const [name, setName] = useState(shopItem?.name || "")
     const [description, setDescription] = useState(shopItem?.description || "")
     const [price, setPrice] = useState(shopItem?.price || 0)
-    const [image, setImage] = useState(shopItem?.image || [])
+    const [image, setImage] = useState(shopItem?.image || [''])
     const [category, setCategory] = useState(shopItem?.category || "Pizza");
     const [categories, setCategories] = useState([]);
     const [availability, setAvailability] = useState<boolean>(shopItem?.availability || false);
@@ -22,7 +22,7 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
         setName(shopItem?.name || "")
         setDescription(shopItem?.description || "")
         setPrice(shopItem?.price || 0)
-        setImage(shopItem?.image || [])
+        setImage(shopItem?.image || [''])
         setId(shopItem?._id || "")
         setCategory(shopItem?.category || "Pizza")
         setPhotoLink(shopItem?.image[0] || "")
@@ -42,13 +42,13 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
     return (
         <form className="p-4 mx-auto"
               onSubmit={e => onSubmit(e,
-                  {_id, name, description, price, image: photoLink, category, availability, cod}
+                  {_id, name, description, price, image, category, availability, cod}
               )}
         >
             <div className="grid grid-cols-[1fr,1fr,1fr] gap-2">
 
-                <AddedImageViaLink photoLink={photoLink} setPhotoLink={setPhotoLink}
-                                   image={image[0]} setIsFormValid={setIsFormValid}/>
+                <AddedImagePhotoLinkList photoLink={photoLink} setPhotoLink={setPhotoLink}
+                                   image={image} setIsFormValid={setIsFormValid} setImage={setImage}/>
 
                 <div className="flex gap-2">
                     <div className="grow">
@@ -96,7 +96,6 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
                                value="courier" checked={availability}
                                onClick={() => setAvailability(!availability)}/>
                     </div>
-
                 </div>
             </div>
         </form>

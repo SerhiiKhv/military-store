@@ -10,18 +10,24 @@ export default function ShopItemsList(
             id: string
         }){
 
+    const filteredShopItems = shopItems.filter((item: ShopItemType) => item.category === id);
+    const hasItems = filteredShopItems.length > 0;
+
     return (
         <div>
-            <p className="text-2xl font-bold">{categoryName}</p>
+            {hasItems && (
+                <>
+                    <p className="text-2xl font-bold">{categoryName}</p>
 
-            <div className="grid grid-cols-5 gap-2">
-                {shopItems
-                    .filter((item: ShopItemType) => item.category === id)
-                    .slice(0, 5)
-                    .map((item: ShopItemType) => (
-                        <ShopItemsForMenu {...item} key={item._id}/>
-                    ))}
-            </div>
+                    <div className="grid grid-cols-5 gap-2">
+                        {filteredShopItems
+                            .slice(0, 5)
+                            .map((item: ShopItemType) => (
+                                <ShopItemsForMenu {...item} key={item._id}/>
+                            ))}
+                    </div>
+                </>
+            )}
         </div>
     )
 }

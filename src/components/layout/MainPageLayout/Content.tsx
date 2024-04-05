@@ -3,7 +3,6 @@ import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import {CategoryType} from "@/components/Types/CategoryType";
 import {ShopItemType} from "@/components/Types/ShopItem";
-import ShopItemsForMenu from "@/components/layout/ShopItemsLayout/ShopItemsForMenu";
 import Link from "next/link";
 import {GetCategories, GetShopItems} from "@/app/ApiRequest/ApiRequest";
 import ShopItemsList from "@/components/layout/ShopItemsLayout/ShopItemsList";
