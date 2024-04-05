@@ -74,18 +74,19 @@ export default function ProfilePage() {
     }
 
     return (
-        <section className="mx-auto max-w-lg">
+        <section>
             <UserTabs isAdmin={isAdmin}/>
 
-            <UserProfileForm userData={userData} onSave={handleProfileInfoUpdate}/>
-            <div className="flex items-center justify-center mt-3 w-full">
-                <button
-                    onClick={() => signOut()}
-                    className="delete px-4 py-2 rounded-full w-1/2">
-                    Logout
-                </button>
+            <div className="mx-auto max-w-lg">
+                <UserProfileForm userData={userData} onSave={handleProfileInfoUpdate}/>
+                <div className="flex items-center justify-center mt-3 w-full">
+                    <button
+                        onClick={() => signOut()}
+                        className="delete px-4 py-2 rounded-full w-1/2">
+                        Logout
+                    </button>
+                </div>
             </div>
-
         </section>
     )
 }

@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import {Order} from "@/app/models/Order";
-import {CategoriesMilitaryStore} from "@/app/models/Category";
 
 export async function POST(req: any) {
     await mongoose.connect(String(process.env.MONGO_URL));

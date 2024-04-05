@@ -99,63 +99,65 @@ export default function CategoriesPage() {
     }
 
     return (
-        <section className="max-w-lg mx-auto">
+        <section>
             <UserTabs isAdmin={data?.admin}/>
 
-            <form className="mt-8" onSubmit={handleCategorySubmit}>
-                <div className="flex gap-2 items-end">
-                    <div className="grow">
-                        <label>
-                            {editedCategory ? 'Update category name' : 'New category name'}
-                            {editedCategory && (
-                                <>
-                                    :<b>{editedCategory.name}</b>
-                                </>
-                            )}
-                        </label>
-                        <input type="text"
-                               value={categoryName}
-                               onChange={e => setCategoryName(e.target.value)}/>
-                    </div>
+            <div className="max-w-lg mx-auto">
+                <form className="mt-8" onSubmit={handleCategorySubmit}>
+                    <div className="flex gap-2 items-end">
+                        <div className="grow">
+                            <label>
+                                {editedCategory ? 'Update category name' : 'New category name'}
+                                {editedCategory && (
+                                    <>
+                                        :<b>{editedCategory.name}</b>
+                                    </>
+                                )}
+                            </label>
+                            <input type="text"
+                                   value={categoryName}
+                                   onChange={e => setCategoryName(e.target.value)}/>
+                        </div>
 
-                    <div className="pb-4">
-                        <button type="submit">
-                            {editedCategory ? 'Update' : 'Create'}
-                        </button>
-                    </div>
-                </div>
-            </form>
-
-            <div>
-                <h2 className="text-gray-500">edit category: </h2>
-                {categories?.length > 0 && categories.map((c: CategoryType) => (
-                    <div className="bg-gray-200 rounded-xl px-4 py-1 gap-2 cursor-pointer mb-2">
-                        <div
-                            className="flex graw justify-between items-center"
-                           >
-                            <span key={c._id}>{c.name}</span>
-
-                            <div className="flex gap-1">
-                                <button
-                                    className="flex rounded-xl px-4 py-2 gap-2 cursor-pointer"
-                                    onClick={() => {
-                                        setEditedCategory((c))
-                                        setCategoryName(c.name)
-                                    }}>
-                                    edit
-                                    <EditIcon />
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => handleCategoryDelete(c._id)}
-                                    className="delete flex bg-white rounded-xl px-4 py-2 cursor-pointer text-black">
-                                    delete
-                                    <DeleteIcon />
-                                </button>
-                            </div>
+                        <div className="pb-4">
+                            <button type="submit">
+                                {editedCategory ? 'Update' : 'Create'}
+                            </button>
                         </div>
                     </div>
-                ))}
+                </form>
+
+                <div>
+                    <h2 className="text-gray-500">edit category: </h2>
+                    {categories?.length > 0 && categories.map((c: CategoryType) => (
+                        <div className="bg-gray-200 rounded-xl px-4 py-1 gap-2 cursor-pointer mb-2">
+                            <div
+                                className="flex graw justify-between items-center"
+                            >
+                                <span key={c._id}>{c.name}</span>
+
+                                <div className="flex gap-1">
+                                    <button
+                                        className="flex rounded-xl px-4 py-2 gap-2 cursor-pointer"
+                                        onClick={() => {
+                                            setEditedCategory((c))
+                                            setCategoryName(c.name)
+                                        }}>
+                                        edit
+                                        <EditIcon/>
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => handleCategoryDelete(c._id)}
+                                        className="delete flex bg-white rounded-xl px-4 py-2 cursor-pointer text-black">
+                                        delete
+                                        <DeleteIcon/>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
         </section>
     )

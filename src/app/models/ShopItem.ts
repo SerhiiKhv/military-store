@@ -7,7 +7,7 @@ export const ShopItemsSchema = new Schema({
     image: { type: [String] },
     category: {type: mongoose.Types.ObjectId},
     availability: {type: Boolean},
-    cod: {type: Number, unique: true}
+    cod: {type: Number}
 }, { timestamps: true });
 
 export const ShopItemMilitaryStore = models?.ShopItemMilitaryStore || model('ShopItemMilitaryStore', ShopItemsSchema);

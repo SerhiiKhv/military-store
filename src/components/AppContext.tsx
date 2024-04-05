@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 interface CartContextProps {
     cartProducts: any[];
     setCartProducts: React.Dispatch<React.SetStateAction<any[]>>;
-    addToCart: (product: any, size?: any, extras?: any[] | undefined) => void;
+    addToCart: (product: any) => void;
     removeCartProduct: (indexToRemove: number) => void;
     clearCart: () => void;
 }
@@ -48,9 +48,9 @@ export function AppProvider({children}: { children: ReactNode }) {
         }
     }
 
-    function addToCart(product: any, size: any = null, extras: any[] | undefined = []) {
+    function addToCart(product: any) {
         setCartProducts((prevProduct) => {
-            const cartProducts = {...product, size, extras};
+            const cartProducts = {...product};
             const newProducts = [...prevProduct, cartProducts]
             saveCartProductsToLocalStorage(newProducts)
             return newProducts;
