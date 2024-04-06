@@ -2,6 +2,8 @@ import Image from "next/image";
 import React, {useEffect, useState} from "react";
 import {DeleteIcon} from "@/components/icons/DeleteIcon";
 import {EditIcon} from "@/components/icons/EditIcon";
+import {ArrowLeftIcon} from "@/components/icons/ArrowLeftIcon";
+import {VscChevronLeft, VscChevronRight} from "react-icons/vsc";
 
 export default function AddedImagePhotoLinkList(
     {photoLink, image, setPhotoLink, setIsFormValid, setImage}:
@@ -19,6 +21,7 @@ export default function AddedImagePhotoLinkList(
     const [inputFocused, setInputFocused] = useState('');
     const [numInputs, setNumInputs] = useState(image.length);
     const [photoIndex, setPhotoIndex] = useState(0);
+    const [activePhotoIndex, setActivePhotoIndex] = useState(0);
 
     useEffect(() => {
         setNumInputs(image.length)
@@ -75,25 +78,44 @@ export default function AddedImagePhotoLinkList(
 
     return (
         <div className="bg-gray-100 p-2 rounded-2xl items-center my-auto">
-            <div className="flex gap-1">
-                <div>
+            <div>
+                <div className="relative">
+                    <button
+                        className="buttonWithoutP flex gap-1 absolute bg-gray-200 rounded-2xl px-4 py-4
+                            bottom-1/2 left-2"
+                        type="button"
+                        onClick={() => setPhotoIndex(photoIndex > 0 ? photoIndex - 1 : image.length - 1)}>
+                        <VscChevronLeft/>
+                    </button>
+
                     <Image src={image[photoIndex] || '/pizza.png'} alt={"avatar"} width={250} height={250}
                            className="rounded-xl w-full h-full mb-1 aspect-square object-cover"/>
+
+                    <button
+                        className="buttonWithoutP flex gap-1 absolute bg-gray-200 rounded-2xl px-4 py-4
+                            bottom-1/2 right-2"
+                        type="button"
+                        onClick={() => setPhotoIndex(photoIndex < image.length - 1 ? photoIndex + 1 : 0)}>
+                        <VscChevronRight/>
+                    </button>
                 </div>
+
+
+                <div className="flex gap-2">
+                    {[...Array(numInputs)].map((_, index) => (
+                        <div
+                            onClick={() => setPhotoIndex(index)}>
+                            <Image src={image[index] || '/pizza.png'} alt={"avatar"} width={50} height={50}
+                                   className={`rounded-xl w-full h-full mb-1 aspect-square object-cover ${index !== photoIndex ? "" : "border border-neonNazar"}`}
+                            />
+                        </div>
+                ))}
             </div>
 
-            <button
-                type="button"
-                onClick={() => setPhotoIndex(photoIndex <= image.length? photoIndex + 1: 0)}>
-                +
-            </button>
-            <button
-                type="button"
-                onClick={() => setPhotoIndex(photoIndex - 1)}>
-                -
-            </button>
-            <div>
-                {errors.photoLink && <p className="text-red-500 -mb-4">{errors.photoLink}</p>}
+        </div>
+
+    <div>
+    {errors.photoLink && <p className="text-red-500 -mb-4">{errors.photoLink}</p>}
                 <div className="grid grid-cols-1 items-end gap-1">
                     <div>
                         <label>Photo link</label>
