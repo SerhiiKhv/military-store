@@ -1,3 +1,8 @@
+export type RatingType = {
+    userId: string,
+    rate: number
+}
+
 export type ShopItemType = {
     name: string,
     _id: string,
@@ -7,4 +12,5 @@ export type ShopItemType = {
     category: string,
     availability: boolean,
     cod: number,
+    rating: RatingType[]
 }

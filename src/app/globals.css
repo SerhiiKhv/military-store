@@ -52,7 +52,6 @@ label{
     @apply text-gray-500 text-sm leading-tight;
 }
 
-button,
 .button{
     @apply font-semibold bg-gradient-to-br from-neonNazar to-blue-600 text-white;
     @apply border border-gray-300 rounded-xl py-2 px-4

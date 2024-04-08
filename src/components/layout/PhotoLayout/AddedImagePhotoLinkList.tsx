@@ -1,35 +1,26 @@
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
 import {DeleteIcon} from "@/components/icons/DeleteIcon";
-import {EditIcon} from "@/components/icons/EditIcon";
-import {ArrowLeftIcon} from "@/components/icons/ArrowLeftIcon";
 import {VscChevronLeft, VscChevronRight} from "react-icons/vsc";
 
 export default function AddedImagePhotoLinkList(
-    {photoLink, image, setPhotoLink, setIsFormValid, setImage}:
+    {photoLink, image, setIsFormValid, setImage}:
         {
             image: string[],
             photoLink: string,
-            setPhotoLink: any,
             setIsFormValid: any,
             setImage: any
         }
 ) {
 
-    const [imagePhotoLink, setImagePhotoLink] = useState(image[0] || '');
     const [errors, setErrors] = useState({photoLink: '',});
     const [inputFocused, setInputFocused] = useState('');
     const [numInputs, setNumInputs] = useState(image.length);
     const [photoIndex, setPhotoIndex] = useState(0);
-    const [activePhotoIndex, setActivePhotoIndex] = useState(0);
 
     useEffect(() => {
         setNumInputs(image.length)
     }, [image.length]);
-
-    useEffect(() => {
-        setImagePhotoLink(image[0] || '')
-    }, [photoLink]);
 
     const handleInputFocus = (fieldName: string) => {
         setInputFocused(fieldName);
@@ -88,7 +79,7 @@ export default function AddedImagePhotoLinkList(
                         <VscChevronLeft/>
                     </button>
 
-                    <Image src={image[photoIndex] || '/pizza.png'} alt={"avatar"} width={250} height={250}
+                    <Image src={image[photoIndex] || '/pizza.png'} alt={"avatar"} width={1000} height={1000}
                            className="rounded-xl w-full h-full mb-1 aspect-square object-cover"/>
 
                     <button
@@ -109,13 +100,13 @@ export default function AddedImagePhotoLinkList(
                                    className={`rounded-xl w-full h-full mb-1 aspect-square object-cover ${index !== photoIndex ? "" : "border border-neonNazar"}`}
                             />
                         </div>
-                ))}
+                    ))}
+                </div>
+
             </div>
 
-        </div>
-
-    <div>
-    {errors.photoLink && <p className="text-red-500 -mb-4">{errors.photoLink}</p>}
+            <div>
+                {errors.photoLink && <p className="text-red-500 -mb-4">{errors.photoLink}</p>}
                 <div className="grid grid-cols-1 items-end gap-1">
                     <div>
                         <label>Photo link</label>

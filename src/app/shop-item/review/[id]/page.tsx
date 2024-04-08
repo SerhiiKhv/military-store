@@ -10,6 +10,9 @@ import {StarsIcon} from "@/components/icons/StarsIcon";
 import ShoppingCartIcon from "@/components/icons/ShoppingCartIcon";
 import {CartContext} from "@/components/AppContext";
 import toast from "react-hot-toast";
+import {VscChevronLeft, VscChevronRight} from "react-icons/vsc";
+import {GetCategories, GetShopItemID} from "@/app/ApiRequest/ApiRequest";
+import ShopItemFormRating from "@/components/layout/ShopItemsLayout/ShopItemFormRating";
 
 export default function ReviewShopItemPageID() {
 
@@ -19,31 +22,22 @@ export default function ReviewShopItemPageID() {
     const [shopItems, setShopItems] = useState<ShopItemType>()
     const [categories, setCategories] = useState<CategoryType[]>()
     const [categoryName, setCategoryName] = useState('')
-
+    const [photoIndex, setPhotoIndex] = useState(0);
+    const [numInputs, setNumInputs] = useState(shopItems?.image?.length || 0);
     function handleAddToCartButtonClick() {
-            addToCart(shopItems)
-            toast.success('Added to cart!')
+        addToCart(shopItems)
+        toast.success('Added to cart!')
     }
 
     useEffect(() => {
-        fetch('/api/shop-items').then(res => {
-            res.json().then(items => {
-                const item = items.find((i: any) => i._id === id)
-                setShopItems(item)
-            })
-        })
-
-        fetch('/api/categories').then(res => {
-            res.json().then(categories => {
-                setCategories(categories)
-            })
-        })
+        GetShopItemID(setShopItems, id)
+        GetCategories(setCategories)
     }, []);
 
     useEffect(() => {
         checkCategory()
-    }, [shopItems, categories]);
-
+        setNumInputs(shopItems?.image?.length || 0)
+    }, [categories]);
 
     function checkCategory() {
         if (categories && shopItems) {
@@ -59,51 +53,75 @@ export default function ReviewShopItemPageID() {
     return (
         <section className="bg-gray-100">
             <div className="my-container">
-                <div className="flex items-center gap-1 py-6">
-                    <HomeIcon/>
-                    {categoryName}
-                </div>
+                {shopItems && (
+                    <div>
+                        <div className="flex items-center gap-1 py-6">
+                            <HomeIcon/>
+                            {categoryName}
+                        </div>
 
-                <div className="grid grid-cols-2 gap-2">
-                    <div className="bg-white rounded-md flex items-center justify-center">
-                        <Image src={shopItems?.image[0] || '/whiteBG.png'} alt={"Img shop item"} width={700}
-                               height={700}
-                               className="rounded-xl mb-1 aspect-square object-cover m-4"/>
-                    </div>
+                        <div className="grid grid-cols-2 gap-2">
+                            <div>
+                                <div className="relative">
+                                    <button
+                                        className="buttonWithoutP flex gap-1 absolute bg-gray-200 rounded-2xl px-4 py-4
+                            bottom-1/2 left-2"
+                                        type="button"
+                                        onClick={() => setPhotoIndex(photoIndex > 0 ? photoIndex - 1 : shopItems.image.length - 1)}>
+                                        <VscChevronLeft/>
+                                    </button>
 
-                    <div className="space-y-2">
-                        <h1 className="font-semibold text-3xl pb-4 bg-white p-8 rounded-md">
-                            {shopItems?.name}
-                        </h1>
+                                    <Image src={shopItems?.image[photoIndex] || '/pizza.png'} alt={"avatar"}
+                                           width={1000}
+                                           height={1000}
+                                           className="rounded-xl w-full h-full mb-1 aspect-square object-cover"/>
 
-                        <div className="flex gap-1 bg-white p-8 rounded-md">
-                            <div className="flex">
-                                <StarsIcon/>
-                                <StarsIcon/>
-                                <StarsIcon/>
-                                <StarsIcon/>
-                                <StarsIcon/>
+                                    <button
+                                        className="buttonWithoutP flex gap-1 absolute bg-gray-200 rounded-2xl px-4 py-4
+                            bottom-1/2 right-2"
+                                        type="button"
+                                        onClick={() => setPhotoIndex(photoIndex < shopItems.image.length - 1 ? photoIndex + 1 : 0)}>
+                                        <VscChevronRight/>
+                                    </button>
+                                </div>
+
+                                <div className="flex gap-2">
+                                    {[...Array(numInputs)].map((_, index) => (
+                                        <div
+                                            onClick={() => setPhotoIndex(index)}>
+                                            <Image src={shopItems.image[index] || '/pizza.png'} alt={"avatar"} width={50}
+                                                   height={50}
+                                                   className={`rounded-xl w-full h-full mb-1 aspect-square object-cover ${index !== photoIndex ? "" : "border border-neonNazar"}`}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
 
+                            <div className="space-y-2">
+                                <h1 className="font-semibold text-3xl pb-4 bg-white p-8 rounded-md">
+                                    {shopItems?.name}
+                                </h1>
 
-                            <h1>0 відгуків</h1>
+                                <ShopItemFormRating shopItem={shopItems}/>
+
+                                <div className="flex items-center gap-2 bg-white p-8 rounded-md">
+                                    <h1 className="text-2xl font-semibold">{shopItems?.price} ₴</h1>
+
+                                    <button type="button"
+                                            className="button flex items-center justify-center gap-2"
+                                            onClick={handleAddToCartButtonClick}>
+                                    <ShoppingCartIcon/> Купити
+                                    </button>
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="flex items-center gap-2 bg-white p-8 rounded-md">
-                            <h1 className="text-2xl font-semibold">{shopItems?.price} ₴</h1>
-
-                            <button type="button"
-                                    className="button flex items-center justify-center gap-2"
-                                    onClick={handleAddToCartButtonClick}>
-                                <ShoppingCartIcon/> Купити
-                            </button>
+                        <div className="py-6">
+                            <p className="text-xl">{shopItems?.description}</p>
                         </div>
                     </div>
-                </div>
-
-                <div className="py-6">
-                    <p className="text-xl">{shopItems?.description}</p>
-                </div>
+                )}
             </div>
         </section>
     )

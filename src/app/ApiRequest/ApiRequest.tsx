@@ -32,3 +32,12 @@ export function GetShopItems(setShopItems: any) {
         })
     })
 }
+
+export function GetShopItemID(setShopItems: any, id: string | string[]){
+    fetch('/api/shop-items').then(res => {
+        res.json().then(items => {
+            const item = items.find((i: any) => i._id === id)
+            setShopItems(item)
+        })
+    })
+}

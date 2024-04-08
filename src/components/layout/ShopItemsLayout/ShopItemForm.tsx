@@ -47,8 +47,8 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
         >
             <div className="grid grid-cols-[1fr,1fr,1fr] gap-2">
 
-                <AddedImagePhotoLinkList photoLink={photoLink} setPhotoLink={setPhotoLink}
-                                   image={image} setIsFormValid={setIsFormValid} setImage={setImage}/>
+                <AddedImagePhotoLinkList photoLink={photoLink} image={image}
+                                         setIsFormValid={setIsFormValid} setImage={setImage}/>
 
                 <div className="flex gap-2">
                     <div className="grow">
