@@ -69,7 +69,7 @@ button[type="submit"],
 
 button.delete,
 .delete {
-    @apply border-0 bg-gradient-to-br from-red-700 to-pink-400 text-white
+    @apply border-0 bg-gradient-to-br from-red-700 to-pink-400 text-white rounded-xl
 }
 
 

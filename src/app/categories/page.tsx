@@ -120,7 +120,8 @@ export default function CategoriesPage() {
                         </div>
 
                         <div className="pb-4">
-                            <button type="submit">
+                            <button type="submit"
+                            className="button">
                                 {editedCategory ? 'Update' : 'Create'}
                             </button>
                         </div>
@@ -138,7 +139,7 @@ export default function CategoriesPage() {
 
                                 <div className="flex gap-1">
                                     <button
-                                        className="flex rounded-xl px-4 py-2 gap-2 cursor-pointer"
+                                        className="button flex rounded-xl px-4 py-2 gap-2 cursor-pointer"
                                         onClick={() => {
                                             setEditedCategory((c))
                                             setCategoryName(c.name)

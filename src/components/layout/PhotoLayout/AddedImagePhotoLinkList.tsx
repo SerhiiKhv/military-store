@@ -123,14 +123,26 @@ export default function AddedImagePhotoLinkList(
                                     />
                                     <button
                                         type="button"
-                                        className="delete flex items-center justify-center gap-1"
+                                        className="delete px-2 py-2 flex items-center justify-center gap-1"
                                         onClick={() => clearPhotoLink(index)}>
                                         Delete <DeleteIcon className="h-5 w-5"/>
                                     </button>
                                 </div>
                             ))}
-                            <button onClick={handleAddInput}>Додати поле вводу</button>
-                            <button onClick={handleRemoveInput}>Видалити останнє поле вводу</button>
+                            <div className="flex justify-center gap-4">
+                                <button
+                                    className="button"
+                                    onClick={handleAddInput}>
+                                    Додати поле вводу
+                                </button>
+
+                                <button
+                                    className="button"
+                                    onClick={handleRemoveInput}>
+                                    Видалити останнє поле вводу
+                                </button>
+
+                            </div>
                         </div>
                     </div>
                 </div>

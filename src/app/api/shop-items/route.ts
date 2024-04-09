@@ -1,10 +1,11 @@
 import {ShopItemMilitaryStore} from "@/app/models/ShopItem";
 import mongoose from "mongoose";
+import {CharacteristicsType} from "@/components/Types/ShopItem";
 
 export async function POST(req: any) {
     await mongoose.connect(String(process.env.MONGO_URL));
-    const {name, description, price, image, category, availability, cod} = await req.json()
-    const menuItemDoc = await ShopItemMilitaryStore.create({name, description, price, image, category, availability, cod})
+    const {name, description, price, image, category, availability, cod, characteristics} = await req.json()
+    const menuItemDoc = await ShopItemMilitaryStore.create({name, description, price, image, category, availability, cod, characteristics})
     return Response.json(menuItemDoc)
 }
 

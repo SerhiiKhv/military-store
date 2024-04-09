@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {ShopItemType} from "@/components/Types/ShopItem";
 import {CategoryType} from "@/components/Types/CategoryType";
 import AddedImagePhotoLinkList from "@/components/layout/PhotoLayout/AddedImagePhotoLinkList";
+import ShopItemCharacteristics from "@/components/layout/ShopItemsLayout/ShopItemCharacteristics";
 
 export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shopItem: ShopItemType | null }) {
 
@@ -14,6 +15,7 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
     const [categories, setCategories] = useState([]);
     const [availability, setAvailability] = useState<boolean>(shopItem?.availability || false);
     const [cod, setCod] = useState(shopItem?.cod || 0);
+    const [characteristics, setCharacteristics] = useState(shopItem?.characteristics || []);
 
     const [photoLink, setPhotoLink] = useState(shopItem?.image[0] || '')
     const [isFormValid, setIsFormValid] = useState(false);
@@ -28,6 +30,7 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
         setPhotoLink(shopItem?.image[0] || "")
         setAvailability(shopItem?.availability || false)
         setCod(shopItem?.cod || 0)
+        setCharacteristics(shopItem?.characteristics || [])
     }, [shopItem]);
 
     useEffect(() => {
@@ -42,7 +45,7 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
     return (
         <form className="p-4 mx-auto"
               onSubmit={e => onSubmit(e,
-                  {_id, name, description, price, image, category, availability, cod}
+                  {_id, name, description, price, image, category, availability, cod, characteristics}
               )}
         >
             <div className="grid grid-cols-[1fr,1fr,1fr] gap-2">
@@ -77,7 +80,7 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
 
                         <div className="flex items-center justify-center">
                             <button type="submit"
-                                    className="mt-2 max-w-lg w-full"
+                                    className="button mt-2 max-w-lg w-full"
                                     disabled={isFormValid}>
                                 Save
                             </button>
@@ -96,6 +99,12 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
                                value="courier" checked={availability}
                                onClick={() => setAvailability(!availability)}/>
                     </div>
+
+
+                    <ShopItemCharacteristics name={'Characteristics'}
+                                             props={characteristics}
+                                             setProps={setCharacteristics}
+                                             buttonName={'Add item characteristic'}/>
                 </div>
             </div>
         </form>

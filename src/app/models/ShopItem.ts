@@ -11,6 +11,10 @@ export const ShopItemsSchema = new Schema({
     rating: [{
         userId: {type: mongoose.Types.ObjectId},
         rate: {type: Number}
+    }],
+    characteristics: [{
+        nameCharacteristics: {type: String},
+        valueCharacteristics: {type: String}
     }]
 }, { timestamps: true });
 

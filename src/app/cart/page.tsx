@@ -50,7 +50,7 @@ export default function CartPage() {
                                         <div>
                                             <button
                                                 type="button"
-                                                className="mt-4 delete flex items-center justify-center gap-1"
+                                                className="mt-4 p-2 delete flex items-center justify-center gap-1"
                                                 onClick={() => removeCartProduct(index)}>
                                                 <DeleteIcon/> Видалити
                                             </button>

@@ -80,7 +80,7 @@ export default function AddedImageViaLink(
 
                         <button
                             type="button"
-                            className="delete px-2 mb-4 flex items-center justify-center gap-1"
+                            className="delete px-2 py-2 mb-4 flex items-center justify-center gap-1"
                             onClick={clearPhotoLink}>
                             Delete <DeleteIcon className="h-5 w-5"/>
                         </button>

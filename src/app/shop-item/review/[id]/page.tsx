@@ -2,7 +2,7 @@
 
 import {useParams} from "next/navigation";
 import React, {useContext, useEffect, useState} from "react";
-import {ShopItemType} from "@/components/Types/ShopItem";
+import {CharacteristicsType, ShopItemType} from "@/components/Types/ShopItem";
 import {CategoryType} from "@/components/Types/CategoryType";
 import {HomeIcon} from "@/components/icons/HomeIcon";
 import Image from "next/image";
@@ -65,7 +65,7 @@ export default function ReviewShopItemPageID() {
                             <div>
                                 <div className="relative">
                                     <button
-                                        className="buttonWithoutP flex gap-1 absolute bg-gray-200 rounded-2xl px-4 py-4
+                                        className="buttonWithoutP flex gap-1 absolute bg-gray-200 rounded-2xl px-2 py-4
                             bottom-1/2 left-2"
                                         type="button"
                                         onClick={() => setPhotoIndex(photoIndex > 0 ? photoIndex - 1 : shopItems.image.length - 1)}>
@@ -78,7 +78,7 @@ export default function ReviewShopItemPageID() {
                                            className="rounded-xl w-full h-full mb-1 aspect-square object-cover"/>
 
                                     <button
-                                        className="buttonWithoutP flex gap-1 absolute bg-gray-200 rounded-2xl px-4 py-4
+                                        className="buttonWithoutP flex gap-1 absolute bg-gray-200 rounded-2xl px-2 py-4
                             bottom-1/2 right-2"
                                         type="button"
                                         onClick={() => setPhotoIndex(photoIndex < shopItems.image.length - 1 ? photoIndex + 1 : 0)}>
@@ -116,6 +116,7 @@ export default function ReviewShopItemPageID() {
                                         <ShoppingCartIcon/> Купити
                                     </button>
                                 </div>
+
                                 <div className="bg-white p-8 rounded-md space-y-2">
                                     <h1 className="font-semibold text-xl">Доставка</h1>
 
@@ -146,8 +147,24 @@ export default function ReviewShopItemPageID() {
                                             <p>100+₴</p>
                                         </div>
                                     </div>
-
                                 </div>
+
+                                <div className="rounded-xl bg-white p-4">
+                                    {shopItems.characteristics && (
+                                        <div>
+                                            <h1 className="text-2xl font-semibold">Основні характеристики</h1>
+                                            <div className="h-[300px] overflow-auto px-4">
+                                                {shopItems.characteristics.map((characteristic: CharacteristicsType, index: number) => (
+                                                    <div key={index} className={`flex justify-between border-b ${index%2? "bg-blue-100":""}`}>
+                                                        <h1>{characteristic.nameCharacteristics}</h1>
+                                                        <h1>{characteristic.valueCharacteristics}</h1>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+
                             </div>
                         </div>
 
