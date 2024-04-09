@@ -24,6 +24,7 @@ export default function ReviewShopItemPageID() {
     const [categoryName, setCategoryName] = useState('')
     const [photoIndex, setPhotoIndex] = useState(0);
     const [numInputs, setNumInputs] = useState(shopItems?.image?.length || 0);
+
     function handleAddToCartButtonClick() {
         addToCart(shopItems)
         toast.success('Added to cart!')
@@ -89,7 +90,8 @@ export default function ReviewShopItemPageID() {
                                     {[...Array(numInputs)].map((_, index) => (
                                         <div
                                             onClick={() => setPhotoIndex(index)}>
-                                            <Image src={shopItems.image[index] || '/pizza.png'} alt={"avatar"} width={50}
+                                            <Image src={shopItems.image[index] || '/pizza.png'} alt={"avatar"}
+                                                   width={50}
                                                    height={50}
                                                    className={`rounded-xl w-full h-full mb-1 aspect-square object-cover ${index !== photoIndex ? "" : "border border-neonNazar"}`}
                                             />
@@ -111,8 +113,40 @@ export default function ReviewShopItemPageID() {
                                     <button type="button"
                                             className="button flex items-center justify-center gap-2"
                                             onClick={handleAddToCartButtonClick}>
-                                    <ShoppingCartIcon/> Купити
+                                        <ShoppingCartIcon/> Купити
                                     </button>
+                                </div>
+                                <div className="bg-white p-8 rounded-md space-y-2">
+                                    <h1 className="font-semibold text-xl">Доставка</h1>
+
+                                    <div className="grid grid-cols-3 space-y-2">
+                                        <div className="flex items-center gap-2 ">
+                                            <Image src={"/NewPost.png"} alt={"NewPost"} width={25} height={25}/>
+                                            <p>До відділення нової пошти</p>
+                                        </div>
+
+                                        <div className="flex justify-end">
+                                            <p className="font-semibold">Відправимо сьогодні</p>
+                                        </div>
+
+                                        <div className="flex justify-end">
+                                            <p>60+₴</p>
+                                        </div>
+
+                                        <div className="flex items-center gap-2">
+                                            <Image src={"/NewPost.png"} alt={"NewPost"} width={25} height={25}/>
+                                            <p>Кур'єром нової пошти</p>
+                                        </div>
+
+                                        <div className="flex justify-end">
+                                            <p className="font-semibold">Відправимо сьогодні</p>
+                                        </div>
+
+                                        <div className="flex justify-end">
+                                            <p>100+₴</p>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
