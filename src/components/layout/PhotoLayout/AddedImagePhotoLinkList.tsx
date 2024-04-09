@@ -47,9 +47,10 @@ export default function AddedImagePhotoLinkList(
 
     const clearPhotoLink = (index: number) => {
         const updatedImage = [...image];
-        updatedImage[index] = '';
+        updatedImage.splice(index, 1);
         setImage(updatedImage);
     }
+
 
     const handleAddInput = () => {
         setNumInputs(prevNumInputs => prevNumInputs + 1);
@@ -133,17 +134,11 @@ export default function AddedImagePhotoLinkList(
                             ))}
                             <div className="flex justify-center gap-4">
                                 <button
+                                    type="button"
                                     className="button"
                                     onClick={handleAddInput}>
                                     Додати поле вводу
                                 </button>
-
-                                <button
-                                    className="button"
-                                    onClick={handleRemoveInput}>
-                                    Видалити останнє поле вводу
-                                </button>
-
                             </div>
                         </div>
                     </div>

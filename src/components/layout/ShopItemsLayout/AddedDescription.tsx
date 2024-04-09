@@ -28,6 +28,12 @@ export default function AddedDescription({description, setDescription}:
         setDescription(updatedImage);
     };
 
+    const clearPhotoLink = (index: number) => {
+        const updatedImage = [...description];
+        updatedImage.splice(index, 1);
+        setDescription(updatedImage);
+    }
+
     return (
         <div className="bg-gray-100 p-2 rounded-2xl items-center my-auto">
             <div>
@@ -35,28 +41,29 @@ export default function AddedDescription({description, setDescription}:
                     <div>
                         <div>
                             {[...Array(numInputs)].map((_, index) => (
-                                <div className="flex gap-1 items-center justify-center">
+                                <div className="flex gap-1 items-center justify-center relative">
                                     <textarea
                                         key={index}
                                         className="h-60"
                                         value={description[index] || ""}
                                         onChange={e => handleInputChange(index, e.target.value)}
                                     />
+
+                                    <button
+                                        type="button"
+                                        className="absolute right-0 top-0 px-2 py-2 flex items-center justify-center gap-1"
+                                        onClick={() => clearPhotoLink(index)}>
+                                        <DeleteIcon className="h-5 w-5"/>
+                                    </button>
                                 </div>
                             ))}
                             <div className="flex justify-center gap-4">
                                 <button
+                                    type="button"
                                     className="button"
                                     onClick={handleAddInput}>
                                     Додати поле вводу
                                 </button>
-
-                                <button
-                                    className="button"
-                                    onClick={handleRemoveInput}>
-                                    Видалити останнє поле вводу
-                                </button>
-
                             </div>
                         </div>
                     </div>

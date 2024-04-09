@@ -18,13 +18,6 @@ export default function ShopItemsForAdmin(item: ShopItemType) {
                 </div>
                 <span className="font-semibold">{item.name}</span>
 
-                <p className="text-gray-500 text-sm">
-                    {item.description.length > 150 ?
-                        item.description.slice(0, 150) + ' ...'
-                        :
-                        item.description}
-                </p>
-
                 <p className="font-semibold">{item.price} грн.</p>
                 <p>{item.availability? "Є в наявності" : "Немає в наявності"}</p>
             </Link>
