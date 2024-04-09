@@ -2,7 +2,7 @@ import React from "react";
 import {CharacteristicsType} from "@/components/Types/ShopItem";
 import {DeleteIcon} from "@/components/icons/DeleteIcon";
 
-export default function ShopItemCharacteristics({name, props, setProps, buttonName}:
+export default function ShopItemModelAddedElement({name, props, setProps, buttonName}:
                                                 {
                                                     name: string
                                                     props: CharacteristicsType[],

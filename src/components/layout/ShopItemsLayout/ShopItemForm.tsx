@@ -2,13 +2,14 @@ import React, {useEffect, useState} from "react";
 import {ShopItemType} from "@/components/Types/ShopItem";
 import {CategoryType} from "@/components/Types/CategoryType";
 import AddedImagePhotoLinkList from "@/components/layout/PhotoLayout/AddedImagePhotoLinkList";
-import ShopItemCharacteristics from "@/components/layout/ShopItemsLayout/ShopItemCharacteristics";
+import ShopItemModelAddedElement from "@/components/layout/ShopItemsLayout/ShopItemModelAddedElement";
+import AddedDescription from "@/components/layout/ShopItemsLayout/AddedDescription";
 
 export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shopItem: ShopItemType | null }) {
 
     const [_id, setId] = useState(shopItem?._id || "")
     const [name, setName] = useState(shopItem?.name || "")
-    const [description, setDescription] = useState(shopItem?.description || "")
+    const [description, setDescription] = useState(shopItem?.description || [''])
     const [price, setPrice] = useState(shopItem?.price || 0)
     const [image, setImage] = useState(shopItem?.image || [''])
     const [category, setCategory] = useState(shopItem?.category || "Pizza");
@@ -22,7 +23,7 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
 
     useEffect(() => {
         setName(shopItem?.name || "")
-        setDescription(shopItem?.description || "")
+        setDescription(shopItem?.description || [''])
         setPrice(shopItem?.price || 0)
         setImage(shopItem?.image || [''])
         setId(shopItem?._id || "")
@@ -64,11 +65,7 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
                                onChange={(e) => setPrice(+e.target.value)}/>
 
                         <label>Description</label>
-                        <textarea
-                            className="w-full h-96 resize-none"
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                        />
+                        <AddedDescription description={description} setDescription={setDescription}/>
 
                         <label>Category</label>
                         <select value={category}
@@ -101,10 +98,10 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
                     </div>
 
 
-                    <ShopItemCharacteristics name={'Characteristics'}
-                                             props={characteristics}
-                                             setProps={setCharacteristics}
-                                             buttonName={'Add item characteristic'}/>
+                    <ShopItemModelAddedElement name={'Characteristics'}
+                                               props={characteristics}
+                                               setProps={setCharacteristics}
+                                               buttonName={'Add item characteristic'}/>
                 </div>
             </div>
         </form>

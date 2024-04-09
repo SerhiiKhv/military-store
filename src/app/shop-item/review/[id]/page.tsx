@@ -155,7 +155,8 @@ export default function ReviewShopItemPageID() {
                                             <h1 className="text-2xl font-semibold">Основні характеристики</h1>
                                             <div className="h-[300px] overflow-auto px-4">
                                                 {shopItems.characteristics.map((characteristic: CharacteristicsType, index: number) => (
-                                                    <div key={index} className={`flex justify-between border-b ${index%2? "bg-blue-100":""}`}>
+                                                    <div key={index}
+                                                         className={`flex justify-between border-b ${index % 2 ? "bg-blue-100" : ""}`}>
                                                         <h1>{characteristic.nameCharacteristics}</h1>
                                                         <h1>{characteristic.valueCharacteristics}</h1>
                                                     </div>
@@ -169,7 +170,13 @@ export default function ReviewShopItemPageID() {
                         </div>
 
                         <div className="py-6">
-                            <p className="text-xl">{shopItems?.description}</p>
+                            <p className="text-xl space-y-2">
+                                {shopItems?.description.map(text => (
+                                    <div>
+                                        {text}
+                                    </div>
+                                ))}
+                            </p>
                         </div>
                     </div>
                 )}

@@ -113,6 +113,8 @@ export default function AddedImagePhotoLinkList(
                         <div>
                             {[...Array(numInputs)].map((_, index) => (
                                 <div className="flex gap-1 items-center justify-center">
+                                    <Image src={image[index] || '/pizza.png'} alt={"avatar"} width={250} height={250}
+                                           className="rounded-xl w-[50px] h-[50px] mb-1 aspect-square object-cover"/>
                                     <input
                                         key={index}
                                         type="text"
