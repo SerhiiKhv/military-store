@@ -1,16 +1,16 @@
 'use client'
 
-import {useParams} from "next/navigation";
-import React, {useContext, useEffect, useState} from "react";
-import {CharacteristicsType, ShopItemType} from "@/components/Types/ShopItem";
-import {CategoryType} from "@/components/Types/CategoryType";
-import {HomeIcon} from "@/components/icons/HomeIcon";
+import { useParams } from "next/navigation";
+import React, { useContext, useEffect, useState } from "react";
+import { CharacteristicsType, ShopItemType } from "@/components/Types/ShopItem";
+import { CategoryType } from "@/components/Types/CategoryType";
+import { HomeIcon } from "@/components/icons/HomeIcon";
 import Image from "next/image";
 import ShoppingCartIcon from "@/components/icons/ShoppingCartIcon";
-import {CartContext} from "@/components/AppContext";
+import { CartContext } from "@/components/AppContext";
 import toast from "react-hot-toast";
-import {VscChevronLeft, VscChevronRight} from "react-icons/vsc";
-import {GetShopItemID} from "@/app/ApiRequest/ApiRequest";
+import { VscChevronLeft, VscChevronRight } from "react-icons/vsc";
+import { GetShopItemID } from "@/app/ApiRequest/ApiRequest";
 import ShopItemFormRating from "@/components/layout/ShopItemsLayout/ShopItemFormRating";
 
 export default function ReviewShopItemPageID() {
@@ -40,7 +40,7 @@ export default function ReviewShopItemPageID() {
 
         checkCategory();
         setNumInputs(shopItems?.image?.length || 0);
-    }, [categories, shopItems?.category, shopItems?.image?.length]);
+    }, [categories, shopItems, shopItems?.category, shopItems?.image?.length]);
 
     function handleAddToCartButtonClick() {
         addToCart(shopItems);
@@ -132,7 +132,7 @@ export default function ReviewShopItemPageID() {
 
                                         <div className="flex items-center gap-2">
                                             <Image src={"/NewPost.png"} alt={"NewPost"} width={25} height={25} />
-                                            <p>Кур'єром нової пошти</p>
+                                            <p>Кур&apos;єром нової пошти</p>
                                         </div>
 
                                         <div className="flex justify-end">
