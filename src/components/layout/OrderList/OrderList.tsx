@@ -9,6 +9,7 @@ import React from "react";
 import {useProfile} from "@/components/UseProfile";
 import {DeleteIcon} from "@/components/icons/DeleteIcon";
 import toast from "react-hot-toast";
+import {AiOutlineCheck, AiOutlineClose} from "react-icons/ai";
 
 export default function OrderList(
     {
@@ -44,10 +45,36 @@ export default function OrderList(
         })
     }
 
+    async function handleOrderChangeStatus(data: OrderType){
+        const creatingPromise = new Promise<void>(async (resolve, reject) => {
+            try {
+                const response = await fetch('/api/order', {
+                    method: 'PUT',
+                    body: JSON.stringify(data),
+                    headers: {'Content-Type': 'application/json'}
+                })
+
+                fetchOrder()
+                if (response.ok) {
+                    resolve();
+                } else {
+                    reject();
+                }
+            } catch (error) {
+                reject(error);
+            }
+        })
+
+        await toast.promise(creatingPromise, {
+            loading: 'Change order status....',
+            success: 'Order status change!',
+            error: 'Error'
+        })
+    }
+
     async function handleOrderDelete(_id: string | undefined){
             const creatingPromise = new Promise<void>(async (resolve, reject) => {
                 try {
-                    console.log(_id)
                     const response = await fetch('/api/order?_id='+_id, {
                         method: 'DELETE',
                     })
@@ -94,11 +121,20 @@ export default function OrderList(
 
                                 <div className="grid grid-cols-[2fr,3fr]">
                                     <div>
-                                        {!order.status ? (
-                                            <p className="text-orange-500">В процесі</p>
-                                        ) : (
-                                            <p className="text-green-500">Виконано</p>
-                                        )}
+                                        <div className="flex items-center gap-2">
+                                            {!order.status ? (
+                                                <p className="text-orange-500">В процесі</p>
+                                            ) : (
+                                                <p className="text-green-500">Виконано</p>
+                                            )}
+
+                                            {data?.admin && isAdminPage && (
+                                                <button className="buttonWithoutP p-1"
+                                                        onClick={() => handleOrderChangeStatus({...order, status: !order.status})}>
+                                                    {order.status? <AiOutlineCheck /> : <AiOutlineClose />}
+                                                </button>
+                                            )}
+                                        </div>
 
                                         <div className="p-2">
                                             {order.delivery.address && order.delivery.deliveryMethod === "courier" && (
@@ -184,7 +220,7 @@ export default function OrderList(
                                 </div>
                                 <div className="flex items-center gap-4">
                                     {data?.admin && isAdminPage && (
-                                        <button className="delete"
+                                        <button className="delete p-2"
                                                 onClick={() => handleOrderDelete(order._id)}>
                                             <DeleteIcon/>
                                         </button>

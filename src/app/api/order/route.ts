@@ -32,3 +32,10 @@ export async function DELETE(req: any) {
     await Order.deleteOne({_id})
     return Response.json(true)
 }
+
+export async function PUT(req: any) {
+    await mongoose.connect(String(process.env.MONGO_URL));
+    const {_id, ...data} = await req.json()
+    await Order.findByIdAndUpdate(_id, data)
+    return Response.json(true)
+}

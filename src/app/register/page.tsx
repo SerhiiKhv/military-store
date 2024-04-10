@@ -135,7 +135,7 @@ export default function RegisterPage() {
                         onBlur={handleInputBlur}
                     />
 
-                    <button type="submit" className="w-full" disabled={creatingUser || isFormValid}>Register</button>
+                    <button type="submit" className="button w-full" disabled={creatingUser || isFormValid}>Register</button>
                 </form>
 
                 <div className="my-4 text-gray-500 text-center">
@@ -143,7 +143,7 @@ export default function RegisterPage() {
                 </div>
 
                 <button onClick={() => signIn('google', { callbackUrl: '/' })}
-                        className="flex gap-4 justify-center max-w-sm mx-auto">
+                        className="button flex gap-4 justify-center max-w-sm mx-auto">
                     <Image src={'/google.svg.webp'} alt={"google"} width={24} height={24} />
                     Login with google
                 </button>

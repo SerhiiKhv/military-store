@@ -105,7 +105,7 @@ export default function LoginPage() {
                            onFocus={() => handleInputFocus('password')}
                            onBlur={handleInputBlur}/>
 
-                    <button type="submit" className="w-full" disabled={isFormValid}>Login</button>
+                    <button type="submit" className="button w-full" disabled={isFormValid}>Login</button>
                 </form>
 
                 {error && (
@@ -125,7 +125,7 @@ export default function LoginPage() {
 
 
                 <button onClick={() => signIn('google', {callbackUrl: '/'})}
-                        className="flex gap-4 justify-center max-w-sm mx-auto">
+                        className="button flex gap-4 justify-center max-w-sm mx-auto">
                     <Image src={'/google.svg.webp'} alt={"google"} width={24} height={24}/>
                     Login with google
                 </button>

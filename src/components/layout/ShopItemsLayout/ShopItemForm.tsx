@@ -51,10 +51,12 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
         >
             <div className="grid grid-cols-[1fr,1fr,1fr] gap-2">
 
-                <AddedImagePhotoLinkList photoLink={photoLink} image={image}
-                                         setIsFormValid={setIsFormValid} setImage={setImage}/>
+                <div className="h-screen overflow-auto px-4">
+                    <AddedImagePhotoLinkList photoLink={photoLink} image={image}
+                                             setIsFormValid={setIsFormValid} setImage={setImage}/>
+                </div>
 
-                <div className="flex gap-2">
+                <div className="flex gap-2 h-screen overflow-auto px-4">
                     <div className="grow">
                         <label>Shop item name </label>
                         <input type="text" value={name}
@@ -64,9 +66,6 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
                         <input type="number" value={price}
                                onChange={(e) => setPrice(+e.target.value)}/>
 
-                        <label>Description</label>
-                        <AddedDescription description={description} setDescription={setDescription}/>
-
                         <label>Category</label>
                         <select value={category}
                                 onChange={e => setCategory(e.target.value)}>
@@ -75,22 +74,17 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
                             ))}
                         </select>
 
-                        <div className="flex items-center justify-center">
-                            <button type="submit"
-                                    className="button mt-2 max-w-lg w-full"
-                                    disabled={isFormValid}>
-                                Save
-                            </button>
-                        </div>
+                        <label>Description</label>
+                        <AddedDescription description={description} setDescription={setDescription}/>
                     </div>
                 </div>
 
-                <div>
+                <div className="h-screen overflow-auto px-4">
                     <label>Cod product: </label>
                     <input type="number" value={cod}
                            onChange={(e) => setCod(+e.target.value)}/>
 
-                    <div className="flex justify-ceneter gap-2">
+                    <div className="flex justify-ceneter gap-2 py-6">
                         <h1>Availability: </h1>
                         <input type="radio"
                                value="courier" checked={availability}
@@ -103,6 +97,14 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
                                                setProps={setCharacteristics}
                                                buttonName={'Add item characteristic'}/>
                 </div>
+            </div>
+
+            <div className="flex items-center justify-center">
+                <button type="submit"
+                        className="button mt-2 max-w-lg w-full"
+                        disabled={isFormValid}>
+                    Save
+                </button>
             </div>
         </form>
     )
