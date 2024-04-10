@@ -21,7 +21,8 @@ export default function EditUserPage() {
                 setUser(user)
             })
         })
-    }, []);
+    }, [id]);
+
 
     async function handleSaveButtonClick(e: any, data: UserType) {
         e.preventDefault();

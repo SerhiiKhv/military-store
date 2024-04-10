@@ -31,14 +31,13 @@ export default function ReviewShopItemPageID() {
     }
 
     useEffect(() => {
-        GetShopItemID(setShopItems, id)
-        GetCategories(setCategories)
-    }, []);
+        GetShopItemID(setShopItems, id);
+    }, [id]);
 
     useEffect(() => {
-        checkCategory()
-        setNumInputs(shopItems?.image?.length || 0)
-    }, [categories]);
+        checkCategory();
+        setNumInputs(shopItems?.image?.length || 0);
+    }, [categories, checkCategory, shopItems?.image?.length]);
 
     function checkCategory() {
         if (categories && shopItems) {
@@ -171,11 +170,12 @@ export default function ReviewShopItemPageID() {
 
                         <div className="py-6">
                             <p className="text-xl space-y-2">
-                                {shopItems?.description.map(text => (
-                                    <div>
+                                {shopItems?.description.map((text, index) => (
+                                    <div key={index}>
                                         {text}
                                     </div>
                                 ))}
+
                             </p>
                         </div>
                     </div>

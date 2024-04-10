@@ -57,7 +57,7 @@ export default function ShopItemsPage() {
                     </div>
 
                     {categories.length > 0 && categories.map((c: CategoryType) => (
-                        <div>
+                        <div key={c._id}>
                             <div className="flex items-center justify-center p-4">
                                 <SectionHeader subHeader={""} mainHeader={c.name}/>
                             </div>
@@ -66,10 +66,10 @@ export default function ShopItemsPage() {
                                 {shopItems.filter((item: ShopItemType) => item.category === c._id).map((item: ShopItemType) => (
                                     <ShopItemsForAdmin {...item} key={item._id}/>
                                 ))}
-
                             </div>
                         </div>
                     ))}
+
                 </div>
             </div>
         </section>
