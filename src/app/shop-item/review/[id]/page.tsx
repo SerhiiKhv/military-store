@@ -6,49 +6,46 @@ import {CharacteristicsType, ShopItemType} from "@/components/Types/ShopItem";
 import {CategoryType} from "@/components/Types/CategoryType";
 import {HomeIcon} from "@/components/icons/HomeIcon";
 import Image from "next/image";
-import {StarsIcon} from "@/components/icons/StarsIcon";
 import ShoppingCartIcon from "@/components/icons/ShoppingCartIcon";
 import {CartContext} from "@/components/AppContext";
 import toast from "react-hot-toast";
 import {VscChevronLeft, VscChevronRight} from "react-icons/vsc";
-import {GetCategories, GetShopItemID} from "@/app/ApiRequest/ApiRequest";
+import {GetShopItemID} from "@/app/ApiRequest/ApiRequest";
 import ShopItemFormRating from "@/components/layout/ShopItemsLayout/ShopItemFormRating";
 
 export default function ReviewShopItemPageID() {
+    const { id } = useParams();
+    const { addToCart } = useContext(CartContext) as any;
 
-    const {id} = useParams()
-    const {addToCart} = useContext(CartContext) as any
-
-    const [shopItems, setShopItems] = useState<ShopItemType>()
-    const [categories, setCategories] = useState<CategoryType[]>()
-    const [categoryName, setCategoryName] = useState('')
+    const [shopItems, setShopItems] = useState<ShopItemType>();
+    const [categories, setCategories] = useState<CategoryType[]>();
+    const [categoryName, setCategoryName] = useState('');
     const [photoIndex, setPhotoIndex] = useState(0);
     const [numInputs, setNumInputs] = useState(shopItems?.image?.length || 0);
-
-    function handleAddToCartButtonClick() {
-        addToCart(shopItems)
-        toast.success('Added to cart!')
-    }
 
     useEffect(() => {
         GetShopItemID(setShopItems, id);
     }, [id]);
 
     useEffect(() => {
+        function checkCategory() {
+            if (categories && shopItems) {
+                categories.forEach((category: CategoryType) => {
+                    if (category._id === shopItems?.category) {
+                        setCategoryName(category.name);
+                    }
+                });
+            }
+        }
+
         checkCategory();
         setNumInputs(shopItems?.image?.length || 0);
-    }, [categories, checkCategory, shopItems?.image?.length]);
+    }, [categories, shopItems?.category, shopItems?.image?.length]);
 
-    function checkCategory() {
-        if (categories && shopItems) {
-            categories.map((category: CategoryType) => {
-                if (category._id === shopItems?.category) {
-                    setCategoryName(category.name)
-                }
-            })
-        }
+    function handleAddToCartButtonClick() {
+        addToCart(shopItems);
+        toast.success('Added to cart!');
     }
-
 
     return (
         <section className="bg-gray-100">
@@ -56,7 +53,7 @@ export default function ReviewShopItemPageID() {
                 {shopItems && (
                     <div>
                         <div className="flex items-center gap-1 py-6">
-                            <HomeIcon/>
+                            <HomeIcon />
                             {categoryName}
                         </div>
 
@@ -65,30 +62,30 @@ export default function ReviewShopItemPageID() {
                                 <div className="relative">
                                     <button
                                         className="buttonWithoutP flex gap-1 absolute bg-gray-200 rounded-2xl px-2 py-4
-                            bottom-1/2 left-2"
+                                        bottom-1/2 left-2"
                                         type="button"
                                         onClick={() => setPhotoIndex(photoIndex > 0 ? photoIndex - 1 : shopItems.image.length - 1)}>
-                                        <VscChevronLeft/>
+                                        <VscChevronLeft />
                                     </button>
 
                                     <Image src={shopItems?.image[photoIndex] || '/pizza.png'} alt={"avatar"}
                                            width={1000}
                                            height={1000}
-                                           className="rounded-xl w-full h-full mb-1 aspect-square object-cover"/>
+                                           className="rounded-xl w-full h-full mb-1 aspect-square object-cover" />
 
                                     <button
                                         className="buttonWithoutP flex gap-1 absolute bg-gray-200 rounded-2xl px-2 py-4
-                            bottom-1/2 right-2"
+                                        bottom-1/2 right-2"
                                         type="button"
                                         onClick={() => setPhotoIndex(photoIndex < shopItems.image.length - 1 ? photoIndex + 1 : 0)}>
-                                        <VscChevronRight/>
+                                        <VscChevronRight />
                                     </button>
                                 </div>
 
                                 <div className="flex gap-2">
                                     {[...Array(numInputs)].map((_, index) => (
-                                        <div
-                                            onClick={() => setPhotoIndex(index)}>
+                                        <div key={index}
+                                             onClick={() => setPhotoIndex(index)}>
                                             <Image src={shopItems.image[index] || '/pizza.png'} alt={"avatar"}
                                                    width={50}
                                                    height={50}
@@ -104,7 +101,7 @@ export default function ReviewShopItemPageID() {
                                     {shopItems?.name}
                                 </h1>
 
-                                <ShopItemFormRating shopItem={shopItems}/>
+                                <ShopItemFormRating shopItem={shopItems} />
 
                                 <div className="flex items-center gap-2 bg-white p-8 rounded-md">
                                     <h1 className="text-2xl font-semibold">{shopItems?.price} ₴</h1>
@@ -112,7 +109,7 @@ export default function ReviewShopItemPageID() {
                                     <button type="button"
                                             className="button flex items-center justify-center gap-2"
                                             onClick={handleAddToCartButtonClick}>
-                                        <ShoppingCartIcon/> Купити
+                                        <ShoppingCartIcon /> Купити
                                     </button>
                                 </div>
 
@@ -121,7 +118,7 @@ export default function ReviewShopItemPageID() {
 
                                     <div className="grid grid-cols-3 space-y-2">
                                         <div className="flex items-center gap-2 ">
-                                            <Image src={"/NewPost.png"} alt={"NewPost"} width={25} height={25}/>
+                                            <Image src={"/NewPost.png"} alt={"NewPost"} width={25} height={25} />
                                             <p>До відділення нової пошти</p>
                                         </div>
 
@@ -134,7 +131,7 @@ export default function ReviewShopItemPageID() {
                                         </div>
 
                                         <div className="flex items-center gap-2">
-                                            <Image src={"/NewPost.png"} alt={"NewPost"} width={25} height={25}/>
+                                            <Image src={"/NewPost.png"} alt={"NewPost"} width={25} height={25} />
                                             <p>Кур'єром нової пошти</p>
                                         </div>
 
@@ -182,5 +179,5 @@ export default function ReviewShopItemPageID() {
                 )}
             </div>
         </section>
-    )
+    );
 }
