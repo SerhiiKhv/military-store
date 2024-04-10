@@ -66,6 +66,7 @@ export default function ShopItemsPage() {
                                 {shopItems.filter((item: ShopItemType) => item.category === c._id).map((item: ShopItemType) => (
                                     <ShopItemsForAdmin {...item} key={item._id}/>
                                 ))}
+
                             </div>
                         </div>
                     ))}

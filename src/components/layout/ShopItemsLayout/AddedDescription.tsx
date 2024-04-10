@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {DeleteIcon} from "@/components/icons/DeleteIcon";
+
 export default function AddedDescription({description, setDescription}:
-                                                      {
-                                                          description: string[]
-                                                          setDescription: any
-                                                      }) {
+                                             {
+                                                 description: string[]
+                                                 setDescription: any
+                                             }) {
 
     const [numInputs, setNumInputs] = useState(description.length);
 
@@ -41,22 +42,21 @@ export default function AddedDescription({description, setDescription}:
                     <div>
                         <div>
                             {[...Array(numInputs)].map((_, index) => (
-                                <div className="flex gap-1 items-center justify-center relative">
-                                    <textarea
-                                        key={index}
-                                        className="h-60"
-                                        value={description[index] || ""}
-                                        onChange={e => handleInputChange(index, e.target.value)}
-                                    />
+                                <div key={index} className="flex gap-1 items-center justify-center relative">
+                                    <textarea value={description[index] || ""}
+                                              onChange={e => handleInputChange(index, e.target.value)}
+                                              className="h-60"/>
 
                                     <button
                                         type="button"
+                                        onClick={() => clearPhotoLink(index)}
                                         className="absolute right-0 top-0 px-2 py-2 flex items-center justify-center gap-1"
-                                        onClick={() => clearPhotoLink(index)}>
+                                    >
                                         <DeleteIcon className="h-5 w-5"/>
                                     </button>
                                 </div>
                             ))}
+
                             <div className="flex justify-center gap-4">
                                 <button
                                     type="button"

@@ -50,7 +50,8 @@ export default function PaymentPage() {
                 })
             })
         }
-    }, [session, status]);
+    }, [session, status, delivery]); // Додано 'delivery' до масиву залежностей
+
 
 
     async function onSubmit(e: any, data: OrderType) {

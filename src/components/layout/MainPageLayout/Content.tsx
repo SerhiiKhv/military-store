@@ -24,10 +24,10 @@ export default function Content() {
                     <p className="font-bold text-xl">Категорії</p>
 
                     {categories?.length > 0 && categories.map((c: CategoryType) => (
-                        <div className="px-4 py-1 gap-2 cursor-pointer">
+                        <div className="px-4 py-1 gap-2 cursor-pointer" key={c._id}>
                             <div className="flex graw justify-between items-center">
                                 <Link href={`/category/` + c._id}>
-                                    <span key={c._id}>{c.name}</span>
+                                    <span>{c.name}</span>
                                 </Link>
                             </div>
                         </div>
@@ -52,7 +52,7 @@ export default function Content() {
                 <p className="text-4xl font-bold">Товари</p>
 
                 {categories.length > 0 && categories.map((c: CategoryType) => (
-                    <ShopItemsList categoryName={c.name} shopItems={shopItems} id={c._id}/>
+                    <ShopItemsList key={c._id} categoryName={c.name} shopItems={shopItems} id={c._id}/>
                 ))}
             </div>
         </section>

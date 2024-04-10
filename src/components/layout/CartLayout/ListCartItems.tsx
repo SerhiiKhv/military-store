@@ -42,8 +42,8 @@ export default function ListCartItems() {
                     {cartProducts?.length === 0 && (
                         <div>No products in your shopping cart</div>
                     )}
-                    {cartProducts?.length > 0 && cartProducts.map((product: ShopItemType) => (
-                        <div className="grid grid-cols-[3fr,1fr] gap-4 mb-4 border-b py-2 rounded-md">
+                    {cartProducts?.length > 0 && cartProducts.map((product: ShopItemType, index: number) => (
+                        <div className="grid grid-cols-[3fr,1fr] gap-4 mb-4 border-b py-2 rounded-md" key={index}>
                             <div className="flex gap-4 p-2">
                                 <Image src={product.image[0] || '/pizza.png'}
                                        alt={"Img menu item"}
@@ -63,6 +63,7 @@ export default function ListCartItems() {
                             </div>
                         </div>
                     ))}
+
                 </div>
             )}
         </div>

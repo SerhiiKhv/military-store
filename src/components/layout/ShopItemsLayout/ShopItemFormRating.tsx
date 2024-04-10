@@ -1,39 +1,47 @@
-import React, {useEffect, useState} from "react";
-import {ShopItemType} from "@/components/Types/ShopItem";
+import React, { useEffect, useState, useCallback } from "react";
+import { ShopItemType } from "@/components/Types/ShopItem";
 import toast from "react-hot-toast";
-import {useProfile} from "@/components/UseProfile";
-import {RiStarSFill, RiStarSLine} from "react-icons/ri";
-import {useParams} from "next/navigation";
-import {GetShopItemID} from "@/app/ApiRequest/ApiRequest";
+import { useProfile } from "@/components/UseProfile";
+import { RiStarSFill, RiStarSLine } from "react-icons/ri";
+import { useParams } from "next/navigation";
+import { GetShopItemID } from "@/app/ApiRequest/ApiRequest";
 
-export default function ShopItemFormRating({shopItem}: { shopItem: ShopItemType }) {
-
-    const {id} = useParams()
-    const {data} = useProfile()
+export default function ShopItemFormRating({ shopItem }: { shopItem: ShopItemType }) {
+    const { id } = useParams();
+    const { data } = useProfile();
 
     const [AVGrating, setAVGrating] = useState<number>(0);
     const [newShopItem, setNewShopItem] = useState<ShopItemType>(shopItem);
     const [hoveredRating, setHoveredRating] = useState<number>(0);
     const [rated, setRated] = useState<boolean>(false);
-    const [updateRating, setUpdateRating] = useState<boolean>(false)
+    const [updateRating, setUpdateRating] = useState<boolean>(false);
 
-    useEffect(() => {
-        AVGRating()
-        checkRated()
-    }, [newShopItem, data]);
+    const AVGRating = useCallback(() => {
+        if (newShopItem.rating) {
+            const totalRate = newShopItem.rating.reduce((accumulator, currentValue) => accumulator + currentValue.rate, 0);
+            const averageRate = totalRate / newShopItem.rating.length;
+            const roundedAverageRate = averageRate.toFixed(1);
+            setAVGrating(+roundedAverageRate);
+        }
+    }, [newShopItem.rating]);
 
-    useEffect(() => {
-        GetShopItemID(setNewShopItem, id)
-    }, [updateRating]);
-
-    function checkRated() {
+    const checkRated = useCallback(() => {
         if (newShopItem.rating && data?._id) {
             const ratedByUser = newShopItem.rating.find(r => r.userId === data._id);
             if (ratedByUser) {
                 setRated(true);
             }
         }
-    }
+    }, [newShopItem.rating, data]);
+
+    useEffect(() => {
+        AVGRating();
+        checkRated();
+    }, [AVGRating, checkRated, newShopItem, data]);
+
+    useEffect(() => {
+        GetShopItemID(setNewShopItem, id);
+    }, [id, updateRating]);
 
     function changeRating(rate: number) {
         setUpdateRating(true)
@@ -91,15 +99,6 @@ export default function ShopItemFormRating({shopItem}: { shopItem: ShopItemType 
             success: 'Дякуємо за оцінку!',
             error: 'Error'
         });
-    }
-
-    function AVGRating() {
-        if (newShopItem.rating) {
-            const totalRate = newShopItem.rating.reduce((accumulator, currentValue) => accumulator + currentValue.rate, 0);
-            const averageRate = totalRate / newShopItem.rating.length;
-            const roundedAverageRate = averageRate.toFixed(1);
-            setAVGrating(+roundedAverageRate);
-        }
     }
 
     return (

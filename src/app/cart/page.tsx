@@ -36,7 +36,7 @@ export default function CartPage() {
                             <div>No products in your shopping cart</div>
                         )}
                         {cartProducts?.length > 0 && cartProducts.map((product: ShopItemType, index: number) => (
-                            <div className="grid grid-cols-[3fr,1fr] gap-4 mb-4 border-b py-2 bg-white rounded-md">
+                            <div key={index} className="grid grid-cols-[3fr,1fr] gap-4 mb-4 border-b py-2 bg-white rounded-md">
                                 <div className="flex gap-4 p-2">
                                     <Image src={product.image[0] || '/pizza.png'}
                                            alt={"Img menu item"}

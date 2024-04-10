@@ -1,26 +1,33 @@
 'use client'
 
 import UserTabs from "@/components/layout/MainPageLayout/Tabs";
-import {useProfile} from "@/components/UseProfile";
-import React, {useEffect, useState} from "react";
-import {UserType} from "@/components/Types/UserType";
+import { useProfile } from "@/components/UseProfile";
+import React, { useEffect, useState } from "react";
+import { UserType } from "@/components/Types/UserType";
 import Link from "next/link";
-import {SectionHeader} from "@/components/layout/DopLayout/SectionHeader";
+import { SectionHeader } from "@/components/layout/DopLayout/SectionHeader";
 
 export default function Users() {
+    const { loading, data } = useProfile();
 
-    const {loading, data} = useProfile();
-
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState<UserType[]>([]);
+    const [id, setId] = useState<string | null>(null);
 
     useEffect(() => {
-        fetch('/api/users').then(res => {
-            res.json().then(users => {
-                setUsers(users)
-            })
-        })
-    }, []);
+        if (data?._id !== undefined) {
+            setId(data?._id);
+        }
+    }, [data]);
 
+    useEffect(() => {
+        if (id !== null) {
+            fetch(`/api/users/${id}`).then(res => {
+                res.json().then(users => {
+                    setUsers(users);
+                });
+            });
+        }
+    }, [id]);
 
     if (loading) {
         return 'Loading user info...'
@@ -40,7 +47,7 @@ export default function Users() {
 
             <div className="grid grid-cols-3 gap-2 px-4">
                 {users?.length > 0 && users.map((user: UserType) => (
-                    <div className='flex bg-gray-300 rounded-xl mb-2 p-4 justify-between'>
+                    <div className='flex bg-gray-300 rounded-xl mb-2 p-4 justify-between' key={user._id}>
                         <div>
                             <span>{user.email}</span>
                             <span className="italic">

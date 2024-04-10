@@ -95,13 +95,13 @@ export default function AddedImagePhotoLinkList(
 
                 <div className="flex gap-2">
                     {[...Array(numInputs)].map((_, index) => (
-                        <div
-                            onClick={() => setPhotoIndex(index)}>
+                        <div key={index} onClick={() => setPhotoIndex(index)}>
                             <Image src={image[index] || '/pizza.png'} alt={"avatar"} width={50} height={50}
                                    className={`rounded-xl w-full h-full mb-1 aspect-square object-cover ${index !== photoIndex ? "" : "border border-neonNazar"}`}
                             />
                         </div>
                     ))}
+
                 </div>
 
             </div>
@@ -113,11 +113,10 @@ export default function AddedImagePhotoLinkList(
                         <label>Photo link</label>
                         <div>
                             {[...Array(numInputs)].map((_, index) => (
-                                <div className="flex gap-1 items-center justify-center">
+                                <div key={index} className="flex gap-1 items-center justify-center">
                                     <Image src={image[index] || '/pizza.png'} alt={"avatar"} width={250} height={250}
                                            className="rounded-xl w-[50px] h-[50px] mb-1 aspect-square object-cover"/>
                                     <input
-                                        key={index}
                                         type="text"
                                         value={image[index] || ""}
                                         onFocus={() => handleInputFocus('photoLink')}

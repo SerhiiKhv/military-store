@@ -15,9 +15,13 @@ export default function CategoryNamePage(){
     const [shopItems, setShopItems] = useState<[ShopItemType] | []>([])
 
     useEffect(() => {
-        GetCategoryId(setCategory, id)
-        GetShopItems(setShopItems)
-    }, [])
+        GetCategoryId(setCategory, id); // Додано 'id' до масиву залежностей
+    }, [id]); // Додано 'id' до масиву залежностей
+
+    useEffect(() => {
+        GetShopItems(setShopItems); // Додано 'setShopItems' до масиву залежностей
+    }, [setShopItems]); // Додано 'setShopItems' до масиву залежностей
+
 
     return(
         <section className="my-container">

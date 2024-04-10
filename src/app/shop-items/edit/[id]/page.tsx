@@ -23,7 +23,8 @@ export default function EditMenuItemsPage() {
                 setMenuItems(item)
             })
         })
-    }, [saveChange]);
+    }, [id, saveChange]);
+
 
     async function handleFormSubmit(e: any, data: ShopItemType) {
         e.preventDefault()

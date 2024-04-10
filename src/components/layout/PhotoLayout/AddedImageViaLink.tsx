@@ -18,8 +18,9 @@ export default function AddedImageViaLink(
     const [inputFocused, setInputFocused] = useState('');
 
     useEffect(() => {
-        setImagePhotoLink(image || '')
-    }, [photoLink]);
+        setImagePhotoLink(image || '');
+    }, [photoLink, image]);
+
 
     const handleInputFocus = (fieldName: string) => {
         setInputFocused(fieldName);

@@ -67,10 +67,9 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
                                onChange={(e) => setPrice(+e.target.value)}/>
 
                         <label>Category</label>
-                        <select value={category}
-                                onChange={e => setCategory(e.target.value)}>
+                        <select value={category} onChange={e => setCategory(e.target.value)}>
                             {categories?.length > 0 && categories.map((c: CategoryType) => (
-                                <option value={c._id}>{c.name}</option>
+                                <option key={c._id} value={c._id}>{c.name}</option>
                             ))}
                         </select>
 

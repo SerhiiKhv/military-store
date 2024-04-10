@@ -131,7 +131,7 @@ export default function CategoriesPage() {
                 <div>
                     <h2 className="text-gray-500">edit category: </h2>
                     {categories?.length > 0 && categories.map((c: CategoryType) => (
-                        <div className="bg-gray-200 rounded-xl px-4 py-1 gap-2 cursor-pointer mb-2">
+                        <div key={c._id} className="bg-gray-200 rounded-xl px-4 py-1 gap-2 cursor-pointer mb-2">
                             <div
                                 className="flex graw justify-between items-center"
                             >
