@@ -50,7 +50,7 @@ export default function PaymentPage() {
                 })
             })
         }
-    }, [session, status, delivery]); // Додано 'delivery' до масиву залежностей
+    }, [session, status]);
 
 
 

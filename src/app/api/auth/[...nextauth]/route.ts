@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import { User } from "@/app/models/User";
 import GoogleProvider from "next-auth/providers/google";
 
-export const authOptions = {
+const authOptions = {
     secret: process.env.SECRET,
     providers: [
         GoogleProvider({
