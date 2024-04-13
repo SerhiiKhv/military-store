@@ -45,7 +45,7 @@ export default function PaymentPage() {
                     setUserId(data?._id || '')
                     setUserName(data?.name || '')
                     setUserEmail(data?.email || '')
-                    setDelivery({...delivery, address: data?.address || ''})
+                    //setDelivery({...delivery, address: data?.address || ''})
                     setPhoneNumber(data?.phone || '')
                 })
             })

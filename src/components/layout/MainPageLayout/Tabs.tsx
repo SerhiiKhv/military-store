@@ -37,8 +37,8 @@ export default function UserTabs({isAdmin} : {isAdmin?: boolean}){
                         All orders
                     </Link>
 
-                    <Link className={path.includes('/users') ? "active" : ''}
-                          href={'/users'}>
+                    <Link className={path.includes('/usersAdmin') ? "active" : ''}
+                          href={'/usersAdmin'}>
                         Users
                     </Link>
                 </>

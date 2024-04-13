@@ -54,7 +54,7 @@ export default function Users() {
                             </span>
                         </div>
                         <div className="bg-white rounded-xl">
-                            <Link className="button" href={'/users/' + user._id}>Edit</Link>
+                            <Link className="button" href={'/usersAdmin/' + user._id}>Edit</Link>
                         </div>
                     </div>
                 ))}
