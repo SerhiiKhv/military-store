@@ -4,10 +4,10 @@ import React, {useContext} from "react";
 import {CartContext} from "@/components/AppContext";
 import Image from "next/image";
 import {ShopItemType} from "@/components/Types/ShopItem";
-import {DeleteIcon} from "@/components/icons/DeleteIcon";
-import {ArrowLeftIcon} from "@/components/icons/ArrowLeftIcon";
 import Link from "next/link";
 import Footer from "@/components/layout/MainPageLayout/Footer";
+import {FaArrowLeftLong} from "react-icons/fa6";
+import {MdDeleteForever} from "react-icons/md";
 
 export default function CartPage() {
     const {cartProducts, removeCartProduct} = useContext(CartContext) as any;
@@ -24,7 +24,7 @@ export default function CartPage() {
             <div className="mt-8 my-container">
                 <div className="flex items-center justify-start gap-2">
                     <Link href={'/'}>
-                        <ArrowLeftIcon/>
+                        <FaArrowLeftLong className="h-6 w-6"/>
                     </Link>
                     <h1 className="font-semibold text-2xl">Кошик</h1>
                 </div>
@@ -52,7 +52,7 @@ export default function CartPage() {
                                                 type="button"
                                                 className="mt-4 p-2 delete flex items-center justify-center gap-1"
                                                 onClick={() => removeCartProduct(index)}>
-                                                <DeleteIcon/> Видалити
+                                                <MdDeleteForever className="h-6 w-6"/> Видалити
                                             </button>
                                         </div>
                                     </div>

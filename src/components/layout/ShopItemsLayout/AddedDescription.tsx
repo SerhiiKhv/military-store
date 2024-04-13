@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {DeleteIcon} from "@/components/icons/DeleteIcon";
+import {MdDeleteForever} from "react-icons/md";
 
 export default function AddedDescription({description, setDescription}:
                                              {
@@ -52,7 +52,7 @@ export default function AddedDescription({description, setDescription}:
                                         onClick={() => clearPhotoLink(index)}
                                         className="absolute right-0 top-0 px-2 py-2 flex items-center justify-center gap-1"
                                     >
-                                        <DeleteIcon className="h-5 w-5"/>
+                                        <MdDeleteForever className="h-5 w-5"/>
                                     </button>
                                 </div>
                             ))}

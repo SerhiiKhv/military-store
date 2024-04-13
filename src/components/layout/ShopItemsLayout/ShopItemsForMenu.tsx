@@ -3,8 +3,8 @@ import React, {useContext} from "react";
 import {ShopItemType} from "@/components/Types/ShopItem";
 import {CartContext} from "@/components/AppContext";
 import toast from "react-hot-toast";
-import ShoppingCartIcon from "@/components/icons/ShoppingCartIcon";
 import Link from "next/link";
+import {RiShoppingCart2Line} from "react-icons/ri";
 
 export default function ShopItemsForMenu(item: ShopItemType) {
 
@@ -40,7 +40,7 @@ export default function ShopItemsForMenu(item: ShopItemType) {
                             <button type="button"
                                     className="button"
                                     onClick={handleAddToCartButtonClick}>
-                                <ShoppingCartIcon/>
+                                <RiShoppingCart2Line className="h-6 w-6"/>
                             </button> :
                             "Немає в наявності"
                         }

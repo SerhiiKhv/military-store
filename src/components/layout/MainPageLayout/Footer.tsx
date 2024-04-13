@@ -1,7 +1,7 @@
 import Link from "next/link";
-import {PhoneIconWhiteIcon} from "@/components/icons/PhoneIconWhiteIcon";
-import {MailIconWhiteIcon} from "@/components/icons/MailIconWhiteIcon";
 import React from "react";
+import {IoIosMail} from "react-icons/io";
+import {FaPhoneAlt} from "react-icons/fa";
 
 export default function Footer(){
     return (
@@ -41,10 +41,10 @@ export default function Footer(){
                     </div>
                     <div>
                         <div className="flex gap-2 items-center justify-start">
-                            <PhoneIconWhiteIcon className="h-4 w-4"/> +380684300806
+                            <FaPhoneAlt className="h-4 w-4"/> +380684300806
                         </div>
                         <div className="flex gap-2 items-center justify-start">
-                            <MailIconWhiteIcon className="h-4 w-4"/> khvechuksergiyko@gmail.com
+                            <IoIosMail className="h-5 w-5"/> khvechuksergiyko@gmail.com
                         </div>
                     </div>
                 </div>

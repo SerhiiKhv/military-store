@@ -40,7 +40,7 @@ export default function Users() {
 
             <div className="grid grid-cols-3 gap-2 px-4">
                 {users?.length > 0 && users.map((user: UserType) => (
-                    <div className='flex bg-gray-300 rounded-xl mb-2 p-4 justify-between'>
+                    <div className='flex bg-gray-300 rounded-xl mb-2 p-4 justify-between' key={user?._id}>
                         <div>
                             <span>{user.email}</span>
                             <span className="italic">

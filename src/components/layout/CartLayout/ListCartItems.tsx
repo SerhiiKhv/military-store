@@ -1,11 +1,10 @@
 import Link from "next/link";
-import {PencilIcon} from "@/components/icons/PencilIcon";
-import {ChevronUpIcon} from "@/components/icons/ChevronUpIcon";
-import {ChevronDownIcon} from "@/components/icons/ChevronDownIcon";
 import {ShopItemType} from "@/components/Types/ShopItem";
 import Image from "next/image";
 import React, {useContext, useState} from "react";
 import {CartContext} from "@/components/AppContext";
+import {FaChevronDown, FaChevronUp} from "react-icons/fa";
+import {HiOutlinePencil} from "react-icons/hi";
 
 export default function ListCartItems() {
 
@@ -20,17 +19,17 @@ export default function ListCartItems() {
                     <Link
                         href={'/cart'}
                         className="flex gap-1">
-                        <PencilIcon/>
+                        <HiOutlinePencil className='h-5 w-5'/>
                         Редагувати
                     </Link>
 
                     {isCartPageOpen ? (
                         <div onClick={() => setIsCartPageOpen(false)}>
-                            <ChevronUpIcon/>
+                            <FaChevronUp />
                         </div>
                     ) : (
                         <div onClick={() => setIsCartPageOpen(true)}>
-                            <ChevronDownIcon/>
+                            <FaChevronDown />
                         </div>
                     )}
                 </div>

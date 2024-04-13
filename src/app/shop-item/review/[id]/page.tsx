@@ -1,17 +1,17 @@
 'use client'
 
-import { useParams } from "next/navigation";
-import React, { useContext, useEffect, useState } from "react";
-import { CharacteristicsType, ShopItemType } from "@/components/Types/ShopItem";
-import { CategoryType } from "@/components/Types/CategoryType";
-import { HomeIcon } from "@/components/icons/HomeIcon";
+import {useParams} from "next/navigation";
+import React, {useContext, useEffect, useState} from "react";
+import {CharacteristicsType, ShopItemType} from "@/components/Types/ShopItem";
+import {CategoryType} from "@/components/Types/CategoryType";
 import Image from "next/image";
-import ShoppingCartIcon from "@/components/icons/ShoppingCartIcon";
-import { CartContext } from "@/components/AppContext";
+import {CartContext} from "@/components/AppContext";
 import toast from "react-hot-toast";
-import { VscChevronLeft, VscChevronRight } from "react-icons/vsc";
-import { GetShopItemID } from "@/app/ApiRequest/ApiRequest";
+import {VscChevronLeft, VscChevronRight} from "react-icons/vsc";
+import {GetCategories, GetShopItemID} from "@/app/ApiRequest/ApiRequest";
 import ShopItemFormRating from "@/components/layout/ShopItemsLayout/ShopItemFormRating";
+import {IoHomeOutline} from "react-icons/io5";
+import {RiShoppingCart2Line} from "react-icons/ri";
 
 export default function ReviewShopItemPageID() {
     const { id } = useParams();
@@ -25,22 +25,23 @@ export default function ReviewShopItemPageID() {
 
     useEffect(() => {
         GetShopItemID(setShopItems, id);
+        GetCategories(setCategories)
     }, [id]);
 
     useEffect(() => {
-        function checkCategory() {
-            if (categories && shopItems) {
-                categories.forEach((category: CategoryType) => {
-                    if (category._id === shopItems?.category) {
-                        setCategoryName(category.name);
-                    }
-                });
-            }
-        }
-
         checkCategory();
         setNumInputs(shopItems?.image?.length || 0);
     }, [categories, shopItems, shopItems?.category, shopItems?.image?.length]);
+
+    function checkCategory() {
+        if (categories && shopItems) {
+            categories.forEach((category: CategoryType) => {
+                if (category._id === shopItems?.category) {
+                    setCategoryName(category.name);
+                }
+            });
+        }
+    }
 
     function handleAddToCartButtonClick() {
         addToCart(shopItems);
@@ -53,7 +54,7 @@ export default function ReviewShopItemPageID() {
                 {shopItems && (
                     <div>
                         <div className="flex items-center gap-1 py-6">
-                            <HomeIcon />
+                            <IoHomeOutline className="h-6 w-6"/>
                             {categoryName}
                         </div>
 
@@ -109,7 +110,7 @@ export default function ReviewShopItemPageID() {
                                     <button type="button"
                                             className="button flex items-center justify-center gap-2"
                                             onClick={handleAddToCartButtonClick}>
-                                        <ShoppingCartIcon /> Купити
+                                        <RiShoppingCart2Line className="h-6 w-6"/> Купити
                                     </button>
                                 </div>
 

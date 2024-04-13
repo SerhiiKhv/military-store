@@ -1,6 +1,6 @@
 import React from "react";
 import {CharacteristicsType} from "@/components/Types/ShopItem";
-import {DeleteIcon} from "@/components/icons/DeleteIcon";
+import {MdDeleteForever} from "react-icons/md";
 
 export default function ShopItemModelAddedElement({name, props, setProps, buttonName}:
                                                 {
@@ -56,7 +56,7 @@ export default function ShopItemModelAddedElement({name, props, setProps, button
                                 type="button"
                                 onClick={() => removeSize(index)}
                                 className="delete mb-4 p-2">
-                                <DeleteIcon/>
+                                <MdDeleteForever className="h-6 w-6"/>
                             </button>
                         </div>
                     </div>

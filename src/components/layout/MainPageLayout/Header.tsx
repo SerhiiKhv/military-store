@@ -4,12 +4,10 @@ import Link from "next/link";
 import {useSession} from "next-auth/react";
 import React, {useContext} from "react";
 import {CartContext} from "@/components/AppContext";
-import ShoppingCartIcon from "@/components/icons/ShoppingCartIcon";
 import Image from "next/image";
-import UserIcon from "@/components/icons/UserIcon";
-import {ChevronDownIcon} from "@/components/icons/ChevronDownIcon";
-import {BorsThreeIcon} from "@/components/icons/BorsThreeIcon";
-import {HearIcon} from "@/components/icons/HeartIcon";
+import {VscThreeBars} from "react-icons/vsc";
+import {FaChevronDown, FaRegHeart, FaRegUser} from "react-icons/fa";
+import {RiShoppingCart2Line} from "react-icons/ri";
 
 export const Header = () => {
     const session = useSession()
@@ -64,7 +62,7 @@ export const Header = () => {
 
                     <div className="flex items-center justify-center">
                         Укр
-                        <ChevronDownIcon/>
+                        <FaChevronDown/>
                     </div>
                 </div>
 
@@ -75,7 +73,7 @@ export const Header = () => {
                         bg-gradient-to-br from-neonNazar to-blue-600">
                         Категорії
 
-                        <BorsThreeIcon/>
+                        <VscThreeBars className="h-6 w-6"/>
                     </div>
 
                     <div>
@@ -87,11 +85,12 @@ export const Header = () => {
                     <nav className="gap-6 flex items-center font-semibold px-2">
                         {status === "authenticated" && (
                             <>
-                                <Link href={'/profile'}><p className="text-white flex ">
-                                    {userName}
-
-                                    <UserIcon/>
-                                </p></Link>
+                                <Link href={'/profile'}>
+                                    <p className="text-white flex justify-center items-center">
+                                        {userName}
+                                        <FaRegUser className="w-5 h-5"/>
+                                    </p>
+                                </Link>
                             </>
                         )}
 
@@ -109,7 +108,7 @@ export const Header = () => {
 
                         <Link href={'/like'} className="relative">
                             <div style={{filter: "brightness(0) invert(1)"}}>
-                                <HearIcon/>
+                                <FaRegHeart className="h-5 w-5"/>
                             </div>
                             <span className="absolute bg-gradient-to-br
                                              from-neonNazar to-blue-600 -top-2 -right-4 text-white
@@ -120,7 +119,7 @@ export const Header = () => {
 
                         <Link href={'/cart'} className="relative">
                             <div style={{filter: "brightness(0) invert(1)"}}>
-                                <ShoppingCartIcon/>
+                                <RiShoppingCart2Line className="h-6 w-6"/>
                             </div>
                             <span className="absolute bg-gradient-to-br
                                              from-neonNazar to-blue-600 -top-2 -right-4 text-white

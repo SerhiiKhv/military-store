@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
-import {DeleteIcon} from "@/components/icons/DeleteIcon";
 import {VscChevronLeft, VscChevronRight} from "react-icons/vsc";
+import {MdDeleteForever} from "react-icons/md";
 
 export default function AddedImagePhotoLinkList(
     {photoLink, image, setIsFormValid, setImage}:
@@ -51,15 +51,9 @@ export default function AddedImagePhotoLinkList(
         setImage(updatedImage);
     }
 
-
     const handleAddInput = () => {
         setNumInputs(prevNumInputs => prevNumInputs + 1);
         setImage((prevImage: any) => [...prevImage, ""]);
-    };
-
-    const handleRemoveInput = () => {
-        setNumInputs(prevNumInputs => Math.max(1, prevNumInputs - 1)); // Не дозволяємо видалення всіх полів
-        setImage((prevImage: any) => prevImage.slice(0, -1)); // Видаляємо останній рядок з масиву
     };
 
     const handleInputChange = (index: number, value: any) => {
@@ -127,7 +121,7 @@ export default function AddedImagePhotoLinkList(
                                         type="button"
                                         className="delete px-2 py-2 flex items-center justify-center gap-1"
                                         onClick={() => clearPhotoLink(index)}>
-                                        Delete <DeleteIcon className="h-5 w-5"/>
+                                        Delete <MdDeleteForever className="h-5 w-5"/>
                                     </button>
                                 </div>
                             ))}

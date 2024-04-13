@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
-import {DeleteIcon} from "@/components/icons/DeleteIcon";
-import {EditIcon} from "@/components/icons/EditIcon";
+import {MdDeleteForever} from "react-icons/md";
+import {FaRegEdit} from "react-icons/fa";
 
 export default function AddedImageViaLink(
     {photoLink, image, setPhotoLink, setIsFormValid}:
@@ -76,14 +76,14 @@ export default function AddedImageViaLink(
                             type="button"
                             className="button px-2 mb-4 flex items-center justify-center gap-1"
                             onClick={editPhoto}>
-                            Edit <EditIcon className="h-5 w-5"/>
+                            Edit  <FaRegEdit className="h-5 w-5"/>
                         </button>
 
                         <button
                             type="button"
                             className="delete px-2 py-2 mb-4 flex items-center justify-center gap-1"
                             onClick={clearPhotoLink}>
-                            Delete <DeleteIcon className="h-5 w-5"/>
+                            Delete <MdDeleteForever className="h-5 w-5"/>
                         </button>
                     </div>
                 </div>

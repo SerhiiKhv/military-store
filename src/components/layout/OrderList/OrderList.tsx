@@ -1,15 +1,14 @@
 import UserTabs from "@/components/layout/MainPageLayout/Tabs";
 import {OrderType} from "@/components/Types/OrderType";
-import {ChevronUpIcon} from "@/components/icons/ChevronUpIcon";
 import {ShopItemType} from "@/components/Types/ShopItem";
 import Link from "next/link";
 import Image from "next/image";
-import {ChevronDownIcon} from "@/components/icons/ChevronDownIcon";
 import React from "react";
 import {useProfile} from "@/components/UseProfile";
-import {DeleteIcon} from "@/components/icons/DeleteIcon";
 import toast from "react-hot-toast";
 import {AiOutlineCheck, AiOutlineClose} from "react-icons/ai";
+import {FaChevronDown, FaChevronUp} from "react-icons/fa";
+import {MdDeleteForever} from "react-icons/md";
 
 export default function OrderList(
     {
@@ -115,7 +114,7 @@ export default function OrderList(
                                     <p>№ {order.orderNumber}</p>
 
                                     <div onClick={() => order._id && toggleOpenOrder(order._id)}>
-                                        <ChevronUpIcon/>
+                                        <FaChevronUp className="h-5 w-5"/>
                                     </div>
                                 </div>
 
@@ -222,7 +221,7 @@ export default function OrderList(
                                     {data?.admin && isAdminPage && (
                                         <button className="delete p-2"
                                                 onClick={() => handleOrderDelete(order._id)}>
-                                            <DeleteIcon/>
+                                            <MdDeleteForever className="h-6 w-6"/>
                                         </button>
                                     )}
                                     <div>
@@ -230,7 +229,7 @@ export default function OrderList(
                                         <p className="font-semibold">{order.price}₴</p>
                                     </div>
                                     <div onClick={() => order._id && toggleOpenOrder(order._id)}>
-                                        <ChevronDownIcon/>
+                                        <FaChevronDown className="h-5 w-5"/>
                                     </div>
                                 </div>
                             </div>
