@@ -29,19 +29,21 @@ export default function ReviewShopItemPageID() {
     }, [id]);
 
     useEffect(() => {
+        function checkCategory() {
+            if (categories && shopItems) {
+                categories.forEach((category: CategoryType) => {
+                    if (category._id === shopItems?.category) {
+                        setCategoryName(category.name);
+                    }
+                });
+            }
+        }
+
         checkCategory();
         setNumInputs(shopItems?.image?.length || 0);
     }, [categories, shopItems, shopItems?.category, shopItems?.image?.length]);
 
-    function checkCategory() {
-        if (categories && shopItems) {
-            categories.forEach((category: CategoryType) => {
-                if (category._id === shopItems?.category) {
-                    setCategoryName(category.name);
-                }
-            });
-        }
-    }
+
 
     function handleAddToCartButtonClick() {
         addToCart(shopItems);
