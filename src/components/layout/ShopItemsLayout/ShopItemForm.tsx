@@ -4,8 +4,13 @@ import {CategoryType} from "@/components/Types/CategoryType";
 import AddedImagePhotoLinkList from "@/components/layout/PhotoLayout/AddedImagePhotoLinkList";
 import ShopItemModelAddedElement from "@/components/layout/ShopItemsLayout/ShopItemModelAddedElement";
 import AddedDescription from "@/components/layout/ShopItemsLayout/AddedDescription";
+import {MdDeleteForever} from "react-icons/md";
+import toast from "react-hot-toast";
+import {useRouter} from "next/navigation";
 
 export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shopItem: ShopItemType | null }) {
+
+    const router = useRouter()
 
     const [_id, setId] = useState(shopItem?._id || "")
     const [name, setName] = useState(shopItem?.name || "")
@@ -42,6 +47,29 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
         })
     }, []);
 
+    async function handleShopItemDelete(_id: string | undefined) {
+        const creatingPromise = new Promise<void>(async (resolve, reject) => {
+            try {
+                const response = await fetch('/api/shop-items?_id=' + _id, {
+                    method: 'DELETE',
+                })
+                if (response.ok) {
+                    resolve();
+                } else {
+                    reject();
+                }
+                router.replace("/shop-items");
+            } catch (error) {
+                reject(error);
+            }
+        })
+
+        await toast.promise(creatingPromise, {
+            loading: 'Creating deleting',
+            success: 'Shop item delete!',
+            error: 'Error'
+        })
+    }
 
     return (
         <form className="p-4 mx-auto"
@@ -98,12 +126,19 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
                 </div>
             </div>
 
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center gap-2">
                 <button type="submit"
                         className="button mt-2 max-w-lg w-full"
                         disabled={isFormValid}>
                     Save
                 </button>
+                {_id && (
+                    <button className="delete p-2 mt-2 flex items-center justify-center"
+                            type="button"
+                            onClick={() => handleShopItemDelete(_id)}>
+                        Delete <MdDeleteForever className="h-6 w-6"/>
+                    </button>
+                )}
             </div>
         </form>
     )

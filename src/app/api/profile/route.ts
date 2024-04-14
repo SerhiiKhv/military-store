@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-//import {getServerSession} from "next-auth";
+import {getServerSession} from "next-auth";
 //import {authOptions} from "@/app/api/auth/[...nextauth]/route";
 import {User} from "@/app/models/User";
 
@@ -13,7 +13,7 @@ export async function PUT(req: any) {
     if(_id){
         filter = {_id}
     }else{
-        /*const session = await getServerSession(authOptions)
+       /* const session = await getServerSession(authOptions)
         const email = session?.user?.email
         filter = {email}*/
     }

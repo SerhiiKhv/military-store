@@ -1,6 +1,5 @@
 import {ShopItemMilitaryStore} from "@/app/models/ShopItem";
 import mongoose from "mongoose";
-import {CharacteristicsType} from "@/components/Types/ShopItem";
 
 export async function POST(req: any) {
     await mongoose.connect(String(process.env.MONGO_URL));
@@ -21,4 +20,12 @@ export async function GET() {
     return Response.json(
         await ShopItemMilitaryStore.find()
     )
+}
+
+export async function DELETE(req: any) {
+    await mongoose.connect(String(process.env.MONGO_URL));
+    const url = new URL(req.url)
+    const _id = url.searchParams.get('_id')
+    await ShopItemMilitaryStore.deleteOne({_id})
+    return Response.json(true)
 }
