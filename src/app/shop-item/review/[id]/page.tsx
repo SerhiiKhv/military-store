@@ -60,7 +60,7 @@ export default function ReviewShopItemPageID() {
                             {categoryName}
                         </div>
 
-                        <div className="grid grid-cols-2 gap-2">
+                        <div className="grid sm:grid-cols-2 grid-cols-1 gap-2">
                             <div>
                                 <div className="relative">
                                     <button
@@ -85,7 +85,7 @@ export default function ReviewShopItemPageID() {
                                     </button>
                                 </div>
 
-                                <div className="flex gap-2">
+                                <div className="sm:flex grid grid-cols-6 gap-2">
                                     {[...Array(numInputs)].map((_, index) => (
                                         <div key={index}
                                              onClick={() => setPhotoIndex(index)}>
@@ -119,7 +119,7 @@ export default function ReviewShopItemPageID() {
                                 <div className="bg-white p-8 rounded-md space-y-2">
                                     <h1 className="font-semibold text-xl">Доставка</h1>
 
-                                    <div className="grid grid-cols-3 space-y-2">
+                                    <div className="grid sm:grid-cols-3 grid-cols-[3fr,2fr,1fr] space-y-2">
                                         <div className="flex items-center gap-2 ">
                                             <Image src={"/NewPost.png"} alt={"NewPost"} width={25} height={25} />
                                             <p>До відділення нової пошти</p>
@@ -129,7 +129,7 @@ export default function ReviewShopItemPageID() {
                                             <p className="font-semibold">Відправимо сьогодні</p>
                                         </div>
 
-                                        <div className="flex justify-end">
+                                        <div className="flex justify-end items-center">
                                             <p>60+₴</p>
                                         </div>
 
@@ -142,7 +142,7 @@ export default function ReviewShopItemPageID() {
                                             <p className="font-semibold">Відправимо сьогодні</p>
                                         </div>
 
-                                        <div className="flex justify-end">
+                                        <div className="flex justify-end items-center">
                                             <p>100+₴</p>
                                         </div>
                                     </div>

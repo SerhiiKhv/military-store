@@ -118,7 +118,7 @@ export default function OrderList(
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-[2fr,3fr]">
+                                <div className="grid sm:grid-cols-[2fr,3fr] grid-cols-1">
                                     <div>
                                         <div className="flex items-center gap-2">
                                             {!order.status ? (
@@ -163,19 +163,18 @@ export default function OrderList(
                                             </div>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div className="space-y-2">
                                         {order.shopItems.map((shopItem: ShopItemType, index: any) => (
-                                            <div key={index} className="flex items-center justify-between">
+                                            <div key={index} className="grid sm:grid-cols-[1fr,5fr,1fr] grid-cols-[1fr,3fr,1fr] gap-2">
                                                 <Link href={`/shop-item/review/${shopItem._id}`}
                                                       target="_blank"
-                                                      className="flex gap-2 items-center justify-between">
+                                                      className="">
                                                     <Image src={shopItem.image[0] || '/pizza.png'} alt="Img menu item"
-                                                           width={50}
-                                                           height={50} className="w-24"/>
-
-                                                    <p>{shopItem.name}</p>
+                                                           width={250}
+                                                           height={250} className="w-full"/>
                                                 </Link>
 
+                                                <p>{shopItem.name}</p>
                                                 <p className="font-semibold">{shopItem.price}₴</p>
                                             </div>
                                         ))}

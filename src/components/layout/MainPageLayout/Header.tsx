@@ -10,8 +10,11 @@ import {FaChevronDown, FaRegHeart, FaRegUser} from "react-icons/fa";
 import {RiShoppingCart2Line} from "react-icons/ri";
 import {CategoryType} from "@/components/Types/CategoryType";
 import {GetCategories} from "@/app/ApiRequest/ApiRequest";
+import {useMediaQuery} from "@react-hook/media-query";
 
 export const Header = () => {
+    const isMediumScreen = useMediaQuery('(min-width: 640px)');
+
     const session = useSession()
     const status = session.status
 
@@ -36,16 +39,19 @@ export const Header = () => {
             <div className="flex items-center justify-between gap-2 my-container">
                 <div>
                     <Link className="bg-gradient-to-r from-purple-500 to-blue-600 bg-clip-text text-transparent
-            font-semibold text-4xl" href="/">
+            font-semibold md:text-4xl text-2xl" href="/">
                         ALANEC
                     </Link>
                 </div>
 
-                <div className="flex gap-4">
-                    <p>Доставка</p>
-                    <p>Про нас</p>
-                    <p>Контакти</p>
-                </div>
+                {isMediumScreen &&
+                    <div className="flex gap-4">
+                        <p>Доставка</p>
+                        <p>Про нас</p>
+                        <p>Контакти</p>
+                    </div>
+                }
+
 
                 <div className="flex gap-4">
                     <div className="bg-gray-200 p-3 flex gap-2">
@@ -86,9 +92,9 @@ export const Header = () => {
             <div className="bg-black max-w-screen">
                 <div className="grid grid-cols-[1fr,4fr,1fr] gap-6 my-container">
                     <div>
-                        <div className="flex px-10 h-full items-center justify-center text-white gap-1
-                        bg-gradient-to-br from-neonNazar to-blue-600">
-                            Категорії
+                        <div className="flex px-1 sm:px-10 h-full items-center justify-center text-white gap-1
+                        sm:bg-gradient-to-br sm:from-neonNazar sm:to-blue-600">
+                            {isMediumScreen && <h1>Категорії</h1>}
 
                             <VscThreeBars className="h-6 w-6"
                                           onClick={() => setIsActiveCategory(!isActiveCategory)}/>
@@ -98,7 +104,9 @@ export const Header = () => {
                              onMouseLeave={() => setIsActiveCategory(false)}>
                             {isActiveCategory && (
                                 <div className="absolute bg-gray-100 p-4 top-0">
-                                    <p className="font-bold text-xl">Категорії</p>
+                                    <p className="font-bold text-xl">
+                                        Категорії
+                                    </p>
 
                                     {categories?.length > 0 && categories.map((c: CategoryType) => (
                                         <div className="px-4 py-1 gap-2 cursor-pointer" key={c._id}>
@@ -126,7 +134,7 @@ export const Header = () => {
                             <>
                                 <Link href={'/profile'}>
                                     <p className="text-white flex justify-center items-center">
-                                        {userName}
+                                        {isMediumScreen && <h1>{userName}</h1>}
                                         <FaRegUser className="w-5 h-5"/>
                                     </p>
                                 </Link>

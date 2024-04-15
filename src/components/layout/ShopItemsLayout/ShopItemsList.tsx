@@ -17,9 +17,9 @@ export default function ShopItemsList(
         <div>
             {hasItems && (
                 <>
-                    <p className="text-2xl font-bold">{categoryName}</p>
+                    <p className="sm:text-2xl text-xl font-bold">{categoryName}</p>
 
-                    <div className="grid grid-cols-5 gap-2">
+                    <div className="grid sm:grid-cols-6 grid-cols-2 gap-2">
                         {filteredShopItems
                             .slice(0, 5)
                             .map((item: ShopItemType) => (

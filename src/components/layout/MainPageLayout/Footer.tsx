@@ -7,7 +7,7 @@ export default function Footer(){
     return (
         <section className="text-white mt-8 bg-black">
             <div className="my-container py-6">
-                <div className="grid grid-cols-5">
+                <div className="grid sm:grid-cols-5 grid-cols-1 dm:space-y-0 space-y-6">
                     <div>
                         <Link className="bg-gradient-to-r from-purple-500 to-blue-600
                             bg-clip-text text-transparent font-semibold text-4xl" href="/">

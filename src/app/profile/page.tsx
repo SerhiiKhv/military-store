@@ -29,12 +29,10 @@ export default function ProfilePage() {
     }, [session, status])
 
     if (status === 'unauthenticated') {
-        console.log("unauthenticated")
         redirect('/login')
     }
 
     if (status === 'loading' || !profileFetched) {
-        console.log("loading")
         return "Loading..."
     }
 
