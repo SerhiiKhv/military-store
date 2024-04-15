@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import {getServerSession} from "next-auth";
-import {User} from "@/app/models/User";
+import {User} from "@/app/models/User"
+import {config} from "@/app/api/config/config";
 
 export async function PUT(req: any) {
     await mongoose.connect(String(process.env.MONGO_URL));
@@ -12,7 +13,7 @@ export async function PUT(req: any) {
     if(_id){
         filter = {_id}
     }else{
-        const session = await getServerSession()
+        const session = await getServerSession(config)
         const email = session?.user?.email
         filter = {email}
     }
@@ -24,7 +25,7 @@ export async function PUT(req: any) {
 
 export async function GET(req: any) {
     await mongoose.connect(String(process.env.MONGO_URL));
-    const session = await getServerSession();
+    const session = await getServerSession(config);
 
     const url = new URL(req.url)
     const _id = url.searchParams.get('_id')
