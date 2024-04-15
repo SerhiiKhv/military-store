@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import {useSession} from "next-auth/react";
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {CartContext} from "@/components/AppContext";
 import Image from "next/image";
 import {VscThreeBars} from "react-icons/vsc";
 import {FaChevronDown, FaRegHeart, FaRegUser} from "react-icons/fa";
 import {RiShoppingCart2Line} from "react-icons/ri";
+import {CategoryType} from "@/components/Types/CategoryType";
+import {GetCategories} from "@/app/ApiRequest/ApiRequest";
 
 export const Header = () => {
     const session = useSession()
@@ -17,6 +19,13 @@ export const Header = () => {
     let userName = userData?.name || userData?.email
 
     const {cartProducts} = useContext(CartContext) as any;
+
+    const [categories, setCategories] = useState([])
+    const [isActiveCategory, setIsActiveCategory] = useState(false)
+
+    useEffect(() => {
+        GetCategories(setCategories)
+    }, [])
 
     if (userName && userName.includes(" ")) {
         userName = userName?.split(' ')[0]
@@ -40,25 +49,32 @@ export const Header = () => {
 
                 <div className="flex gap-4">
                     <div className="bg-gray-200 p-3 flex gap-2">
-                        <Image
-                            src={'/instagram.svg'}
-                            alt={"Img instagram"}
-                            width={25}
-                            height={25}
-                        />
-                        <Image
-                            src={'/telegram.svg'}
-                            alt={"Img telegram"}
-                            width={25}
-                            height={25}
-                        />
-                        <Image
-                            src={'/phone.svg'}
-                            alt={"Img phone"}
-                            width={25}
-                            height={25}
-                        />
+                        <a href="https://www.instagram.com/alamay_necron/">
+                            <Image
+                                src={'/instagram.svg'}
+                                alt={"Img instagram"}
+                                width={25}
+                                height={25}
+                            />
+                        </a>
+                        <a href="https://t.me/Alamay_Necron">
+                            <Image
+                                src={'/telegram.svg'}
+                                alt={"Img telegram"}
+                                width={25}
+                                height={25}
+                            />
+                        </a>
+                        <a href="tel:+380684300807">
+                            <Image
+                                src={'/phone.svg'}
+                                alt={"Img phone"}
+                                width={25}
+                                height={25}
+                            />
+                        </a>
                     </div>
+
 
                     <div className="flex items-center justify-center">
                         Укр
@@ -69,11 +85,34 @@ export const Header = () => {
             </div>
             <div className="bg-black max-w-screen">
                 <div className="grid grid-cols-[1fr,4fr,1fr] gap-6 my-container">
-                    <div className="flex px-10 items-center justify-center text-white gap-1
+                    <div>
+                        <div className="flex px-10 h-full items-center justify-center text-white gap-1
                         bg-gradient-to-br from-neonNazar to-blue-600">
-                        Категорії
+                            Категорії
 
-                        <VscThreeBars className="h-6 w-6"/>
+                            <VscThreeBars className="h-6 w-6"
+                                          onClick={() => setIsActiveCategory(!isActiveCategory)}/>
+                        </div>
+
+                        <div className="relative"
+                             onMouseLeave={() => setIsActiveCategory(false)}>
+                            {isActiveCategory && (
+                                <div className="absolute bg-gray-100 p-4 top-0">
+                                    <p className="font-bold text-xl">Категорії</p>
+
+                                    {categories?.length > 0 && categories.map((c: CategoryType) => (
+                                        <div className="px-4 py-1 gap-2 cursor-pointer" key={c._id}>
+                                            <div className="flex graw justify-between items-center">
+                                                <Link href={`/category/` + c._id}>
+                                                    <span>{c.name}</span>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    ))}
+
+                                </div>
+                            )}
+                        </div>
                     </div>
 
                     <div>
