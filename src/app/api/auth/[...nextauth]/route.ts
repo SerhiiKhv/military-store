@@ -1,11 +1,11 @@
-import NextAuth from "next-auth";
+import NextAuth, {NextAuthOptions} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import { User } from "@/app/models/User";
 import GoogleProvider from "next-auth/providers/google";
 
-const authOptions = {
+export const authOptions: NextAuthOptions = {
     secret: process.env.SECRET,
     providers: [
         GoogleProvider({

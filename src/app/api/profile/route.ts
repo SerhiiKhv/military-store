@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import {getServerSession} from "next-auth";
-//import {authOptions} from "@/app/api/auth/[...nextauth]/route";
 import {User} from "@/app/models/User";
 
 export async function PUT(req: any) {
@@ -13,9 +12,9 @@ export async function PUT(req: any) {
     if(_id){
         filter = {_id}
     }else{
-       /* const session = await getServerSession(authOptions)
+        const session = await getServerSession()
         const email = session?.user?.email
-        filter = {email}*/
+        filter = {email}
     }
 
     await User.updateOne(filter, data)
@@ -25,7 +24,7 @@ export async function PUT(req: any) {
 
 export async function GET(req: any) {
     await mongoose.connect(String(process.env.MONGO_URL));
-    //const session = await getServerSession(authOptions);
+    const session = await getServerSession();
 
     const url = new URL(req.url)
     const _id = url.searchParams.get('_id')
@@ -35,7 +34,7 @@ export async function GET(req: any) {
     if(_id){
         filter = {_id}
     }else{
-        /*if (session) {
+        if (session) {
             const email = session.user?.email;
             if (email) {
                 filter = {email}
@@ -44,7 +43,7 @@ export async function GET(req: any) {
             }
         } else {
             return Response.json({error: "Session not found"}, {status: 400});
-        }*/
+        }
     }
 
     const user = await User.findOne(filter);
