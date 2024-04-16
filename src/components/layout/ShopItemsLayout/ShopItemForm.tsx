@@ -77,7 +77,7 @@ export default function ShopItemForm({onSubmit, shopItem}: { onSubmit: any, shop
                   {_id, name, description, price, image, category, availability, cod, characteristics}
               )}
         >
-            <div className="grid grid-cols-[1fr,1fr,1fr] gap-2">
+            <div className="grid sm:grid-cols-[1fr,1fr,1fr] grid-cols-1 gap-2">
 
                 <div className="h-screen overflow-auto px-4">
                     <AddedImagePhotoLinkList photoLink={photoLink} image={image}

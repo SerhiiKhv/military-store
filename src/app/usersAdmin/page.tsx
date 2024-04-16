@@ -38,7 +38,7 @@ export default function Users() {
                 <SectionHeader subHeader={""} mainHeader={"Users:"}/>
             </div>
 
-            <div className="grid grid-cols-3 gap-2 px-4">
+            <div className="grid sm:grid-cols-3 grid-cols-1 gap-2 px-4">
                 {users?.length > 0 && users.map((user: UserType) => (
                     <div className='flex bg-gray-300 rounded-xl mb-2 p-4 justify-between' key={user?._id}>
                         <div>

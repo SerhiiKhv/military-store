@@ -19,7 +19,7 @@ export default function CartContactInformation({
         <div className="bg-white mt-6 p-8 rounded-md">
             <p className="text-xl">1. Контактна інформація</p>
 
-            <div className="flex gap-2 items-center justify-between">
+            <div className="sm:flex grid grid-cols-1 gap-2 items-center justify-between">
                 <div className="w-full">
                     <label>Номер телефону</label>
                     <input type="text" value={phoneNumber}

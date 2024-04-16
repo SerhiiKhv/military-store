@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import {AiOutlineCheck, AiOutlineClose} from "react-icons/ai";
 import {FaChevronDown, FaChevronUp} from "react-icons/fa";
 import {MdDeleteForever} from "react-icons/md";
+import {useMediaQuery} from "@react-hook/media-query";
 
 export default function OrderList(
     {
@@ -29,6 +30,9 @@ export default function OrderList(
 
     const {loading, data} = useProfile();
 
+
+    const isMediumScreen = useMediaQuery('(min-width: 640px)');
+
     const toggleOpenOrder = (orderId: string) => {
         setOpenOrderStates((prevStates: any) => ({
             ...prevStates,
@@ -44,7 +48,7 @@ export default function OrderList(
         })
     }
 
-    async function handleOrderChangeStatus(data: OrderType){
+    async function handleOrderChangeStatus(data: OrderType) {
         const creatingPromise = new Promise<void>(async (resolve, reject) => {
             try {
                 const response = await fetch('/api/order', {
@@ -71,29 +75,29 @@ export default function OrderList(
         })
     }
 
-    async function handleOrderDelete(_id: string | undefined){
-            const creatingPromise = new Promise<void>(async (resolve, reject) => {
-                try {
-                    const response = await fetch('/api/order?_id='+_id, {
-                        method: 'DELETE',
-                    })
+    async function handleOrderDelete(_id: string | undefined) {
+        const creatingPromise = new Promise<void>(async (resolve, reject) => {
+            try {
+                const response = await fetch('/api/order?_id=' + _id, {
+                    method: 'DELETE',
+                })
 
-                    fetchOrder()
-                    if (response.ok) {
-                        resolve();
-                    } else {
-                        reject();
-                    }
-                } catch (error) {
-                    reject(error);
+                fetchOrder()
+                if (response.ok) {
+                    resolve();
+                } else {
+                    reject();
                 }
-            })
+            } catch (error) {
+                reject(error);
+            }
+        })
 
-            await toast.promise(creatingPromise, {
-                loading: 'Creating deleting',
-                success: 'Order delete!',
-                error: 'Error'
-            })
+        await toast.promise(creatingPromise, {
+            loading: 'Creating deleting',
+            success: 'Order delete!',
+            error: 'Error'
+        })
     }
 
     if (loading) {
@@ -129,8 +133,11 @@ export default function OrderList(
 
                                             {data?.admin && isAdminPage && (
                                                 <button className="buttonWithoutP p-1"
-                                                        onClick={() => handleOrderChangeStatus({...order, status: !order.status})}>
-                                                    {order.status? <AiOutlineCheck /> : <AiOutlineClose />}
+                                                        onClick={() => handleOrderChangeStatus({
+                                                            ...order,
+                                                            status: !order.status
+                                                        })}>
+                                                    {order.status ? <AiOutlineCheck/> : <AiOutlineClose/>}
                                                 </button>
                                             )}
                                         </div>
@@ -165,7 +172,8 @@ export default function OrderList(
                                     </div>
                                     <div className="space-y-2">
                                         {order.shopItems.map((shopItem: ShopItemType, index: any) => (
-                                            <div key={index} className="grid sm:grid-cols-[1fr,5fr,1fr] grid-cols-[1fr,3fr,1fr] gap-2">
+                                            <div key={index}
+                                                 className="grid sm:grid-cols-[1fr,5fr,1fr] grid-cols-[1fr,3fr,1fr] gap-2">
                                                 <Link href={`/shop-item/review/${shopItem._id}`}
                                                       target="_blank"
                                                       className="">
@@ -200,37 +208,85 @@ export default function OrderList(
                             </div>
 
                         ) : (
-                            <div className="bg-white p-4 m-2 rounded-md flex justify-between">
-                                <div>
-                                    <p>№ {order.orderNumber} Дата доставки: {order.delivery.dateDelivery}</p>
-                                    {!order.status ? (
-                                        <p className="text-orange-500">В процесі</p>
-                                    ) : (
-                                        <p className="text-green-500">Виконано</p>
-                                    )}
-                                </div>
-                                <div className="flex gap-2">
-                                    {order.shopItems.map((item: any, index: any) => (
-                                        <Image key={index} src={item.image[0] || '/pizza.png'} alt="Img menu item"
-                                               width={50}
-                                               height={50} className="w-24"/>
-                                    ))}
-                                </div>
-                                <div className="flex items-center gap-4">
-                                    {data?.admin && isAdminPage && (
-                                        <button className="delete p-2"
-                                                onClick={() => handleOrderDelete(order._id)}>
-                                            <MdDeleteForever className="h-6 w-6"/>
-                                        </button>
-                                    )}
-                                    <div>
-                                        <p>До сплати</p>
-                                        <p className="font-semibold">{order.price}₴</p>
+                            <div>
+                                {isMediumScreen ? (
+                                    <div className="bg-white p-4 m-2 rounded-md flex justify-between">
+                                        <div>
+                                            <p>№ {order.orderNumber} Дата доставки: {order.delivery.dateDelivery}</p>
+                                            {!order.status ? (
+                                                <p className="text-orange-500">В процесі</p>
+                                            ) : (
+                                                <p className="text-green-500">Виконано</p>
+                                            )}
+                                        </div>
+                                        <div className="flex gap-2">
+                                            {order.shopItems.map((item: any, index: any) => (
+                                                <Image key={index} src={item.image[0] || '/pizza.png'}
+                                                       alt="Img menu item"
+                                                       width={50}
+                                                       height={50} className="w-24"/>
+                                            ))}
+                                        </div>
+                                        <div className="flex items-center gap-4">
+                                            {data?.admin && isAdminPage && (
+                                                <button className="delete p-2"
+                                                        onClick={() => handleOrderDelete(order._id)}>
+                                                    <MdDeleteForever className="h-6 w-6"/>
+                                                </button>
+                                            )}
+                                            <div>
+                                                <p>До сплати</p>
+                                                <p className="font-semibold">{order.price}₴</p>
+                                            </div>
+                                            <div onClick={() => order._id && toggleOpenOrder(order._id)}>
+                                                <FaChevronDown className="h-5 w-5"/>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div onClick={() => order._id && toggleOpenOrder(order._id)}>
-                                        <FaChevronDown className="h-5 w-5"/>
+                                ) : (
+                                    <div className="bg-white p-4 m-2 rounded-md">
+                                        <div>
+                                            <div className="flex gap-2 justify-between">
+                                                <p className="flex gap-2">№ {order.orderNumber}
+                                                    {!order.status ? (
+                                                        <h1 className="text-orange-500">В процесі</h1>
+                                                    ) : (
+                                                        <h1 className="text-green-500">Виконано</h1>
+                                                    )}
+                                                </p>
+                                                <div className="flex items-center gap-4">
+                                                    {data?.admin && isAdminPage && (
+                                                        <button className="delete p-2"
+                                                                onClick={() => handleOrderDelete(order._id)}>
+                                                            <MdDeleteForever className="h-6 w-6"/>
+                                                        </button>
+                                                    )}
+
+                                                    <div onClick={() => order._id && toggleOpenOrder(order._id)}>
+                                                        <FaChevronDown className="h-5 w-5"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <p>Дата доставки: {order.delivery.dateDelivery}</p>
+
+                                        </div>
+                                        <div className="flex gap-2">
+                                            {order.shopItems.map((item: any, index: any) => (
+                                                <Image key={index} src={item.image[0] || '/pizza.png'}
+                                                       alt="Img menu item"
+                                                       width={50}
+                                                       height={50} className="w-24"/>
+                                            ))}
+                                        </div>
+
+                                        <div className="flex gap-2 justify-end">
+                                            <h1>До сплати: </h1>
+                                            <h1 className="font-semibold">{order.price}₴</h1>
+                                        </div>
                                     </div>
-                                </div>
+                                )}
+
                             </div>
                         )}
                     </div>

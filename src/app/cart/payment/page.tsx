@@ -11,6 +11,9 @@ import toast from "react-hot-toast";
 import {OrderType} from "@/components/Types/OrderType";
 import {DeliveryType} from "@/components/Types/DeliveryType";
 import {useRouter} from "next/navigation";
+import Link from "next/link";
+import {HiOutlinePencil} from "react-icons/hi";
+import {FaChevronDown, FaChevronUp} from "react-icons/fa";
 
 export default function PaymentPage() {
     const router = useRouter()
@@ -18,6 +21,9 @@ export default function PaymentPage() {
 
     const {status} = session
     const {cartProducts, clearCart} = useContext(CartContext) as any;
+
+    const [isCartPageOpen, setIsCartPageOpen] = useState(true)
+
 
     const [userName, setUserName] = useState('')
     const [userId, setUserId] = useState('')
@@ -112,9 +118,32 @@ export default function PaymentPage() {
             >
                 <div className="my-container">
                     <p className="text-xl">Оформити замовлення</p>
-                    <div className="grid grid-cols-[3fr,1fr] gap-4">
+                    <div className="grid sm:grid-cols-[3fr,1fr] grid-cols-1 gap-4">
                         <div>
-                            <ListCartItems/>
+                            <div className="flex justify-between">
+                                <p>Ваше замовлення</p>
+                                <div className="flex gap-6">
+                                    <Link
+                                        href={'/cart'}
+                                        className="flex gap-1">
+                                        <HiOutlinePencil className='h-5 w-5'/>
+                                        Редагувати
+                                    </Link>
+
+                                    {isCartPageOpen ? (
+                                        <div onClick={() => setIsCartPageOpen(false)}>
+                                            <FaChevronUp />
+                                        </div>
+                                    ) : (
+                                        <div onClick={() => setIsCartPageOpen(true)}>
+                                            <FaChevronDown />
+                                        </div>
+                                    )}
+                                </div>
+
+                            </div>
+
+                            {isCartPageOpen && (<ListCartItems/>)}
 
                             <CartContactInformation
                                 phoneNumber={phoneNumber}

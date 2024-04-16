@@ -29,7 +29,7 @@ export default function DeliveryMethod({
 
                     {delivery?.deliveryMethod === "department" && (
                         <div>
-                            <div className="flex gap-2 items-center justify-between">
+                            <div className="sm:flex gap-2 grid grid-cols-1 items-center justify-between">
                                 <div className="w-full">
                                     <label>Дата доставки</label>
                                     <input
@@ -48,7 +48,7 @@ export default function DeliveryMethod({
                                 </div>
                             </div>
 
-                            <div className="flex gap-2 items-center justify-between">
+                            <div className="sm:flex grid grid-cols-1 gap-2 items-center justify-between">
                                 <div className="w-full">
                                     <label>Прізвище</label>
                                     <input type="text" value={delivery.surName}
@@ -87,7 +87,7 @@ export default function DeliveryMethod({
 
                         {delivery?.deliveryMethod === "courier" && (
                             <div>
-                                <div className="flex gap-2 items-center justify-between">
+                                <div className="sm:flex grid grid-cols-1 gap-2 items-center justify-between">
                                     <div className="w-full">
                                         <label>Дата доставки</label>
                                         <input type="text"
@@ -113,7 +113,7 @@ export default function DeliveryMethod({
                                                setDelivery({ ...delivery, address: e.target.value })} />
                                 </div>
 
-                                <div className="flex gap-2 items-center justify-between">
+                                <div className="sm:flex gap-2 grid grid-cols-1 items-center justify-between">
                                     <div className="w-full">
                                         <label>Прізвище</label>
                                         <input type="text" value={delivery.surName}

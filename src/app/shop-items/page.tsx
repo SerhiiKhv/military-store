@@ -62,7 +62,7 @@ export default function ShopItemsPage() {
                                 <SectionHeader subHeader={""} mainHeader={c.name}/>
                             </div>
 
-                            <div className="grid grid-cols-5 gap-2">
+                            <div className="grid sm:grid-cols-5 grid-cols-2 gap-2">
                                 {shopItems.filter((item: ShopItemType) => item.category === c._id).map((item: ShopItemType) => (
                                     <ShopItemsForAdmin {...item} key={item._id}/>
                                 ))}
