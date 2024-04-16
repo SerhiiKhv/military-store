@@ -11,7 +11,6 @@ import {useMediaQuery} from "@react-hook/media-query";
 export default function ListCartItems(
     {deleteButton}: { deleteButton?: boolean }
 ) {
-
     const isMediumScreen = useMediaQuery('(min-width: 640px)');
 
     const {cartProducts, removeCartProduct} = useContext(CartContext) as any;
@@ -23,10 +22,10 @@ export default function ListCartItems(
                     <div>No products in your shopping cart</div>
                 )}
                 {cartProducts?.length > 0 && cartProducts.map((product: ShopItemType, index: number) => (
-                    <div>
+                    <div key={index}>
                         {isMediumScreen ?
                             (
-                                <div key={index}
+                                <div
                                      className="grid grid-cols-[3fr,1fr] gap-4 mb-4 border-b py-2 bg-white rounded-md">
                                     <div className="flex gap-4 p-2">
                                         <Image src={product.image[0] || '/pizza.png'}
