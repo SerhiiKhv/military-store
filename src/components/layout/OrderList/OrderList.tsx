@@ -9,7 +9,6 @@ import toast from "react-hot-toast";
 import {AiOutlineCheck, AiOutlineClose} from "react-icons/ai";
 import {FaChevronDown, FaChevronUp} from "react-icons/fa";
 import {MdDeleteForever} from "react-icons/md";
-import {useMediaQuery} from "@react-hook/media-query";
 
 export default function OrderList(
     {
@@ -29,9 +28,6 @@ export default function OrderList(
         }) {
 
     const {loading, data} = useProfile();
-
-
-    const isMediumScreen = useMediaQuery('(min-width: 640px)');
 
     const toggleOpenOrder = (orderId: string) => {
         setOpenOrderStates((prevStates: any) => ({
@@ -209,10 +205,10 @@ export default function OrderList(
 
                         ) : (
                             <div>
-                                {isMediumScreen ? (
+                                <div className="hidden sm:block">
                                     <div className="bg-white p-4 m-2 rounded-md flex justify-between">
                                         <div>
-                                            <p>№ {order.orderNumber} Дата доставки: {order.delivery.dateDelivery}</p>
+                                            <h1>№ {order.orderNumber} Дата доставки: {order.delivery.dateDelivery}</h1>
                                             {!order.status ? (
                                                 <p className="text-orange-500">В процесі</p>
                                             ) : (
@@ -243,17 +239,19 @@ export default function OrderList(
                                             </div>
                                         </div>
                                     </div>
-                                ) : (
+                                </div>
+
+                                <div className="sm:hidden block">
                                     <div className="bg-white p-4 m-2 rounded-md">
                                         <div>
                                             <div className="flex gap-2 justify-between">
-                                                <p className="flex gap-2">№ {order.orderNumber}
+                                                <h1 className="flex gap-2">№ {order.orderNumber}
                                                     {!order.status ? (
-                                                        <h1 className="text-orange-500">В процесі</h1>
+                                                        <p className="text-orange-500">В процесі</p>
                                                     ) : (
-                                                        <h1 className="text-green-500">Виконано</h1>
+                                                        <p className="text-green-500">Виконано</p>
                                                     )}
-                                                </p>
+                                                </h1>
                                                 <div className="flex items-center gap-4">
                                                     {data?.admin && isAdminPage && (
                                                         <button className="delete p-2"
@@ -285,8 +283,7 @@ export default function OrderList(
                                             <h1 className="font-semibold">{order.price}₴</h1>
                                         </div>
                                     </div>
-                                )}
-
+                                </div>
                             </div>
                         )}
                     </div>

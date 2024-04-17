@@ -10,10 +10,8 @@ import {FaChevronDown, FaRegHeart, FaRegUser} from "react-icons/fa";
 import {RiShoppingCart2Line} from "react-icons/ri";
 import {CategoryType} from "@/components/Types/CategoryType";
 import {GetCategories} from "@/app/ApiRequest/ApiRequest";
-import {useMediaQuery} from "@react-hook/media-query";
 
 export const Header = () => {
-    const isMediumScreen = useMediaQuery('(min-width: 640px)');
 
     const session = useSession()
     const status = session.status
@@ -44,18 +42,18 @@ export const Header = () => {
                     </Link>
                 </div>
 
-                {isMediumScreen &&
+                <div className="hidden sm:block">
                     <div className="flex gap-4">
                         <p>Доставка</p>
                         <p>Про нас</p>
                         <p>Контакти</p>
                     </div>
-                }
+                </div>
 
 
                 <div className="flex gap-4">
                     <div className="bg-gray-200 p-3 flex gap-2">
-                        <a href="https://www.instagram.com/alamay_necron/">
+                    <a href="https://www.instagram.com/alamay_necron/">
                             <Image
                                 src={'/instagram.svg'}
                                 alt={"Img instagram"}
@@ -94,7 +92,7 @@ export const Header = () => {
                     <div>
                         <div className="flex px-1 sm:px-10 h-full items-center justify-center text-white gap-1
                         sm:bg-gradient-to-br sm:from-neonNazar sm:to-blue-600">
-                            {isMediumScreen && <h1>Категорії</h1>}
+                            <h1 className="hidden sm:block">Категорії</h1>
 
                             <VscThreeBars className="h-6 w-6"
                                           onClick={() => setIsActiveCategory(!isActiveCategory)}/>
@@ -133,10 +131,10 @@ export const Header = () => {
                         {status === "authenticated" && (
                             <>
                                 <Link href={'/profile'}>
-                                    <p className="text-white flex justify-center items-center">
-                                        {isMediumScreen && <h1>{userName}</h1>}
+                                    <h1 className="text-white flex justify-center items-center">
+                                        <p className="hidden sm:block">{userName}</p>
                                         <FaRegUser className="w-5 h-5"/>
-                                    </p>
+                                    </h1>
                                 </Link>
                             </>
                         )}

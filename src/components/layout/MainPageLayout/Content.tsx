@@ -6,10 +6,8 @@ import {ShopItemType} from "@/components/Types/ShopItem";
 import Link from "next/link";
 import {GetCategories, GetShopItems} from "@/app/ApiRequest/ApiRequest";
 import ShopItemsList from "@/components/layout/ShopItemsLayout/ShopItemsList";
-import {useMediaQuery} from "@react-hook/media-query";
 
 export default function Content() {
-    const isMediumScreen = useMediaQuery('(min-width: 640px)');
 
     const [categories, setCategories] = useState([])
     const [shopItems, setShopItems] = useState<[ShopItemType] | []>([])
@@ -23,21 +21,19 @@ export default function Content() {
         <section className="my-container">
             <div className="sm:grid sm:grid-cols-[1fr,4fr]">
 
-                {isMediumScreen &&
-                    <div className="">
-                        <p className="font-bold text-xl">Категорії</p>
+                <div className="hidden sm:block">
+                    <p className="font-bold text-xl">Категорії</p>
 
-                        {categories?.length > 0 && categories.map((c: CategoryType) => (
-                            <div className="px-4 py-1 gap-2 cursor-pointer" key={c._id}>
-                                <div className="flex graw justify-between items-center">
-                                    <Link href={`/category/` + c._id}>
-                                        <span>{c.name}</span>
-                                    </Link>
-                                </div>
+                    {categories?.length > 0 && categories.map((c: CategoryType) => (
+                        <div className="px-4 py-1 gap-2 cursor-pointer" key={c._id}>
+                            <div className="flex graw justify-between items-center">
+                                <Link href={`/category/` + c._id}>
+                                    <span>{c.name}</span>
+                                </Link>
                             </div>
-                        ))}
-                    </div>
-                }
+                        </div>
+                    ))}
+                </div>
 
                 <div className="sm:p-4 p-1">
                     <Image

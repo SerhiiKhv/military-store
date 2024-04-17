@@ -2,25 +2,19 @@
 
 import React, {useContext} from "react";
 import {CartContext} from "@/components/AppContext";
-import Image from "next/image";
-import {ShopItemType} from "@/components/Types/ShopItem";
 import Link from "next/link";
 import Footer from "@/components/layout/MainPageLayout/Footer";
 import {FaArrowLeftLong} from "react-icons/fa6";
-import {MdDeleteForever} from "react-icons/md";
-import {useMediaQuery} from "@react-hook/media-query";
 import ListCartItems from "@/components/layout/CartLayout/ListCartItems";
 
 export default function CartPage() {
-    const {cartProducts, removeCartProduct} = useContext(CartContext) as any;
-    const isMediumScreen = useMediaQuery('(min-width: 640px)');
+    const {cartProducts} = useContext(CartContext) as any;
 
     let total = 0
 
     for (const p of cartProducts) {
         total += p.price
     }
-
 
     return (
         <section className="bg-gray-100 pt-4">
