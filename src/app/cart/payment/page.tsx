@@ -18,12 +18,16 @@ import {FaChevronDown, FaChevronUp} from "react-icons/fa";
 export default function PaymentPage() {
     const router = useRouter()
     const session = useSession()
-
     const {status} = session
     const {cartProducts, clearCart} = useContext(CartContext) as any;
 
-    const [isCartPageOpen, setIsCartPageOpen] = useState(true)
+    const currentDate = new Date();
+    const deliveryDate = new Date(currentDate);
 
+    deliveryDate.setDate(deliveryDate.getDate() + 2);
+    const formattedDeliveryDate = deliveryDate.toISOString().split('T')[0];
+
+    const [isCartPageOpen, setIsCartPageOpen] = useState(true)
 
     const [userName, setUserName] = useState('')
     const [userId, setUserId] = useState('')
@@ -34,7 +38,7 @@ export default function PaymentPage() {
         {
             streetAddress: "",
             deliveryMethod: "",
-            dateDelivery: "",
+            dateDelivery: formattedDeliveryDate,
             departmentNumber: "",
             surName: "",
             firstName: "",

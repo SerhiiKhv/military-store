@@ -25,7 +25,9 @@ section.hero {
 label + select,
 label + input[type="text"],
 label + input[type="email"],
+label + input[type="time"],
 label + input[type="number"],
+label + input[type="date"],
 label + textarea{
     margin-top: -2px;
 }
@@ -36,6 +38,8 @@ input[type="email"],
 input[type="password"],
 input[type="number"],
 input[type="text"],
+input[type="time"],
+input[type="date"],
 textarea{
     @apply block w-full my-4 rounded-xl;
     @apply border p-2 border-gray-300 bg-gray-100;
@@ -44,6 +48,8 @@ textarea{
 input[type="email"]:disabled,
 input[type="password"]:disabled,
 input[type="number"]:disabled,
+input[type="date"]:disabled,
+input[type="time"]:disabled,
 input[type="text"]:disabled {
     @apply bg-gray-300 border-0 cursor-not-allowed text-gray-500;
 }
