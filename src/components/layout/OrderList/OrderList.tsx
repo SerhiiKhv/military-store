@@ -146,7 +146,7 @@ export default function OrderList(
                                                 </div>
                                             )}
 
-                                            {order.delivery.address && order.delivery.deliveryMethod === "department" && (
+                                            {order.delivery.deliveryMethod === "department" && (
                                                 <div>
                                                     <h1 className="text-gray-600 text-sm">Адреса доставки нової
                                                         пошти</h1>

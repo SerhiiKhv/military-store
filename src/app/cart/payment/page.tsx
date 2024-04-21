@@ -27,13 +27,15 @@ export default function PaymentPage() {
     deliveryDate.setDate(deliveryDate.getDate() + 2);
     const formattedDeliveryDate = deliveryDate.toISOString().split('T')[0];
 
+    const [errorInfo, setErrorInfo] = useState("")
+
     const [isCartPageOpen, setIsCartPageOpen] = useState(true)
 
     const [userName, setUserName] = useState('')
     const [userId, setUserId] = useState('')
     const [userEmail, setUserEmail] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
-    const [paymentMethod, setPaymentMethod] = useState('cart')
+    const [paymentMethod, setPaymentMethod] = useState('cash')
     const [delivery, setDelivery] = useState<DeliveryType>(
         {
             streetAddress: "",
@@ -66,37 +68,55 @@ export default function PaymentPage() {
 
     async function onSubmit(e: any, data: OrderType) {
         e.preventDefault()
+        if(cartProducts && userName && userEmail && phoneNumber && paymentMethod &&
+            delivery.dateDelivery && delivery.surName && delivery.firstName && (delivery.address || delivery.departmentNumber)){
+            const creatingPromise = new Promise<void>(async (resolve, reject) => {
+                try {
+                    const response = await fetch('/api/order', {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: {'Content-Type': 'application/json'}
+                    })
 
-        const creatingPromise = new Promise<void>(async (resolve, reject) => {
-            try {
-                const response = await fetch('/api/order', {
-                    method: 'POST',
-                    body: JSON.stringify(data),
-                    headers: {'Content-Type': 'application/json'}
-                })
-
-                if (response.ok) {
-                    resolve();
-                } else {
-                    reject();
+                    if (response.ok) {
+                        resolve();
+                    } else {
+                        reject();
+                    }
+                    submitForm()
+                } catch (error) {
+                    reject(error);
                 }
-                submitForm()
-            } catch (error) {
-                reject(error);
-            }
-        })
+            })
 
-        await toast.promise(creatingPromise, {
-            loading: 'Creating new order',
-            success: 'Order created!',
-            error: 'Error'
-        })
+            await toast.promise(creatingPromise, {
+                loading: 'Creating new order',
+                success: 'Order created!',
+                error: 'Error'
+            })
+        }else{
+            if(!cartProducts){
+                setErrorInfo("Not cartProducts")
+            }else if(!userName){
+                setErrorInfo("Not userName")
+            }else if(!userEmail){
+                setErrorInfo("Not userEmail")
+            }else if(!phoneNumber){
+                setErrorInfo("Not phoneNumber")
+            }else if(!delivery.dateDelivery || !delivery.surName || !delivery.firstName || (!delivery.address || !delivery.departmentNumber)){
+                setErrorInfo("Not full delivery info")
+            }else if(!paymentMethod){
+                setErrorInfo("Not paymentMethod")
+            }
+        }
+
     }
 
     function submitForm() {
             router.replace("/order");
             clearCart()
     }
+
 
 
     let total = 0
@@ -190,9 +210,10 @@ export default function PaymentPage() {
                                 </div>
 
                                 <button type="submit"
-                                        className="buttonWithoutP w-full p-4 text-center mt-6">
+                                        className={errorInfo? 'delete w-full p-4 text-center mt-6' : 'buttonWithoutP w-full p-4 text-center mt-6'}>
                                     Оформити замовлення
                                 </button>
+                                {errorInfo && <p className="text-center text-red-600">{errorInfo}</p>}
                             </div>
                         </div>
                     </div>

@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import {DeliveryType} from "@/components/Types/DeliveryType";
 import {postOffice} from "@/components/layout/CartLayout/NovaPoshta";
+import {Input} from "@/components/Custom/Input";
 
 export default function DeliveryMethod({
                                            delivery,
@@ -12,6 +13,31 @@ export default function DeliveryMethod({
 }) {
     function handleDeliveryOptionChange(e: any) {
         setDelivery({...delivery, deliveryMethod: e.target.value})
+    }
+
+    const fullName = () => {
+        return <div className="sm:flex gap-2 grid grid-cols-1 justify-between">
+            <Input type="text"
+                   classNameDiv="w-full"
+                   value={delivery.surName}
+                   label={"Прізвище"}
+                   onChange={e =>
+                       setDelivery({...delivery, surName: e.target.value})}/>
+
+            <Input type="text"
+                   classNameDiv="w-full"
+                   value={delivery.firstName}
+                   label={"Ім'я"}
+                   onChange={e =>
+                       setDelivery({...delivery, firstName: e.target.value})}/>
+
+            <Input type="text"
+                   classNameDiv="w-full"
+                   value={delivery.patronymic}
+                   label={"По батькові"}
+                   onChange={e =>
+                       setDelivery({...delivery, patronymic: e.target.value})}/>
+        </div>
     }
 
     return (
@@ -31,15 +57,12 @@ export default function DeliveryMethod({
                     {delivery?.deliveryMethod === "department" && (
                         <div>
                             <div className="sm:flex gap-2 grid grid-cols-1 items-center justify-between">
-                                <div className="w-full">
-                                    <label>Дата доставки</label>
-                                    <input
-                                        type="date"
-                                        value={delivery.dateDelivery}
-                                        onChange={e =>
-                                            setDelivery({...delivery, dateDelivery: e.target.value})}
-                                    />
-                                </div>
+                                <Input type="date"
+                                       classNameDiv="w-full"
+                                       value={delivery.dateDelivery}
+                                       label={"Дата доставки"}
+                                       onChange={e =>
+                                           setDelivery({...delivery, dateDelivery: e.target.value})}/>
 
                                 <div className="w-full">
                                     <label>Номер відділення</label>
@@ -54,28 +77,7 @@ export default function DeliveryMethod({
                                 </div>
                             </div>
 
-                            <div className="sm:flex grid grid-cols-1 gap-2 items-center justify-between">
-                                <div className="w-full">
-                                    <label>Прізвище</label>
-                                    <input type="text" value={delivery.surName}
-                                           onChange={e =>
-                                               setDelivery({...delivery, surName: e.target.value})}/>
-                                </div>
-
-                                <div className="w-full">
-                                    <label>Ім&apos;я</label>
-                                    <input type="text" value={delivery.firstName}
-                                           onChange={e =>
-                                               setDelivery({...delivery, firstName: e.target.value})}/>
-                                </div>
-
-                                <div className="w-full">
-                                    <label>По батькові</label>
-                                    <input type="text" value={delivery.patronymic}
-                                           onChange={e =>
-                                               setDelivery({...delivery, patronymic: e.target.value})}/>
-                                </div>
-                            </div>
+                            {fullName()}
                         </div>
                     )}
                 </div>
@@ -93,54 +95,30 @@ export default function DeliveryMethod({
 
                         {delivery?.deliveryMethod === "courier" && (
                             <div>
-                                <div className="sm:flex grid grid-cols-1 gap-2 items-center justify-between">
-                                    <div className="w-full">
-                                        <label>Дата доставки</label>
-                                        <input type="date"
+                                <div className="sm:flex grid grid-cols-1 gap-2 justify-between">
+                                        <Input type="date"
+                                               classNameDiv="w-full"
                                                value={delivery.dateDelivery}
+                                               label={"Дата доставки"}
                                                onChange={e =>
                                                    setDelivery({...delivery, dateDelivery: e.target.value})}/>
-                                    </div>
 
-                                    <div className="w-full">
-                                        <label>Час</label>
-                                        <input type="time"
+                                        <Input type="time"
+                                               classNameDiv="w-full"
                                                value={delivery.time}
+                                               label={"Час доставки"}
                                                onChange={e =>
                                                    setDelivery({...delivery, time: e.target.value})}/>
-                                    </div>
                                 </div>
 
-                                <div className="w-full">
-                                    <label>Адресса достаки</label>
-                                    <input type="text" placeholder="Адресса"
-                                           value={delivery.address}
-                                           onChange={e =>
-                                               setDelivery({...delivery, address: e.target.value})}/>
-                                </div>
+                                <Input type="text"
+                                       classNameDiv="w-full"
+                                       value={delivery.address}
+                                       label={"Адресса достаки"}
+                                       onChange={e =>
+                                           setDelivery({...delivery, address: e.target.value})}/>
 
-                                <div className="sm:flex gap-2 grid grid-cols-1 items-center justify-between">
-                                    <div className="w-full">
-                                        <label>Прізвище</label>
-                                        <input type="text" value={delivery.surName}
-                                               onChange={e =>
-                                                   setDelivery({...delivery, surName: e.target.value})}/>
-                                    </div>
-
-                                    <div className="w-full">
-                                        <label>Ім&apos;я</label>
-                                        <input type="text" value={delivery.firstName}
-                                               onChange={e =>
-                                                   setDelivery({...delivery, firstName: e.target.value})}/>
-                                    </div>
-
-                                    <div className="w-full">
-                                        <label>По батькові</label>
-                                        <input type="text" value={delivery.patronymic}
-                                               onChange={e =>
-                                                   setDelivery({...delivery, patronymic: e.target.value})}/>
-                                    </div>
-                                </div>
+                                {fullName()}
                             </div>
                         )}
                     </div>
