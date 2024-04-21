@@ -59,12 +59,15 @@ export default function Content() {
                 {categories.length > 0? categories.map((c: CategoryType) => (
                     <ShopItemsList key={c._id} categoryName={c.name} shopItems={shopItems} id={c._id}/>
                 )) :
-                    <Image
-                        src={'/loadingGif.gif'}
-                        alt={"Img loadingGif"}
-                        width={250}
-                        height={250}
-                    />}
+                    <div className="flex items-center justify-center">
+                        <Image
+                            src={'/loadingGif.gif'}
+                            alt={"Img loadingGif"}
+                            width={250}
+                            height={250}
+                        />
+                    </div>
+                   }
             </div>
         </section>
     )

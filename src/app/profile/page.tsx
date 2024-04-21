@@ -34,18 +34,20 @@ export default function ProfilePage() {
     }
 
     if (status === 'loading' || !profileFetched) {
-        return  <Image
-            src={'/loadingGif.gif'}
-            alt={"Img loadingGif"}
-            width={250}
-            height={250}
-        />
+        return <div className="flex items-center justify-center">
+            <Image
+                src={'/loadingGif.gif'}
+                alt={"Img loadingGif"}
+                width={250}
+                height={250}
+            />
+        </div>
     }
 
 
     async function handleProfileInfoUpdate(ev: any,
                                            {name, address, phone, image}
-                                               :{name: string, address: string, phone: string, image: string}
+                                               : { name: string, address: string, phone: string, image: string }
     ) {
         ev.preventDefault();
 
