@@ -24,7 +24,7 @@ export default function Content() {
                 <div className="hidden sm:block">
                     <p className="font-bold text-xl">Категорії</p>
 
-                    {categories?.length > 0 && categories.map((c: CategoryType) => (
+                    {categories?.length > 0? categories.map((c: CategoryType) => (
                         <div className="px-4 py-1 gap-2 cursor-pointer" key={c._id}>
                             <div className="flex graw justify-between items-center">
                                 <Link href={`/category/` + c._id}>
@@ -32,7 +32,13 @@ export default function Content() {
                                 </Link>
                             </div>
                         </div>
-                    ))}
+                    )) :
+                        <Image
+                        src={'/loadingGif.gif'}
+                        alt={"Img loadingGif"}
+                        width={250}
+                        height={250}
+                    />}
                 </div>
 
                 <div className="sm:p-4 p-1">
@@ -50,9 +56,15 @@ export default function Content() {
             </div>
 
             <div>
-                {categories.length > 0 && categories.map((c: CategoryType) => (
+                {categories.length > 0? categories.map((c: CategoryType) => (
                     <ShopItemsList key={c._id} categoryName={c.name} shopItems={shopItems} id={c._id}/>
-                ))}
+                )) :
+                    <Image
+                        src={'/loadingGif.gif'}
+                        alt={"Img loadingGif"}
+                        width={250}
+                        height={250}
+                    />}
             </div>
         </section>
     )

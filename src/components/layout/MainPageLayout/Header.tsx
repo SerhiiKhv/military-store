@@ -144,10 +144,12 @@ export const Header = () => {
                                 <Link href={'/login'} className="text-white">
                                     Login
                                 </Link>
-                                <Link href={'/register'} className="bg-gradient-to-br from-neonNazar to-blue-600
+                                <div className="hidden sm:block">
+                                    <Link href={'/register'} className="bg-gradient-to-br from-neonNazar to-blue-600
                          text-white px-4 py-2 rounded-full">
-                                    Register
-                                </Link>
+                                        Register
+                                    </Link>
+                                </div>
                             </>
                         )}
 

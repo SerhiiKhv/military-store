@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import UserTabs from "@/components/layout/MainPageLayout/Tabs";
 import UserProfileForm from "@/components/layout/UserPageLayout/UserProfileForm";
 import {UserType} from "@/components/Types/UserType";
+import Image from "next/image";
 
 export default function ProfilePage() {
     const session = useSession()
@@ -33,7 +34,12 @@ export default function ProfilePage() {
     }
 
     if (status === 'loading' || !profileFetched) {
-        return "Loading..."
+        return  <Image
+            src={'/loadingGif.gif'}
+            alt={"Img loadingGif"}
+            width={250}
+            height={250}
+        />
     }
 
 

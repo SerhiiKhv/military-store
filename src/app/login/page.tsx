@@ -6,12 +6,13 @@ import Link from "next/link";
 import {signIn, useSession} from "next-auth/react";
 import {useRouter} from "next/navigation";
 import {ErrorType} from "@/components/Types/Errors";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<String>('')
-    const [errors, setErrors] = useState<ErrorType>({ userName: '', email: '', password: '' });
+    const [errors, setErrors] = useState<ErrorType>({userName: '', email: '', password: ''});
     const [isFormValid, setIsFormValid] = useState(false);
     const [inputFocused, setInputFocused] = useState('');
 
@@ -31,24 +32,37 @@ export default function LoginPage() {
             return;
         }
 
-        const res = await signIn("credentials", {
-            redirect: false,
-            email,
-            password,
-        });
+        const creatingPromise = new Promise<void>(async (resolve, reject) => {
+            try {
+                const res = await signIn("credentials", {
+                    redirect: false,
+                    email,
+                    password,
+                });
 
-        if (res?.error) {
-            setError("Invalid email or password");
-            if (res?.url) router.replace("/");
-        } else {
-            setError("");
-        }
+                if (res?.error) {
+                    setError("Invalid email or password");
+                    if (res?.url) router.replace("/");
+                } else {
+                    setError("");
+                    resolve()
+                }
+            } catch (error) {
+                reject(error);
+            }
+        })
+
+        await toast.promise(creatingPromise, {
+            loading: 'Authorization...',
+            success: 'Success!',
+            error: 'Error'
+        })
     };
 
 
     const handleInputFocus = (fieldName: string) => {
         setInputFocused(fieldName);
-        setErrors(prev => ({ ...prev, [fieldName]: '' }));
+        setErrors(prev => ({...prev, [fieldName]: ''}));
     };
 
     const handleInputBlur = () => {

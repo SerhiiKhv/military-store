@@ -105,7 +105,7 @@ export default function OrderList(
             <div className="my-container pb-8">
                 <UserTabs isAdmin={data?.admin}/>
                 <h1 className="text-xl pb-4">All orders</h1>
-                {orders.map((order: OrderType) => (
+                {orders.length > 0 ? orders.map((order: OrderType) => (
                     <div key={order._id}>
 
                         {openOrderStates[order._id || ''] ? (
@@ -287,7 +287,17 @@ export default function OrderList(
                             </div>
                         )}
                     </div>
-                ))}
+                )) : (
+                    <Image
+                        src={'/loadingGif.gif'}
+                        alt={"Img loadingGif"}
+                        style={{
+                            width: '100%',
+                            height: 'auto',
+                        }}
+                        width={250}
+                        height={250}/>
+                )}
             </div>
         </section>
     )
