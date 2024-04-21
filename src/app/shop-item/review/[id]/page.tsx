@@ -14,8 +14,8 @@ import {IoHomeOutline} from "react-icons/io5";
 import {RiShoppingCart2Line} from "react-icons/ri";
 
 export default function ReviewShopItemPageID() {
-    const { id } = useParams();
-    const { addToCart } = useContext(CartContext) as any;
+    const {id} = useParams();
+    const {addToCart} = useContext(CartContext) as any;
 
     const [shopItems, setShopItems] = useState<ShopItemType>();
     const [categories, setCategories] = useState<CategoryType[]>();
@@ -44,7 +44,6 @@ export default function ReviewShopItemPageID() {
     }, [categories, shopItems, shopItems?.category, shopItems?.image?.length]);
 
 
-
     function handleAddToCartButtonClick() {
         addToCart(shopItems);
         toast.success('Added to cart!');
@@ -53,7 +52,7 @@ export default function ReviewShopItemPageID() {
     return (
         <section className="bg-gray-100">
             <div className="my-container">
-                {shopItems && (
+                {shopItems ? (
                     <div>
                         <div className="flex items-center gap-1 py-6">
                             <IoHomeOutline className="h-6 w-6"/>
@@ -68,20 +67,20 @@ export default function ReviewShopItemPageID() {
                                         bottom-1/2 left-2"
                                         type="button"
                                         onClick={() => setPhotoIndex(photoIndex > 0 ? photoIndex - 1 : shopItems.image.length - 1)}>
-                                        <VscChevronLeft />
+                                        <VscChevronLeft/>
                                     </button>
 
                                     <Image src={shopItems?.image[photoIndex] || '/pizza.png'} alt={"avatar"}
                                            width={1000}
                                            height={1000}
-                                           className="rounded-xl w-full h-full mb-1 aspect-square object-cover" />
+                                           className="rounded-xl w-full h-full mb-1 aspect-square object-cover"/>
 
                                     <button
                                         className="buttonWithoutP flex gap-1 absolute bg-gray-200 rounded-2xl px-2 py-4
                                         bottom-1/2 right-2"
                                         type="button"
                                         onClick={() => setPhotoIndex(photoIndex < shopItems.image.length - 1 ? photoIndex + 1 : 0)}>
-                                        <VscChevronRight />
+                                        <VscChevronRight/>
                                     </button>
                                 </div>
 
@@ -104,7 +103,7 @@ export default function ReviewShopItemPageID() {
                                     {shopItems?.name}
                                 </h1>
 
-                                <ShopItemFormRating shopItem={shopItems} />
+                                <ShopItemFormRating shopItem={shopItems}/>
 
                                 <div className="flex items-center gap-2 bg-white p-8 rounded-md">
                                     <h1 className="text-2xl font-semibold">{shopItems?.price} ₴</h1>
@@ -121,7 +120,7 @@ export default function ReviewShopItemPageID() {
 
                                     <div className="grid sm:grid-cols-3 grid-cols-[3fr,2fr,1fr] space-y-2">
                                         <div className="flex items-center gap-2 ">
-                                            <Image src={"/NewPost.png"} alt={"NewPost"} width={25} height={25} />
+                                            <Image src={"/NewPost.png"} alt={"NewPost"} width={25} height={25}/>
                                             <p>До відділення нової пошти</p>
                                         </div>
 
@@ -134,7 +133,7 @@ export default function ReviewShopItemPageID() {
                                         </div>
 
                                         <div className="flex items-center gap-2">
-                                            <Image src={"/NewPost.png"} alt={"NewPost"} width={25} height={25} />
+                                            <Image src={"/NewPost.png"} alt={"NewPost"} width={25} height={25}/>
                                             <p>Кур&apos;єром нової пошти</p>
                                         </div>
 
@@ -179,6 +178,15 @@ export default function ReviewShopItemPageID() {
                             </p>
                         </div>
                     </div>
+                ) : (
+                    <div className="flex items-center justify-center">
+                    <Image
+                        src={'/loadingGif.gif'}
+                        alt={"Img loadingGif"}
+                        width={250}
+                        height={250}
+                    />
+                </div>
                 )}
             </div>
         </section>
